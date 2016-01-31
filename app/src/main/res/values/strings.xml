@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">AccessStillwater</string>
+    <string name="app_name">Access Stillwater</string>
+
+    <string name="parse_app_id">z1fPjZBqVPHuZ6CbcXwohtFF42GDM3JpPUwVKYq3</string>
+    <string name="parse_client_key">dn1vUUWiErv9yWdAW2mDwF5PpvmRDK1NX2Qejrwj</string>
 </resources>
