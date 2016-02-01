@@ -3,6 +3,7 @@ package com.teaman.accessstillwater;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.teaman.accessstillwater.base.BaseActivity;
 import com.teaman.data.authorization.LoginAdapter;
 
 /**

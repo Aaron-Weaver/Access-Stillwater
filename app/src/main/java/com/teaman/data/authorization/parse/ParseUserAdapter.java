@@ -4,12 +4,9 @@ import com.parse.ParseUser;
 import com.teaman.data.User;
 
 /**
- * <h1> [Insert class name here] </h1>
+ * <h1> ParseUserAdapter </h1>
  * <p>
- * [Insert class description here]
- * </p>
- * <p>
- * [Insert additional information here (links, code snippets, etc.)]
+ * Implementation of {@link User}. Handles User data from a {@link ParseUser}
  * </p>
  *
  * @author Aaron Weaver
@@ -26,16 +23,25 @@ public class ParseUserAdapter implements User {
         this.parseUser = parseUser;
     }
 
+    /**
+     * @return  {@link ParseUser}'s username
+     */
     @Override
     public String getUsername() {
         return this.parseUser.getUsername();
     }
 
+    /**
+     * @return  {@link ParseUser}'s email
+     */
     @Override
     public String getEmail() {
         return this.parseUser.getEmail();
     }
 
+    /**
+     * @return  {@link ParseUser}'s displayName
+     */
     @Override
     public String getDisplayName() {
         String displayName;

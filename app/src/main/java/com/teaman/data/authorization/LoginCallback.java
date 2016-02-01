@@ -1,12 +1,9 @@
 package com.teaman.data.authorization;
 
 /**
- * <h1> [Insert class name here] </h1>
+ * <h1> LoginCallback </h1>
  * <p>
- * [Insert class description here]
- * </p>
- * <p>
- * [Insert additional information here (links, code snippets, etc.)]
+ * Interface for asynchronous login callback methods.
  * </p>
  *
  * @author Aaron Weaver
@@ -18,7 +15,13 @@ package com.teaman.data.authorization;
 
 public interface LoginCallback {
 
+    /**
+     * Called on a successful async login attempt.
+     */
     void loginSuccess();
 
+    /**
+     * Called on a failed login attempt.
+     */
     void loginFailure();
 }

@@ -12,12 +12,20 @@ import com.teaman.data.authorization.parse.ParseLoginAdapter;
 import timber.log.Timber;
 
 /**
- * <h1> [Insert class name here] </h1>
+ * <h1> AccessStillwaterApp </h1>
  * <p>
- * [Insert class description here]
+ * Custom Application extension for global access to necessary utilities.
+ * Will be called on an application's startup, as long as it is set
+ * as android:name class.
  * </p>
+ *
  * <p>
- * [Insert additional information here (links, code snippets, etc.)]
+ * @see android.app.Application
+ * <pre>
+ * <code>
+ * android:name = .AccessStillwaterApp
+ * </code>
+ * </pre>
  * </p>
  *
  * @author Aaron Weaver
@@ -29,9 +37,6 @@ import timber.log.Timber;
 public class AccessStillwaterApp extends Application {
 
     private static AccessStillwaterApp mInstance;
-    public static AccessStillwaterApp getmInstance() {
-        return mInstance;
-    }
 
     private LoginAdapter loginAdapter = new ParseLoginAdapter();
     private User user;
@@ -55,6 +60,20 @@ public class AccessStillwaterApp extends Application {
         mInstance = this;
     }
 
+    /**
+     * Singleton for accessing {@link AccessStillwaterApp} object.
+     *
+     * @return  Shared instance of an AccessStillwaterApp object
+     */
+    public static AccessStillwaterApp getmInstance() {
+        return mInstance;
+    }
+
+    /**
+     * Singleton for accessing {@link LoginAdapter} object.
+     *
+     * @return  Shared instance of a LoginAdapter object
+     */
     public LoginAdapter getLoginAdapter() {
         if(this.loginAdapter == null) {
             this.loginAdapter = new ParseLoginAdapter();
@@ -63,6 +82,11 @@ public class AccessStillwaterApp extends Application {
         return this.loginAdapter;
     }
 
+    /**
+     * Singleton for accessing {@link User} object.
+     *
+     * @return  Shared instance of a User object
+     */
     public User getUser() {
         if(this.user == null) {
             this.user = this.loginAdapter.getUser();

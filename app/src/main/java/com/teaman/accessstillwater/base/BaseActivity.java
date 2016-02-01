@@ -1,9 +1,12 @@
-package com.teaman.accessstillwater;
+package com.teaman.accessstillwater.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
+import com.teaman.accessstillwater.R;
 
 import butterknife.ButterKnife;
 
@@ -24,7 +27,8 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-
+    @Nullable
+    protected Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,5 +49,37 @@ public abstract class BaseActivity extends AppCompatActivity {
     @LayoutRes
     protected int getLayoutResource() {
         return R.layout.activity_main;
+    }
+
+    /**
+     * Below are the Android Activity Lifecycle management methods.
+     * These do not have any custom code, I just leave them here for easy access
+     * when overriding methods in child classes.
+     */
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

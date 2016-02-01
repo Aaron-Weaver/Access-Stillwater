@@ -3,11 +3,7 @@ package com.teaman.data;
 /**
  * <h1> User </h1>
  * <p>
- * Instance of a specific user's data as it would be retrieved from a Parse database.
- * </p>
- * <p>
- * This class relies on the Parse for Android API
- * See <a href="https://parse.com/docs/android">Parse Android API</a>
+ * Interface containing methods to return user data
  * </p>
  *
  * @author Aaron Weaver
@@ -18,9 +14,24 @@ package com.teaman.data;
  */
 public interface User {
 
+    /**
+     * Retrieve username from User.
+     *
+     * @return  User's username
+     */
     String getUsername();
 
+    /**
+     * Retrieve email from User.
+     *
+     * @return  User's email
+     */
     String getEmail();
 
+    /**
+     * Retrieve display name of User.
+     *
+     * @return  User's display name
+     */
     String getDisplayName();
 }

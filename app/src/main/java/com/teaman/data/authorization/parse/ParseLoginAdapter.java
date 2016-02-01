@@ -10,12 +10,13 @@ import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.authorization.LoginCallback;
 
 /**
- * <h1> [Insert class name here] </h1>
+ * <h1> ParseLoginAdapter </h1>
  * <p>
- * [Insert class description here]
+ * Implementation of {@link LoginAdapter} meant for use with Parse.
  * </p>
  * <p>
- * [Insert additional information here (links, code snippets, etc.)]
+ * This class is intended to be used with Parse API.
+ * @See <a href="https://parse.com/docs/android">Parse Android API</a>
  * </p>
  *
  * @author Aaron Weaver
@@ -26,6 +27,14 @@ import com.teaman.data.authorization.LoginCallback;
  */
 public class ParseLoginAdapter implements LoginAdapter {
 
+    /**
+     * Uses Parse's {@link ParseUser} login function to log a user into
+     * the application.
+     *
+     * @param username  A user's specified name
+     * @param password  A user's specified password
+     * @return          Whether login attempt was succesful or not
+     */
     @Override
     public boolean login(String username, String password) {
         try {
@@ -37,6 +46,14 @@ public class ParseLoginAdapter implements LoginAdapter {
         return ParseUser.getCurrentUser() != null;
     }
 
+    /**
+     * Uses Parse's {@link ParseUser} logInInBackground function to log a user into
+     * the application as a background process.
+     *
+     * @param callback  Callback implementation to handle status of async call
+     * @param username  A user's specified name
+     * @param password  A user's specified password
+     */
     @Override
     public void loginAsync(final LoginCallback callback, String username, String password) {
         ParseUser.logInInBackground(username, password, new LogInCallback() {
@@ -52,11 +69,19 @@ public class ParseLoginAdapter implements LoginAdapter {
         });
     }
 
+    /**
+     * Checks whether user is logged into the application using {@link ParseUser}
+     *
+     * @return  Current user's logged in status
+     */
     @Override
     public boolean isLoggedIn() {
         return ParseUser.getCurrentUser() != null && ParseUser.getCurrentUser().isAuthenticated();
     }
 
+    /**
+     * Uses {@link ParseUser} to log a user out of the application.
+     */
     @Override
     public void logOut() {
         if(ParseUser.getCurrentUser() != null) {
@@ -64,6 +89,12 @@ public class ParseLoginAdapter implements LoginAdapter {
         }
     }
 
+    /**
+     * If a user is currently logged in, this will retrieve that user's associated information.
+     * Uses {@link ParseUser}.
+     *
+     * @return {@link User} that is currently logged in.
+     */
     @Override
     public User getUser() {
         if(this.isLoggedIn()) {
