@@ -1,8 +1,9 @@
-package com.teaman.accessstillwater;
+package com.teaman.accessstillwater.ui.main;
 
 import android.os.Bundle;
 import android.util.Log;
 
+import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseActivity;
 import com.teaman.data.authorization.LoginAdapter;
 

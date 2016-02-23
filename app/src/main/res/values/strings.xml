@@ -3,4 +3,13 @@
 
     <string name="parse_app_id">z1fPjZBqVPHuZ6CbcXwohtFF42GDM3JpPUwVKYq3</string>
     <string name="parse_client_key">dn1vUUWiErv9yWdAW2mDwF5PpvmRDK1NX2Qejrwj</string>
+
+    <string name="login_fragment_tag">login_fragment</string>
+
+    <string name="login_activity">login_activity</string>
+
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">login</string>
+    <string name="signup_button">sign up</string>
 </resources>
