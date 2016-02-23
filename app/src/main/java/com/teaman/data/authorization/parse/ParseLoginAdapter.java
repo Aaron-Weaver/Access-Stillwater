@@ -56,6 +56,7 @@ public class ParseLoginAdapter implements LoginAdapter {
      */
     @Override
     public void loginAsync(final LoginCallback callback, String username, String password) {
+
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {

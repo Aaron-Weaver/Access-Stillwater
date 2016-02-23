@@ -3,4 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="login_edit_text_size">200dip</dimen>
+    <dimen name="login_edit_text_padding">10dip</dimen>
+    <dimen name="login_edit_text_margin">25dip</dimen>
+    <dimen name="login_button_margin">50dip</dimen>
 </resources>

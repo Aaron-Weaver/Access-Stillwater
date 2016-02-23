@@ -3,12 +3,9 @@ package com.teaman.accessstillwater.ui.navigation;
 import android.content.Context;
 
 /**
- * <h1> [Insert class name here] </h1>
+ * <h1> Navigator </h1>
  * <p>
- * [Insert class description here]
- * </p>
- * <p>
- * [Insert additional information here (links, code snippets, etc.)]
+ * Intent and navigation handling singleton for entirety of application
  * </p>
  *
  * @author Aaron Weaver
@@ -35,6 +32,12 @@ public class Navigator {
     public void navigateToMainActivity(Context context) {
         if(context != null) {
             //move to mainActivity
+        }
+    }
+
+    public void navigateToSignupActivity(Context context) {
+        if(context != null) {
+            //move to signupActivity
         }
     }
 }

@@ -22,7 +22,7 @@
 
         <EditText
             android:id="@+id/login_username"
-            android:layout_width="@dimen/login_edit_text_size"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username_hint"/>
 
@@ -37,7 +37,7 @@
 
         <EditText
             android:id="@+id/login_password"
-            android:layout_width="@dimen/login_edit_text_size"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
             android:inputType="textPassword"
@@ -47,11 +47,14 @@
 
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dip"
             android:layout_gravity="center"
             android:text="@string/login_button"
+            android:layout_marginLeft="@dimen/login_button_margin"
+            android:layout_marginRight="@dimen/login_button_margin"
             android:theme="@style/button_material_primary"/>
 
         <TextView
@@ -62,10 +65,13 @@
             style="@style/generic_text_style"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/signup_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
+            android:layout_marginTop="3dip"
             android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/login_button_margin"
+            android:layout_marginRight="@dimen/login_button_margin"
             android:text="@string/signup_button"
             android:theme="@style/button_material_primary"/>
 
