@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#2196F3</color>
-    <color name="primary_dark">#1976D2</color>
-    <color name="accent">#FF4081</color>
+
+    <!-- Material colors as per guidelines -->
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#FF9800</color>
+    <color name="colorPrimaryLight">#BBDEFB</color>
+    <color name="colorTextIcons">#FFFFFF</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorDivider">#B6B6B6</color>
+    <!-- End material colors -->
+
     <color name="blue_200">#E3F2FD</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#CCCCCC</color>

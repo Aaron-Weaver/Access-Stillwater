@@ -1,6 +1,9 @@
 package com.teaman.accessstillwater.ui.navigation;
 
 import android.content.Context;
+import android.content.Intent;
+
+import com.teaman.accessstillwater.ui.login.SignupActivity;
 
 /**
  * <h1> Navigator </h1>
@@ -38,6 +41,8 @@ public class Navigator {
     public void navigateToSignupActivity(Context context) {
         if(context != null) {
             //move to signupActivity
+            Intent moveToIntent = SignupActivity.getCallingIntent(context);
+            context.startActivity(moveToIntent);
         }
     }
 }

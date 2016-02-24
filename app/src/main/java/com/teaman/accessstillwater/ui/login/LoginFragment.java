@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseFragment;
@@ -49,7 +49,7 @@ public class LoginFragment extends BaseFragment {
 
     @Nullable
     @Bind(R.id.signup_button)
-    protected Button mSignupButton;
+    protected TextView mSignupButton;
 
     private LoginInterface mLoginInterface;
 
@@ -76,29 +76,45 @@ public class LoginFragment extends BaseFragment {
     public void loginClicked() {
         //Log.d("Login Fragment", "Login button clicked");
 
-        if(StringUtils.isNullOrEmpty(mUsernameField.getText().toString())) {
-            Log.d("Login Fragment", "Username field is empty");
-            Toast.makeText(this.getActivity(),
-                    getString(R.string.empty_username_field),
-                   Toast.LENGTH_LONG).show();
-
-            return;
-        }
-        if(StringUtils.isNullOrEmpty(mPasswordField.getText().toString())) {
-            Toast.makeText(this.getActivity(),
-                    getString(R.string.empty_password_field),
-                    Toast.LENGTH_LONG).show();
-
-            return;
-        }
-
-        mLoginInterface.onLogin(mUsernameField.getText().toString(),
+        if(formIsValid()) {
+            mLoginInterface.onLogin(mUsernameField.getText().toString(),
                     mPasswordField.getText().toString());
+        }
     }
 
     @OnClick(R.id.signup_button)
     public void signupClicked() {
         Log.d("Login Fragment", "Sign up button clicked");
         mLoginInterface.onSignup();
+    }
+
+    private boolean formIsValid() {
+        boolean isValid = true;
+
+        if(StringUtils.isNullOrEmpty(mUsernameField.getText().toString())) {
+            Log.d("Login Fragment", "Username field is empty");
+//            Toast.makeText(this.getActivity(),
+//                    getString(R.string.empty_username_field),
+//                   Toast.LENGTH_LONG).show();
+
+            String myString = "This field is required";
+
+            mUsernameField.setError(myString);
+
+            isValid = false;
+        }
+        if(StringUtils.isNullOrEmpty(mPasswordField.getText().toString())) {
+//            Toast.makeText(this.getActivity(),Weava
+//                    getString(R.string.empty_password_field),
+//                    Toast.LENGTH_LONG).show();
+
+            String myString = "This field is required by law";
+
+            mPasswordField.setError(myString);
+
+            isValid = false;
+        }
+
+        return isValid;
     }
 }

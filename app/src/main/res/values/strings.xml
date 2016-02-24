@@ -4,16 +4,25 @@
     <string name="parse_app_id">z1fPjZBqVPHuZ6CbcXwohtFF42GDM3JpPUwVKYq3</string>
     <string name="parse_client_key">dn1vUUWiErv9yWdAW2mDwF5PpvmRDK1NX2Qejrwj</string>
 
-    <string name="login_fragment_tag">login_fragment</string>
+    <string name="login_fragment_tag">Login</string>
+    <string name="login_activity">Login</string>
 
-    <string name="login_activity">login_activity</string>
+    <string name="signup_fragment_tag">Sign Up</string>
+    <string name="signup_activity">Sign Up</string>
 
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
-    <string name="login_button">login</string>
-    <string name="signup_button">sign up</string>
+    <string name="email_hint">Email</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="login_button">Login</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="signup_text">No account yet? <b>Sign up</b></string>
+    <string name="account_exists_stylized">Got an account? <b>Login</b></string>
+    <string name="app_name_stylized"><b>Access</b> Stillwater</string>
+
+    <string name="load_login">Authenticating...</string>
 
     <string name="empty_username_field">Please enter your username</string>
     <string name="empty_password_field">Please enter your password</string>
-    <string name="invalid_credentials">Invalid username or password entered</string>
+    <string name="invalid_credentials">Invalid username or password</string>
 </resources>

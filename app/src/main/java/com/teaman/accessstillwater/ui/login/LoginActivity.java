@@ -1,12 +1,13 @@
 package com.teaman.accessstillwater.ui.login;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseActivity;
@@ -36,7 +37,7 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
     private LoginAdapter mLoginAdapter;
     private AccessStillwaterApp mApplication;
 
-    private ProgressDialog mLoginLoadingDialog;
+    private MaterialDialog mLoginLoadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +48,8 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
 
         mLoginFragment = new LoginFragment();
         super.addFragmentToContainer(mLoginFragment, getString(R.string.login_fragment_tag));
+
+        //this.beforeLogin();
     }
 
     @Override
@@ -60,7 +63,7 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_login;
+        return R.layout.activity_base_no_toolbar;
     }
 
     @Override
@@ -100,10 +103,21 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
     @Override
     public void onSignup() {
         Log.d("Login Activity", "Sign up clicked and sent to activity");
+        Navigator.getInstance().navigateToSignupActivity(this);
     }
 
     private void beforeLogin() {
         // TODO: Show a cool little loading dialog
-        this.mLoginLoadingDialog = ProgressDialog.show(this, "", "Signing you in");
+//        this.mLoginLoadingDialog = new ProgressDialog(this, R.style.loading_theme);
+//        this.mLoginLoadingDialog.setMessage(getString(R.string.load_login));
+//        this.mLoginLoadingDialog.show();
+
+        this.mLoginLoadingDialog = new MaterialDialog.Builder(this)
+                .content(getString(R.string.load_login))
+                .progress(true, 0)
+                .backgroundColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .widgetColor(ContextCompat.getColor(this, R.color.white))
+                .contentColor(ContextCompat.getColor(this, R.color.white))
+                .show();
     }
 }

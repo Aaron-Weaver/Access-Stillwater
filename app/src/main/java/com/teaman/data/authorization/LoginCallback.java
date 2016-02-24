@@ -24,4 +24,6 @@ public interface LoginCallback {
      * Called on a failed login attempt.
      */
     void loginFailure();
+
+    // TODO: Add login error for unintended errors like network difficulties.
 }

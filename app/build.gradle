@@ -43,6 +43,12 @@ dependencies {
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
     compile 'com.squareup.dagger:dagger:1.2.2'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // Non-Google material libraries
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.4@aar') {
+        transitive = true
+    }
 
     // Parse API
     compile 'com.parse:parse-android:1.13.0'

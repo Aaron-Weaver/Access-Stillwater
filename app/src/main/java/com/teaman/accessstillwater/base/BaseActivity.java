@@ -95,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected void setStatusBarColor(@ColorRes int color) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.primary_dark));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
     }
 
