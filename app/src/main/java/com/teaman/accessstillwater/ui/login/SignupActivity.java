@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseActivity;
-import com.teaman.accessstillwater.utils.StringUtils;
 import com.teaman.data.authorization.SignupAdapter;
 import com.teaman.data.authorization.SignupCallback;
 import com.teaman.data.authorization.parse.ParseSignupAdapter;
@@ -71,6 +70,6 @@ public class SignupActivity extends BaseActivity implements SignupCallback, Sign
 
     @Override
     public void onLoginBack() {
-        this.onBackPressed();
+        this.finish();
     }
 }

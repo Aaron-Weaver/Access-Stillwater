@@ -9,10 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseFragment;
-import com.teaman.accessstillwater.utils.StringUtils;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,13 +39,17 @@ import butterknife.OnClick;
  * @version 1.0
  * @since 2/22/16
  */
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends BaseFragment implements Validator.ValidationListener {
 
     @Nullable
+    @NotEmpty(messageResId = R.string.empty_field)
+    @Order(1)
     @Bind(R.id.login_username)
     protected EditText mUsernameField;
 
     @Nullable
+    @NotEmpty(messageResId = R.string.empty_field)
+    @Order(2)
     @Bind(R.id.login_password)
     protected EditText mPasswordField;
 
@@ -53,10 +63,16 @@ public class LoginFragment extends BaseFragment {
 
     private LoginInterface mLoginInterface;
 
+    private Validator mValidator;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLoginInterface = (LoginInterface) this.getActivity();
+
+        mValidator = new Validator(this);
+        mValidator.setValidationMode(Validator.Mode.IMMEDIATE);
+        mValidator.setValidationListener(this);
     }
 
     @Nullable
@@ -74,12 +90,7 @@ public class LoginFragment extends BaseFragment {
 
     @OnClick(R.id.login_button)
     public void loginClicked() {
-        //Log.d("Login Fragment", "Login button clicked");
-
-        if(formIsValid()) {
-            mLoginInterface.onLogin(mUsernameField.getText().toString(),
-                    mPasswordField.getText().toString());
-        }
+        mValidator.validate();
     }
 
     @OnClick(R.id.signup_button)
@@ -88,33 +99,24 @@ public class LoginFragment extends BaseFragment {
         mLoginInterface.onSignup();
     }
 
-    private boolean formIsValid() {
-        boolean isValid = true;
+    @Override
+    public void onValidationSucceeded() {
+        mLoginInterface.onLogin(mUsernameField.getText().toString(),
+                mPasswordField.getText().toString());
+    }
 
-        if(StringUtils.isNullOrEmpty(mUsernameField.getText().toString())) {
-            Log.d("Login Fragment", "Username field is empty");
-//            Toast.makeText(this.getActivity(),
-//                    getString(R.string.empty_username_field),
-//                   Toast.LENGTH_LONG).show();
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this.getActivity());
 
-            String myString = "This field is required";
-
-            mUsernameField.setError(myString);
-
-            isValid = false;
+            if(view instanceof EditText) {
+                ((EditText) view).setError(message);
+                view.requestFocus();
+            } else {
+                Toast.makeText(this.getActivity(), message, Toast.LENGTH_LONG).show();
+            }
         }
-        if(StringUtils.isNullOrEmpty(mPasswordField.getText().toString())) {
-//            Toast.makeText(this.getActivity(),Weava
-//                    getString(R.string.empty_password_field),
-//                    Toast.LENGTH_LONG).show();
-
-            String myString = "This field is required by law";
-
-            mPasswordField.setError(myString);
-
-            isValid = false;
-        }
-
-        return isValid;
     }
 }

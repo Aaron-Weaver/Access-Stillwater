@@ -44,6 +44,7 @@ dependencies {
     compile 'com.squareup.dagger:dagger:1.2.2'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.mobsandgeeks:android-saripaar:2.0.0'
 
     // Non-Google material libraries
     compile('com.github.afollestad.material-dialogs:core:0.8.5.4@aar') {

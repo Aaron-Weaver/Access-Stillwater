@@ -17,12 +17,26 @@
     <string name="login_button">Login</string>
     <string name="signup_button">Sign Up</string>
     <string name="signup_text">No account yet? <b>Sign up</b></string>
-    <string name="account_exists_stylized">Got an account? <b>Login</b></string>
+    <string name="account_exists_stylized">Got an account? <b>Log in</b></string>
     <string name="app_name_stylized"><b>Access</b> Stillwater</string>
+
 
     <string name="load_login">Authenticating...</string>
 
+    <!-- Validation Strings -->
     <string name="empty_username_field">Please enter your username</string>
     <string name="empty_password_field">Please enter your password</string>
     <string name="invalid_credentials">Invalid username or password</string>
+    <string name="username_invalid_length">Username must be between 6 and 18 characters</string>
+    <string name="username_invalid_characters">Valid characters are A-Z, 0-9, \'.\', \'-\', \'_\'</string>
+    <string name="email_not_valid">Requires valid e-mail</string>
+
+    <string name="password_invalid_characters">
+        Passwords must be at least 6 characters, and contain at least one letter and one number
+    </string>
+
+    <string name="password_exceeds_length">Password can\'t exceed 18 characters</string>
+    <string name="password_unmatched">Both passwords must match</string>
+    <string name="empty_field">Field is required</string>
+
 </resources>
