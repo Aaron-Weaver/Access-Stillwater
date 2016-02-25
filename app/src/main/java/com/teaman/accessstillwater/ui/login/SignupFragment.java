@@ -114,7 +114,6 @@ public class SignupFragment extends BaseFragment implements Validator.Validation
 
     @OnClick(R.id.confirm_signup_button)
     public void signUpClicked() {
-
         mValidator.validate();
     }
 
@@ -126,6 +125,11 @@ public class SignupFragment extends BaseFragment implements Validator.Validation
     @Override
     public void onValidationSucceeded() {
         // Call activity to sign the user up.
+        String email = mEmailField.getText().toString();
+        String username = mUsernameField.getText().toString();
+        String password = mPasswordField.getText().toString();
+
+        mSignUpInterface.onSignup(email, username, password);
     }
 
     @Override

@@ -1,11 +1,12 @@
 package com.teaman.accessstillwater.ui.main;
 
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseActivity;
-import com.teaman.data.authorization.LoginAdapter;
 
 /**
  * <h1> [Insert class name here] </h1>
@@ -24,19 +25,27 @@ import com.teaman.data.authorization.LoginAdapter;
  */
 public class MainActivity extends BaseActivity {
 
-    private LoginAdapter mLoginAdapter;
     private AccessStillwaterApp mApplication;
+
+    private Fragment mLoginFragment;
+
+    public static Intent getCallingIntent(Context context) {
+        Intent callingIntent = new Intent(context, MainActivity.class);
+        return callingIntent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
 
         this.mApplication = AccessStillwaterApp.getmInstance();
+        this.mLoginFragment = new MainFragment();
 
-        Log.d("Main Activity", "About to call getLoginAdapter");
-
-        this.mLoginAdapter = this.mApplication.getLoginAdapter();
-//        mLoginAdapter.login("Weava", "testPass");
+        super.addFragmentToContainer(mLoginFragment, "lol");
     }
+
+//    @Override
+//    protected int getLayoutResource() {
+//        return R.layout.activity_main;
+//    }
 }

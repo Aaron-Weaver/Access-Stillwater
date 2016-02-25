@@ -1,5 +1,7 @@
 package com.teaman.data.authorization;
 
+import com.parse.ParseException;
+
 /**
  * <h1> [Insert class name here] </h1>
  * <p>
@@ -17,7 +19,7 @@ package com.teaman.data.authorization;
  */
 public interface SignupAdapter {
 
-    boolean signUp(String email, String username, String password);
+    boolean signUp(String email, String username, String password) throws ParseException;
 
     void signUpAsync(SignupCallback callback, String email, String username, String password);
 }

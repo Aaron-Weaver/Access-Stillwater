@@ -79,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @LayoutRes
     protected int getLayoutResource() {
-        return R.layout.activity_base;
+        return R.layout.base_activity;
     }
 
     /**

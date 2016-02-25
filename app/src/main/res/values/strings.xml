@@ -22,14 +22,18 @@
 
 
     <string name="load_login">Authenticating...</string>
+    <string name="load_signup">Signing you up...</string>
 
     <!-- Validation Strings -->
     <string name="empty_username_field">Please enter your username</string>
     <string name="empty_password_field">Please enter your password</string>
-    <string name="invalid_credentials">Invalid username or password</string>
     <string name="username_invalid_length">Username must be between 6 and 18 characters</string>
     <string name="username_invalid_characters">Valid characters are A-Z, 0-9, \'.\', \'-\', \'_\'</string>
     <string name="email_not_valid">Requires valid e-mail</string>
+
+    <string name="invalid_credentials">Invalid username or password</string>
+    <string name="signup_failure">There was an error signing you up</string>
+    <string name="signup_successful">You\'re all signed up!</string>
 
     <string name="password_invalid_characters">
         Passwords must be at least 6 characters, and contain at least one letter and one number

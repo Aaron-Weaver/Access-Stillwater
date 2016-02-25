@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.teaman.accessstillwater.ui.login.SignupActivity;
+import com.teaman.accessstillwater.ui.main.MainActivity;
 
 /**
  * <h1> Navigator </h1>
@@ -34,7 +35,8 @@ public class Navigator {
 
     public void navigateToMainActivity(Context context) {
         if(context != null) {
-            //move to mainActivity
+            Intent moveToIntent = MainActivity.getCallingIntent(context);
+            context.startActivity(moveToIntent);
         }
     }
 

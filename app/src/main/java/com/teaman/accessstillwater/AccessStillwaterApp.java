@@ -53,9 +53,11 @@ public class AccessStillwaterApp extends Application {
         Parse.enableLocalDatastore(this);
 
         // Put all Object Registrations here.
-        //ParseObject.registerSubclass(User.class);
+
 
         Parse.initialize(this);
+
+        //ParseUser.enableRevocableSessionInBackground();
 
         mInstance = this;
     }

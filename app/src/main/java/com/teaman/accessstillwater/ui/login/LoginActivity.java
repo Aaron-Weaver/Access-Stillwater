@@ -48,8 +48,6 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
 
         mLoginFragment = new LoginFragment();
         super.addFragmentToContainer(mLoginFragment, getString(R.string.login_fragment_tag));
-
-        //this.beforeLogin();
     }
 
     @Override
@@ -57,13 +55,13 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
         super.onStart();
         if(this.mLoginAdapter.isLoggedIn()) {
             Log.d("Login Activity", "user is already logged in");
-            Navigator.getInstance().navigateToMainActivity(this.getApplicationContext());
+            Navigator.getInstance().navigateToMainActivity(this);
         }
     }
 
     @Override
-    protected int getLayoutResource() {
-        return R.layout.activity_base_no_toolbar;
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -73,8 +71,7 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
 
         this.mLoginLoadingDialog.dismiss();
 
-
-        //Navigator.getInstance().navigateToMainActivity(this.getApplicationContext());
+        Navigator.getInstance().navigateToMainActivity(this);
     }
 
     @Override
@@ -106,11 +103,12 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
         Navigator.getInstance().navigateToSignupActivity(this);
     }
 
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.base_activity_no_toolbar;
+    }
+
     private void beforeLogin() {
-        // TODO: Show a cool little loading dialog
-//        this.mLoginLoadingDialog = new ProgressDialog(this, R.style.loading_theme);
-//        this.mLoginLoadingDialog.setMessage(getString(R.string.load_login));
-//        this.mLoginLoadingDialog.show();
 
         this.mLoginLoadingDialog = new MaterialDialog.Builder(this)
                 .content(getString(R.string.load_login))
@@ -120,4 +118,6 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
                 .contentColor(ContextCompat.getColor(this, R.color.white))
                 .show();
     }
+
+
 }
