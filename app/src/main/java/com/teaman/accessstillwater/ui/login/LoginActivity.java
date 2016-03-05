@@ -1,13 +1,12 @@
 package com.teaman.accessstillwater.ui.login;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseActivity;
@@ -37,7 +36,7 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
     private LoginAdapter mLoginAdapter;
     private AccessStillwaterApp mApplication;
 
-    private MaterialDialog mLoginLoadingDialog;
+    private ProgressDialog mLoginLoadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,18 +104,20 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.base_activity_no_toolbar;
+        return  R.layout.base_activity_no_toolbar;
     }
 
     private void beforeLogin() {
 
-        this.mLoginLoadingDialog = new MaterialDialog.Builder(this)
-                .content(getString(R.string.load_login))
-                .progress(true, 0)
-                .backgroundColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                .widgetColor(ContextCompat.getColor(this, R.color.white))
-                .contentColor(ContextCompat.getColor(this, R.color.white))
-                .show();
+//        this.mLoginLoadingDialog = new MaterialDialog.Builder(this)
+//                .content(getString(R.string.load_login))
+//                .progress(true, 0)
+//                .backgroundColor(ContextCompat.getColor(this, R.color.colorPrimary))
+//                .widgetColor(ContextCompat.getColor(this, R.color.white))
+//                .contentColor(ContextCompat.getColor(this, R.color.white))
+//                .show();
+
+        this.mLoginLoadingDialog = ProgressDialog.show(this, "", getString(R.string.load_login));
     }
 
 

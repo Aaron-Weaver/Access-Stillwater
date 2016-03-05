@@ -14,6 +14,10 @@ package com.teaman.data;
  */
 public interface User {
 
+    // String constants for columns within the user db.
+    static final String FIRST_NAME = "firstName";
+    static final String  LAST_NAME = "lastName";
+
     /**
      * Retrieve username from User.
      *
@@ -33,5 +37,19 @@ public interface User {
      *
      * @return  User's display name
      */
-    String getDisplayName();
+    String getDisplayName(boolean lastNameOnlyInitial);
+
+    /**
+     * Retrieve the first name of a given User.
+     *
+     * @return  User's first name
+     */
+    String getFirstName();
+
+    /**
+     * Retrieve the last name of a given User.
+     *
+     * @return  User's last name
+     */
+    String getLastNmae();
 }

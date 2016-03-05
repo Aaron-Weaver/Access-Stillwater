@@ -42,5 +42,11 @@
     <string name="password_exceeds_length">Password can\'t exceed 18 characters</string>
     <string name="password_unmatched">Both passwords must match</string>
     <string name="empty_field">Field is required</string>
+    <string name="placeholder_small">Lorem ipsor dolor</string>
+
+    <!-- Drawer Header strings-->
+    <string name="friends_text">friends</string>
+    <string name="reviews_text">reviews</string>
+    <string name="favorites_text">favorites</string>
 
 </resources>

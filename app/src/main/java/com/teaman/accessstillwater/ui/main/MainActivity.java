@@ -1,12 +1,12 @@
 package com.teaman.accessstillwater.ui.main;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.teaman.accessstillwater.AccessStillwaterApp;
-import com.teaman.accessstillwater.base.BaseActivity;
+import com.teaman.accessstillwater.R;
+import com.teaman.accessstillwater.base.BaseDrawerActivity;
 
 /**
  * <h1> [Insert class name here] </h1>
@@ -23,11 +23,10 @@ import com.teaman.accessstillwater.base.BaseActivity;
  * @version 1.0
  * @since 1/30/16
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseDrawerActivity {
 
     private AccessStillwaterApp mApplication;
 
-    private Fragment mLoginFragment;
 
     public static Intent getCallingIntent(Context context) {
         Intent callingIntent = new Intent(context, MainActivity.class);
@@ -39,13 +38,11 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         this.mApplication = AccessStillwaterApp.getmInstance();
-        this.mLoginFragment = new MainFragment();
 
-        super.addFragmentToContainer(mLoginFragment, "lol");
     }
 
-//    @Override
-//    protected int getLayoutResource() {
-//        return R.layout.activity_main;
-//    }
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.base_activity_drawer;
+    }
 }

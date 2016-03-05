@@ -42,17 +42,38 @@ public class ParseUserAdapter implements User {
     /**
      * @return  {@link ParseUser}'s displayName
      */
+//    @Override
+//    public String getDisplayName() {
+//        String displayName;
+//
+//        if(this.getUsername() != null) {
+//            displayName = this.getUsername();
+//        }
+//        else {
+//            displayName = this.getEmail();
+//        }
+//
+//        return displayName;
+//    }
     @Override
-    public String getDisplayName() {
+    public String getDisplayName(boolean lastNameOnlyInitial) {
         String displayName;
 
-        if(this.getUsername() != null) {
-            displayName = this.getUsername();
+        if (lastNameOnlyInitial) {
+            displayName = getFirstName() + " " + getLastNmae().charAt(0) + ".";
+        } else {
+            displayName = getFirstName() + " " + getLastNmae();
         }
-        else {
-            displayName = this.getEmail();
-        }
-
         return displayName;
+    }
+
+    @Override
+    public String getFirstName() {
+        return this.parseUser.getString(FIRST_NAME);
+    }
+
+    @Override
+    public String getLastNmae() {
+        return this.parseUser.getString(LAST_NAME);
     }
 }

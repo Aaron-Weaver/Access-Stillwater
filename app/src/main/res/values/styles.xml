@@ -30,19 +30,34 @@
     <style name="button_material_primary" parent="Theme.AppCompat.Light">
         <item name="android:colorControlHighlight">@color/colorPrimary</item>
         <item name="android:colorButtonNormal">@color/colorPrimaryDark</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/colorTextIcons</item>
         <item name="android:layout_marginLeft">@dimen/login_edit_text_margin</item>
         <item name="android:layout_marginRight">@dimen/login_edit_text_margin</item>
     </style>
 
-    <style name="generic_text_style">
+    <style name="logo_text_xl">
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/colorTextIcons</item>
+    </style>
+
+    <style name="logo_text_lg">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/colorTextIcons</item>
+    </style>
+
+    <style name="logo_text_md">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/colorTextIcons</item>
+    </style>
+
+    <style name="logo_text_sm">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorTextIcons</item>
     </style>
 
     <style name="loading_theme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@style/loading_background</item>
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/colorTextIcons</item>
     </style>
 
     <style name="loading_background">
@@ -59,9 +74,9 @@
     </style>
 
     <style name="toolbar_style">
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/white</item>
-        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/colorTextIcons</item>
+        <item name="android:textColorSecondary">@color/colorTextIcons</item>
+        <item name="actionMenuTextColor">@color/colorTextIcons</item>
     </style>
 
 </resources>

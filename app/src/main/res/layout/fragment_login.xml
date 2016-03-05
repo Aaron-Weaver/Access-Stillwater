@@ -65,6 +65,6 @@
             android:layout_marginTop="16dip"
             android:text="@string/signup_text"
             android:clickable="true"
-            style="@style/generic_text_style"/>
+            style="@style/logo_text_md"/>
 
 </LinearLayout>

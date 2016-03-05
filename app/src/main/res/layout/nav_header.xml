@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="230dp"
+              android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:id="@+id/linear_profile_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"
+        android:paddingLeft="10dip"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/header_profile_image"
+            android:layout_width="@dimen/header_profile_image"
+            android:layout_height="@dimen/header_profile_image"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_account_circle_white_48dp"/>
+
+        <TextView
+            android:id="@+id/header_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            style="@style/logo_text_lg"
+            android:text="Aaron Weaver"/>
+
+    </LinearLayout>
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_below="@id/linear_profile_view"-->
+        <!--android:background="@color/colorTextIcons">-->
+
+    <!--</View>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linear_profile_view"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/friends_linear_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/header_small_icon"
+                android:layout_height="@dimen/header_small_icon"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_friends"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/friends_text"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                style="@style/logo_text_md"/>
+
+            <TextView
+                android:id="@+id/friends_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:text="2"
+                style="@style/logo_text_sm"/>
+
+        </LinearLayout>
+
+        <!--<View-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/colorTextIcons"/>-->
+
+        <LinearLayout
+            android:id="@+id/favorites_linear_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/header_small_icon"
+                android:layout_height="@dimen/header_small_icon"
+                android:src="@drawable/ic_favorites"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/favorites_text"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                style="@style/logo_text_md"/>
+
+            <TextView
+                android:id="@+id/favorites_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="136"
+                style="@style/logo_text_sm"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reviews_linear_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/header_small_icon"
+                android:layout_height="@dimen/header_small_icon"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_reviews"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reviews_text"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                style="@style/logo_text_md"/>
+
+            <TextView
+                android:id="@+id/reviews_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="13"
+                style="@style/logo_text_sm"/>
+
+        </LinearLayout>
+
+        <!--<View-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@color/colorTextIcons"/>-->
+
+
+    </LinearLayout>
+
+    <!--<TextView-->
+        <!--android:id="@+id/header_profile_email"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/linear_profile_view"-->
+        <!--style="@style/logo_text_sm"-->
+        <!--android:text="@string/placeholder_small"/>-->
+
+</RelativeLayout>
