@@ -6,7 +6,7 @@ based on their ability to accommodate with any number of physical handicaps.
 
 ### Team Members
 
-* Aaron Weaver
-* Alexander Melton
+* [Aaron Weaver](https://github.com/Aaron-Weaver)
+* [Alexander Melton](https://github.com/ammelto)
 
 [Trello Board](https://trello.com/b/c0w5ZKwm/access-stillwater)
