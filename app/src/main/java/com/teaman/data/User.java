@@ -16,7 +16,11 @@ public interface User {
 
     // String constants for columns within the user db.
     static final String FIRST_NAME = "firstName";
-    static final String  LAST_NAME = "lastName";
+    static final String LAST_NAME = "lastName";
+    static final String PROFILE_PICTURE = "profilePicture";
+    static final String AUDITORY_DISABILITY = "auditoryDisability";
+    static final String PHYSICAL_DISABILITY = "physicalDisability";
+    static final String VISUAL_DISABILITY = "visualDisability";
 
     /**
      * Retrieve username from User.
@@ -51,5 +55,13 @@ public interface User {
      *
      * @return  User's last name
      */
-    String getLastNmae();
+    String getLastName();
+
+    String getUserAvatar();
+
+    boolean hasAuditoryDisability();
+
+    boolean hasVisualDisability();
+
+    boolean hasPhysicalDisability();
 }

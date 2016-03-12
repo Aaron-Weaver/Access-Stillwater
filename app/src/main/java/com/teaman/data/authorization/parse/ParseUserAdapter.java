@@ -1,6 +1,7 @@
 package com.teaman.data.authorization.parse;
 
 import com.parse.ParseUser;
+import com.teaman.accessstillwater.R;
 import com.teaman.data.User;
 
 /**
@@ -60,9 +61,9 @@ public class ParseUserAdapter implements User {
         String displayName;
 
         if (lastNameOnlyInitial) {
-            displayName = getFirstName() + " " + getLastNmae().charAt(0) + ".";
+            displayName = getFirstName() + " " + getLastName().charAt(0) + ".";
         } else {
-            displayName = getFirstName() + " " + getLastNmae();
+            displayName = getFirstName() + " " + getLastName();
         }
         return displayName;
     }
@@ -73,7 +74,40 @@ public class ParseUserAdapter implements User {
     }
 
     @Override
-    public String getLastNmae() {
+    public String getLastName() {
         return this.parseUser.getString(LAST_NAME);
+    }
+
+    @Override
+    public String getUserAvatar() {
+        if(this.parseUser.getParseFile(PROFILE_PICTURE) != null) {
+            return this.parseUser.getParseFile(PROFILE_PICTURE).getUrl();
+        } else {
+            return  Integer.toString(R.drawable.ic_account_circle_white_48dp);
+        }
+    }
+
+    @Override
+    public boolean hasAuditoryDisability() {
+        boolean auditoryDisability =
+                this.parseUser.getBoolean(AUDITORY_DISABILITY);
+
+        return auditoryDisability;
+    }
+
+    @Override
+    public boolean hasVisualDisability() {
+        boolean visualDisability =
+                this.parseUser.getBoolean(VISUAL_DISABILITY);
+
+        return visualDisability;
+    }
+
+    @Override
+    public boolean hasPhysicalDisability() {
+        boolean physicalDisability =
+                this.parseUser.getBoolean(PHYSICAL_DISABILITY);
+
+        return physicalDisability;
     }
 }

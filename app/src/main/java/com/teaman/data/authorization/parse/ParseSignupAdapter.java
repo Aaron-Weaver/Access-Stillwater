@@ -5,6 +5,7 @@ import android.util.Log;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+import com.teaman.data.User;
 import com.teaman.data.authorization.SignupAdapter;
 import com.teaman.data.authorization.SignupCallback;
 
@@ -26,22 +27,26 @@ import com.teaman.data.authorization.SignupCallback;
 public class ParseSignupAdapter implements SignupAdapter {
 
     @Override
-    public boolean signUp(String email, String username, String password) throws ParseException{
+    public boolean signUp(String email, String firstName, String lastName, String password) throws ParseException{
         ParseUser user = new ParseUser();
         user.setEmail(email);
-        user.setUsername(username);
+        user.put(User.FIRST_NAME, firstName);
+        user.put(User.LAST_NAME, lastName);
         user.setPassword(password);
+        user.setUsername(email);
 
         user.signUp();
         return false;
     }
 
     @Override
-    public void signUpAsync(final SignupCallback callback, String email, String username, String password) {
+    public void signUpAsync(final SignupCallback callback, String email, String firstName, String lastName, String password) {
         ParseUser user = new ParseUser();
-        user.setEmail(email);
-        user.setUsername(username);
+        user.put(User.FIRST_NAME, firstName);
+        user.put(User.LAST_NAME, lastName);
+        user.setUsername(email);
         user.setPassword(password);
+        user.setEmail(email);
 
         user.signUpInBackground(new SignUpCallback() {
             @Override

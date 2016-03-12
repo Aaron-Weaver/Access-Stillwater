@@ -19,7 +19,7 @@ import com.parse.ParseException;
  */
 public interface SignupAdapter {
 
-    boolean signUp(String email, String username, String password) throws ParseException;
+    boolean signUp(String email, String firstName, String lastName, String password) throws ParseException;
 
-    void signUpAsync(SignupCallback callback, String email, String username, String password);
+    void signUpAsync(SignupCallback callback, String email, String firstName, String lastName, String password);
 }

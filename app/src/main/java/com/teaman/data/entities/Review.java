@@ -1,4 +1,6 @@
-package com.teaman.accessstillwater.ui.login;
+package com.teaman.data.entities;
+
+import com.parse.ParseObject;
 
 /**
  * <h1> [Insert class name here] </h1>
@@ -13,11 +15,13 @@ package com.teaman.accessstillwater.ui.login;
  *         Team Andronerds
  *         waaronl@okstate.edu
  * @version 1.0
- * @since 2/23/16
+ * @since 3/10/16
  */
-public interface SignupInterface {
+public class Review extends ParseObject {
 
-    void onSignup(String email, String firstName, String lastName, String password);
-
-    void onLoginBack();
+    private String title;
+    private String content;
+    private float auditoryRating;
+    private float visualRating;
+    private float physicalRating;
 }

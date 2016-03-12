@@ -80,11 +80,11 @@ public class SignupActivity extends BaseActivity implements SignupCallback, Sign
     }
 
     @Override
-    public void onSignup(String email, String username, String password) {
+    public void onSignup(String email, String firstName, String lastName, String password) {
 
         this.showLoadingDialog();
 
-        this.mSignUpAdapter.signUpAsync(this, email, username, password);
+        this.mSignUpAdapter.signUpAsync(this, email, firstName, lastName, password);
     }
 
     @Override

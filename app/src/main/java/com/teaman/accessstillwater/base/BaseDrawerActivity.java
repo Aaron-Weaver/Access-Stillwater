@@ -1,21 +1,27 @@
 package com.teaman.accessstillwater.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
+import com.teaman.accessstillwater.ui.navigation.Navigator;
 import com.teaman.data.User;
 import com.teaman.data.authorization.LoginAdapter;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -49,13 +55,32 @@ public abstract class BaseDrawerActivity extends BaseActivity {
     @Bind(R.id.header_profile_name)
     protected TextView mProfileName;
 
+    @Nullable
+    @Bind(R.id.friends_count)
+    protected TextView mFriendsCount;
+
+    @Nullable
+    @Bind(R.id.reviews_count)
+    protected TextView mReviewsCount;
+
+    @Nullable
+    @Bind(R.id.favorites_count)
+    protected TextView mFavoritesCount;
+
+    @Nullable
+    @Bind(R.id.nav_header_layout)
+    protected RelativeLayout mNavHeaderLayout;
+
     private User mCurrentUser;
     private LoginAdapter mLoginAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
+    private Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mContext = this;
 
         mLoginAdapter = AccessStillwaterApp.getmInstance().getLoginAdapter();
 
@@ -66,6 +91,10 @@ public abstract class BaseDrawerActivity extends BaseActivity {
 
         if(mLoginAdapter.isLoggedIn()) {
             mCurrentUser = mLoginAdapter.getUser();
+        }
+
+        if(mDrawerLayout != null && mNavMenu != null) {
+            drawerSetup();
         }
 
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
@@ -96,6 +125,67 @@ public abstract class BaseDrawerActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void drawerSetup() {
+        mNavMenu.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        item.setChecked(false);
+                        mDrawerLayout.closeDrawers();
+
+                        switch (item.getItemId()) {
+                            case R.id.nav_sign_out:
+                                mLoginAdapter.logOut();
+                                Navigator.getInstance().navigateToLoginActivity(mContext);
+                                break;
+                        }
+                        return true;
+                    }
+                });
+
+        mNavHeaderLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.nav_header, null);
+
+        if(mNavHeaderLayout != null) {
+            mNavMenu.addHeaderView(mNavHeaderLayout);
+            mProfileImage = ButterKnife.findById(mNavHeaderLayout, R.id.header_profile_image);
+            mProfileName = ButterKnife.findById(mNavHeaderLayout, R.id.header_profile_name);
+            mFriendsCount = ButterKnife.findById(mNavHeaderLayout, R.id.friends_count);
+            mFavoritesCount = ButterKnife.findById(mNavHeaderLayout, R.id.favorites_count);
+            mReviewsCount = ButterKnife.findById(mNavHeaderLayout, R.id.reviews_count);
+            drawerUpdate();
+        }
+    }
+
+    private void drawerUpdate() {
+        if(mCurrentUser != null) {
+            if(mProfileImage != null) {
+                Picasso.with(this)
+                        .load(mCurrentUser.getUserAvatar())
+                        .fit()
+                        .placeholder(R.drawable.ic_account_circle_white_48dp)
+                        .into(mProfileImage);
+            }
+
+            if(mProfileName != null) {
+                Log.d("BASE DRAWER ACTIVITY", mCurrentUser.getDisplayName(false));
+                mProfileName.setText(mCurrentUser.getDisplayName(false));
+            }
+
+            if(mFavoritesCount != null) {
+                mFavoritesCount.setText("0");
+            }
+
+            if(mReviewsCount != null) {
+                mReviewsCount.setText("0");
+            }
+
+            if(mFriendsCount != null) {
+                mFriendsCount.setText("0");
+            }
+        }
     }
 
     @Override

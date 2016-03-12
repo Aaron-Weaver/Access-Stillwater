@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/nav_header_layout"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="230dp"
@@ -9,8 +10,8 @@
         android:id="@+id/linear_profile_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dip"
-        android:paddingBottom="10dip"
+        android:paddingTop="5dp"
+        android:paddingBottom="15dip"
         android:paddingLeft="10dip"
         android:layout_marginTop="35dp"
         android:orientation="horizontal">
@@ -45,6 +46,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="5dp"
         android:layout_below="@+id/linear_profile_view"
         android:orientation="horizontal">
 

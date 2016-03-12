@@ -55,25 +55,34 @@ public class SignupFragment extends BaseFragment implements Validator.Validation
 
     @Nullable
     @NotEmpty(messageResId = R.string.empty_field, sequence = 1)
-    @Length(min = 6, max = 18, messageResId = R.string.username_invalid_length, sequence = 2)
+    @Length(min = 3, max = 16, messageResId = R.string.name_invalid_length, sequence = 2)
     @Pattern(regex = "^[a-zA-Z0-9._-]{3,}$",
             messageResId = R.string.username_invalid_characters, sequence = 3)
     @Order(2)
-    @Bind(R.id.signup_username)
-    protected EditText mUsernameField;
+    @Bind(R.id.signup_first_name)
+    protected EditText mFirstNameField;
+
+    @Nullable
+    @NotEmpty(messageResId = R.string.empty_field, sequence = 1)
+    @Length(min = 3, max = 16, messageResId = R.string.name_invalid_length, sequence = 2)
+    @Pattern(regex = "^[a-zA-Z0-9._-]{3,}$",
+            messageResId = R.string.username_invalid_characters, sequence = 3)
+    @Order(3)
+    @Bind(R.id.signup_last_name)
+    protected EditText mLastNameField;
 
     @Nullable
     @NotEmpty(messageResId = R.string.empty_field, sequence = 1)
     @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC,
             messageResId = R.string.password_invalid_characters, sequence = 2)
     @Length(max = 18, messageResId = R.string.password_exceeds_length, sequence = 3)
-    @Order(3)
+    @Order(4)
     @Bind(R.id.signup_password)
     protected EditText mPasswordField;
 
     @Nullable
     @ConfirmPassword(messageResId = R.string.password_unmatched, sequence = 1)
-    @Order(4)
+    @Order(5)
     @Bind(R.id.signup_confirm_password)
     protected EditText mConfirmPasswordField;
 
@@ -126,10 +135,11 @@ public class SignupFragment extends BaseFragment implements Validator.Validation
     public void onValidationSucceeded() {
         // Call activity to sign the user up.
         String email = mEmailField.getText().toString();
-        String username = mUsernameField.getText().toString();
+        String firstName = mFirstNameField.getText().toString();
+        String lastName = mLastNameField.getText().toString();
         String password = mPasswordField.getText().toString();
 
-        mSignUpInterface.onSignup(email, username, password);
+        mSignUpInterface.onSignup(email, firstName, lastName, password);
     }
 
     @Override

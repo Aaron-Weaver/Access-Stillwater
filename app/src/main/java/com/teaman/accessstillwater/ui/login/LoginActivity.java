@@ -2,6 +2,8 @@ package com.teaman.accessstillwater.ui.login;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -37,6 +39,11 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
     private AccessStillwaterApp mApplication;
 
     private ProgressDialog mLoginLoadingDialog;
+
+    public static Intent getCallingIntent(Context context) {
+        Intent callingIntent = new Intent(context, LoginActivity.class);
+        return callingIntent;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

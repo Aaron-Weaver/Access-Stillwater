@@ -14,6 +14,8 @@
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
     <string name="confirm_password_hint">Confirm Password</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
     <string name="login_button">Login</string>
     <string name="signup_button">Sign Up</string>
     <string name="signup_text">No account yet? <b>Sign up</b></string>
@@ -30,6 +32,7 @@
     <string name="username_invalid_length">Username must be between 6 and 18 characters</string>
     <string name="username_invalid_characters">Valid characters are A-Z, 0-9, \'.\', \'-\', \'_\'</string>
     <string name="email_not_valid">Requires valid e-mail</string>
+    <string name="name_invalid_length">Name must be between 6 and 16 characters</string>
 
     <string name="invalid_credentials">Invalid username or password</string>
     <string name="signup_failure">There was an error signing you up</string>
@@ -48,5 +51,8 @@
     <string name="friends_text">friends</string>
     <string name="reviews_text">reviews</string>
     <string name="favorites_text">favorites</string>
+
+    <!-- Drawer Menu strings -->
+    <string name="sign_out">Sign out</string>
 
 </resources>

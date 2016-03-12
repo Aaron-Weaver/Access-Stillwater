@@ -4,10 +4,14 @@ import android.app.Application;
 import android.support.v7.appcompat.BuildConfig;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
 import com.squareup.leakcanary.LeakCanary;
 import com.teaman.data.User;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.authorization.parse.ParseLoginAdapter;
+import com.teaman.data.entities.Activity;
+import com.teaman.data.entities.Establishment;
+import com.teaman.data.entities.Review;
 
 import timber.log.Timber;
 
@@ -53,13 +57,19 @@ public class AccessStillwaterApp extends Application {
         Parse.enableLocalDatastore(this);
 
         // Put all Object Registrations here.
-
+        ParseObject.registerSubclass(Activity.class);
+        ParseObject.registerSubclass(Establishment.class);
+        ParseObject.registerSubclass(Review.class);
 
         Parse.initialize(this);
 
         //ParseUser.enableRevocableSessionInBackground();
 
         mInstance = this;
+
+        if(loginAdapter.isLoggedIn()) {
+            loginAdapter.logOut();
+        }
     }
 
     /**
