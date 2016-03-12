@@ -1,6 +1,6 @@
-package com.teaman.data.parse;
+package com.teaman.accessstillwater.parse;
 
-import com.parse.ParseUser;
+import android.test.AndroidTestCase;
 
 /**
  * <h1> [Insert class name here] </h1>
@@ -15,7 +15,8 @@ import com.parse.ParseUser;
  *         Team Andronerds
  *         waaronl@okstate.edu
  * @version 1.0
- * @since 1/30/16
+ * @since 2/25/16
  */
-public class UserEntity extends ParseUser{
+public class TestParseUser extends AndroidTestCase {
+
 }

@@ -1,4 +1,4 @@
-package com.teaman.data.parse.mapper;
+package com.teaman.accessstillwater.ui.login;
 
 /**
  * <h1> [Insert class name here] </h1>
@@ -13,7 +13,11 @@ package com.teaman.data.parse.mapper;
  *         Team Andronerds
  *         waaronl@okstate.edu
  * @version 1.0
- * @since 1/30/16
+ * @since 2/23/16
  */
-public class UserEntityMapper {
+public interface SignupInterface {
+
+    void onSignup(String email, String firstName, String lastName, String password);
+
+    void onLoginBack();
 }

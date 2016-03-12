@@ -1,4 +1,4 @@
-package com.teaman.domain;
+package com.teaman.data.authorization;
 
 /**
  * <h1> [Insert class name here] </h1>
@@ -13,7 +13,13 @@ package com.teaman.domain;
  *         Team Andronerds
  *         waaronl@okstate.edu
  * @version 1.0
- * @since 1/30/16
+ * @since 2/23/16
  */
-public class User {
+public interface SignupCallback {
+
+    void signUpSuccess();
+
+    void signUpFailure();
+
+    // TODO: Add signup error for unintended errors like network difficulties.
 }
