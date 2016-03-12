@@ -1,5 +1,6 @@
 package com.teaman.data.entities;
 
+import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
@@ -18,6 +19,7 @@ import com.parse.ParseObject;
  * @version 1.0
  * @since 3/10/16
  */
+@ParseClassName("Establishment")
 public class Establishment extends ParseObject {
 
     public static String TYPE_RESTAURAUNT = "restauraunt";

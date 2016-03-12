@@ -1,5 +1,6 @@
 package com.teaman.data.entities;
 
+import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 /**
@@ -17,6 +18,7 @@ import com.parse.ParseObject;
  * @version 1.0
  * @since 3/10/16
  */
+@ParseClassName("Review")
 public class Review extends ParseObject {
 
     private String title;

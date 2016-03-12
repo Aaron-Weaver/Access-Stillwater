@@ -27,7 +27,8 @@ import timber.log.Timber;
  * @see android.app.Application
  * <pre>
  * <code>
- * android:name = .AccessStillwaterApp
+ *     In AndroidManifest.xml
+ *     android:name = .AccessStillwaterApp
  * </code>
  * </pre>
  * </p>
