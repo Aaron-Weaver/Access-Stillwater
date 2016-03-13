@@ -3,6 +3,7 @@ package com.teaman.accessstillwater;
 import android.app.Application;
 import android.support.v7.appcompat.BuildConfig;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.squareup.leakcanary.LeakCanary;
@@ -45,6 +46,7 @@ public class AccessStillwaterApp extends Application {
 
     private LoginAdapter loginAdapter = new ParseLoginAdapter();
     private User user;
+    private GoogleApiClient googleApiClient;
 
     @Override
     public void onCreate() {
@@ -67,10 +69,6 @@ public class AccessStillwaterApp extends Application {
         //ParseUser.enableRevocableSessionInBackground();
 
         mInstance = this;
-
-        if(loginAdapter.isLoggedIn()) {
-            loginAdapter.logOut();
-        }
     }
 
     /**

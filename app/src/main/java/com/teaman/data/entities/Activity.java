@@ -1,7 +1,7 @@
 package com.teaman.data.entities;
 
 import com.parse.ParseClassName;
-import com.parse.ParseObject;
+import com.teaman.accessstillwater.base.BaseParseObject;
 
 /**
  * <h1> [Insert class name here] </h1>
@@ -19,7 +19,7 @@ import com.parse.ParseObject;
  * @since 3/10/16
  */
 @ParseClassName("Activity")
-public class Activity extends ParseObject {
+public class Activity extends BaseParseObject<Activity> {
 
     public static String TYPE_FAVORITE = "favorite";
     public static String TYPE_REVIEW = "review";
@@ -33,6 +33,12 @@ public class Activity extends ParseObject {
 
     public Activity() {
 
+    }
+
+    @Override
+    public Activity instance()
+    {
+        return this;
     }
 
     public String getFromUsername() {

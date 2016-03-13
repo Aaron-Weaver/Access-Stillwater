@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseFragment;
 
@@ -28,6 +29,8 @@ import butterknife.ButterKnife;
  */
 public class MainFragment extends BaseFragment {
 
+    private PlaceAutocompleteFragment mPlaceAutocompleteFragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,6 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_login;
+        return R.layout.fragment_main;
     }
 }
