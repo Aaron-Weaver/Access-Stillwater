@@ -34,8 +34,14 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
+import com.teaman.data.entities.json.places.PlaceEntity;
+import com.teaman.data.entities.json.PlaceResults;
+import com.teaman.data.entities.json.Results;
 
 import butterknife.Bind;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * <h1> [Insert class name here] </h1>
@@ -99,6 +105,7 @@ public class MainActivity extends BaseDrawerActivity implements
                 .build();
         mApiClient.connect();
 
+
         mPlaceAutocompleteFragment = new PlaceAutocompleteFragment();
         mMapsFragment = new MapFragment();
 
@@ -107,58 +114,103 @@ public class MainActivity extends BaseDrawerActivity implements
 
         mPlaceAutocompleteFragment.setOnPlaceSelectedListener(this);
         mMapsFragment.getMapAsync(this);
+
+        String latLongStr = "-33.152, 42.123";
+
+//        mApplication.getPlacesApi().getAllNearbyEstablishments(
+//                latLongStr,
+//                200000f
+//        ).enqueue(new Callback<JsonObject>()
+//        {
+//            @Override
+//            public void onResponse(Call<JsonObject> call, Response<JsonObject> response)
+//            {
+//                if(response.body() != null) {
+//                    Log.d("Places API Call", response.body().toString());
+//                } else {
+//                    Log.d("Places API NULL", response.message());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JsonObject> call, Throwable t)
+//            {
+//                Log.d("Places API Call", t.getMessage() + " | " + t.getStackTrace());
+//            }
+//        });
     }
 
     private void setMapCurrentLocation() {
 
-        try
-        {
-            PendingResult<PlaceLikelihoodBuffer> result =
-                    Places.PlaceDetectionApi.getCurrentPlace(mApiClient, null);
+        PendingResult<PlaceLikelihoodBuffer> result =
+                Places.PlaceDetectionApi.getCurrentPlace(mApiClient, null);
 
-            result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>()
+        result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>()
+        {
+            @Override
+            public void onResult(@NonNull PlaceLikelihoodBuffer placeLikelihoods)
             {
-                @Override
-                public void onResult(@NonNull PlaceLikelihoodBuffer placeLikelihoods)
+                PlaceLikelihood mostLikely = null;
+                if (placeLikelihoods.getCount() <= 0)
                 {
-                    PlaceLikelihood mostLikely = null;
-                    if (placeLikelihoods.getCount() <= 0)
-                    {
-                        Toast.makeText(mContext, "No Place found", Toast.LENGTH_SHORT).show();
-                    }
-                    for (PlaceLikelihood place : placeLikelihoods)
-                    {
-                        if(mostLikely != null)
-                        {
-                            if (place.getLikelihood() > mostLikely.getLikelihood())
-                            {
-                                mostLikely = place;
-                            }
-                        } else {
-                            mostLikely = place;
-                        }
-                        Log.i("Place Activity", String.format("Place '%s' has likelihood: %g",
-                                place.getPlace().getName(),
-                                place.getLikelihood()));
-                    }
+                    Toast.makeText(mContext, "No Place found", Toast.LENGTH_SHORT).show();
+                }
+                for (PlaceLikelihood place : placeLikelihoods)
+                {
                     if(mostLikely != null)
                     {
-                        CameraPosition camPos =
-                                new CameraPosition(mostLikely.getPlace().getLatLng(), 18.0f, 0, 0);
+                        if (place.getLikelihood() > mostLikely.getLikelihood())
+                        {
+                            mostLikely = place;
+                        }
+                    } else {
+                        mostLikely = place;
+                    }
+                    Log.i("Place Activity", String.format("Place '%s' has likelihood: %g",
+                            place.getPlace().getName(),
+                            place.getLikelihood()));
+                }
+                if(mostLikely != null)
+                {
+                    CameraPosition camPos =
+                            new CameraPosition(mostLikely.getPlace().getLatLng(), 18.0f, 0, 0);
 
-                        mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(camPos));
-                        try {
-                            mGoogleMap.setMyLocationEnabled(true);
-                        } catch (SecurityException ex) {
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(camPos));
+                    mGoogleMap.setMyLocationEnabled(true);
+
+                    String latLongStr = String.valueOf(mostLikely.getPlace().getLatLng().latitude);
+                    latLongStr += ", " + String.valueOf(mostLikely.getPlace().getLatLng().longitude);
+
+                    mApplication.getPlacesApi().getAllNearbyEstablishments(
+                            latLongStr,
+                            100000f
+                    ).enqueue(new Callback<Results<PlaceEntity>>()
+                    {
+                        @Override
+                        public void onResponse(Call<Results<PlaceEntity>> call, Response<Results<PlaceEntity>> response)
+                        {
+                            if(response.body() != null) {
+                                for (PlaceEntity place : response.body().getResults()) {
+                                    if(response.body() != null) {
+                                        Log.d("Places API Call", place.getName());
+                                    } else {
+                                        Log.d("Places API NULL", response.message());
+                                    }
+                                }
+                            }
 
                         }
-                    }
-                    placeLikelihoods.release();
-                }
-            });
-        } catch (SecurityException ex) {
 
-        }
+                        @Override
+                        public void onFailure(Call<Results<PlaceEntity>> call, Throwable t)
+                        {
+                            Log.d("Places API Call", t.getMessage() + " | " + t.getStackTrace());
+                        }
+                    });
+                }
+                placeLikelihoods.release();
+            }
+        });
     }
 
     @Override
@@ -180,8 +232,8 @@ public class MainActivity extends BaseDrawerActivity implements
                         REQUEST_CODE_FINE_LOCATION);
                 return;
             }
-            setMapCurrentLocation();
         }
+        setMapCurrentLocation();
     }
 
     @Override
@@ -189,7 +241,8 @@ public class MainActivity extends BaseDrawerActivity implements
     {
         switch (requestCode) {
             case REQUEST_CODE_FINE_LOCATION:
-                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if(grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     setMapCurrentLocation();
                 } else {
                     Toast.makeText(mContext, "FINE_LOCATION Denied", Toast.LENGTH_SHORT).show();

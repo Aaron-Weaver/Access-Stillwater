@@ -1,9 +1,8 @@
 package com.teaman.accessstillwater;
 
 import android.app.Application;
-import android.support.v7.appcompat.BuildConfig;
 
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.facebook.stetho.Stetho;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.squareup.leakcanary.LeakCanary;
@@ -13,6 +12,8 @@ import com.teaman.data.authorization.parse.ParseLoginAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.Review;
+import com.teaman.data.rest.PlacesApi;
+import com.teaman.data.rest.PlacesClient;
 
 import timber.log.Timber;
 
@@ -46,16 +47,17 @@ public class AccessStillwaterApp extends Application {
 
     private LoginAdapter loginAdapter = new ParseLoginAdapter();
     private User user;
-    private GoogleApiClient googleApiClient;
+
+    private PlacesApi mPlacesApi;
 
     @Override
     public void onCreate() {
         super.onCreate();
         LeakCanary.install(this);
 
-        if(BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        }
+        Timber.plant(new Timber.DebugTree());
+
+        Stetho.initializeWithDefaults(this);
 
         Parse.enableLocalDatastore(this);
 
@@ -104,5 +106,13 @@ public class AccessStillwaterApp extends Application {
         }
 
         return this.user;
+    }
+
+    public PlacesApi getPlacesApi() {
+        if(mPlacesApi == null) {
+            mPlacesApi = PlacesClient.initApi(this);
+        }
+
+        return mPlacesApi;
     }
 }
