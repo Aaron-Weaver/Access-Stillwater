@@ -1,3 +1,58 @@
 <resources>
-    <string name="app_name">AccessStillwater</string>
+    <string name="app_name">Access Stillwater</string>
+
+    <string name="parse_app_id">z1fPjZBqVPHuZ6CbcXwohtFF42GDM3JpPUwVKYq3</string>
+    <string name="parse_client_key">dn1vUUWiErv9yWdAW2mDwF5PpvmRDK1NX2Qejrwj</string>
+
+    <string name="login_fragment_tag">Login</string>
+    <string name="login_activity">Login</string>
+
+    <string name="signup_fragment_tag">Sign Up</string>
+    <string name="signup_activity">Sign Up</string>
+
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="login_button">Login</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="signup_text">No account yet? <b>Sign up</b></string>
+    <string name="account_exists_stylized">Got an account? <b>Log in</b></string>
+    <string name="app_name_stylized"><b>Access</b> Stillwater</string>
+
+
+    <string name="load_login">Authenticating...</string>
+    <string name="load_signup">Signing you up...</string>
+
+    <!-- Validation Strings -->
+    <string name="empty_username_field">Please enter your username</string>
+    <string name="empty_password_field">Please enter your password</string>
+    <string name="username_invalid_length">Username must be between 6 and 18 characters</string>
+    <string name="username_invalid_characters">Valid characters are A-Z, 0-9, \'.\', \'-\', \'_\'</string>
+    <string name="email_not_valid">Requires valid e-mail</string>
+    <string name="name_invalid_length">Name must be between 6 and 16 characters</string>
+
+    <string name="invalid_credentials">Invalid username or password</string>
+    <string name="signup_failure">There was an error signing you up</string>
+    <string name="signup_successful">You\'re all signed up!</string>
+
+    <string name="password_invalid_characters">
+        Passwords must be at least 6 characters, and contain at least one letter and one number
+    </string>
+
+    <string name="password_exceeds_length">Password can\'t exceed 18 characters</string>
+    <string name="password_unmatched">Both passwords must match</string>
+    <string name="empty_field">Field is required</string>
+    <string name="placeholder_small">Lorem ipsor dolor</string>
+
+    <!-- Drawer Header strings-->
+    <string name="friends_text">friends</string>
+    <string name="reviews_text">reviews</string>
+    <string name="favorites_text">favorites</string>
+
+    <!-- Drawer Menu strings -->
+    <string name="sign_out">Sign out</string>
+
 </resources>
