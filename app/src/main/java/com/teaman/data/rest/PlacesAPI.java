@@ -35,4 +35,11 @@ public interface PlacesApi
             @Query("name") String name
     );
 
+    ///place/photo?photoreference=PHOTO_REFERENCE&sensor=false&maxheight=MAX_HEIGHT&maxwidth=MAX_WIDTH&key=YOUR_API_KEY
+    @GET("photo?key=" + API_KEY)
+    Call<Object> getPhotoForEstablishment(
+            @Query("photoreference") String reference,
+            @Query("maxheight") int height,
+            @Query("maxwidth") int width
+    );
 }

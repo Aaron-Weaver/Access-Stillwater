@@ -34,9 +34,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
+import com.teaman.accessstillwater.ui.navigation.Navigator;
 import com.teaman.data.entities.json.places.PlaceEntity;
-import com.teaman.data.entities.json.PlaceResults;
 import com.teaman.data.entities.json.Results;
+import com.teaman.data.entities.json.Results;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import retrofit2.Call;
@@ -257,12 +260,18 @@ public class MainActivity extends BaseDrawerActivity implements
     public void onPlaceSelected(Place place)
     {
         Log.d("Place fragment", place.getName().toString());
+
+
+
+        this.mApplication.getInformationAdapter().setPlace(place);
+        Navigator.getInstance().navigateToInformationActivity(this, place);
     }
 
     @Override
     public void onError(Status status)
     {
         Log.d("Place fragment", status.getStatusMessage());
+
     }
 
     @Override

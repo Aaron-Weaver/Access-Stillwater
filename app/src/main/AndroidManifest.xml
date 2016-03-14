@@ -48,6 +48,12 @@
         </activity>
 
         <activity
+            android:name=".ui.info.InformationActivity"
+            android:label="@string/place" >
+
+        </activity>
+
+        <activity
             android:name=".ui.login.SignupActivity"
             android:label="@string/signup_activity">
 

@@ -55,4 +55,6 @@
     <!-- Drawer Menu strings -->
     <string name="sign_out">Sign out</string>
 
+    <!--Information strings -->
+    <string name="place">Place</string>
 </resources>

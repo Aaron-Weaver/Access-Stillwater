@@ -3,6 +3,8 @@ package com.teaman.accessstillwater.ui.navigation;
 import android.content.Context;
 import android.content.Intent;
 
+import com.google.android.gms.location.places.Place;
+import com.teaman.accessstillwater.ui.info.InformationActivity;
 import com.teaman.accessstillwater.ui.login.LoginActivity;
 import com.teaman.accessstillwater.ui.login.SignupActivity;
 import com.teaman.accessstillwater.ui.main.MainActivity;
@@ -32,6 +34,15 @@ public class Navigator {
             mInstance = new Navigator();
         }
         return mInstance;
+    }
+
+    public void navigateToInformationActivity(Context context, Place place){
+        if(context != null){
+            Intent moveToIntent = InformationActivity.getCallingIntent(context);
+
+
+            context.startActivity(moveToIntent);
+        }
     }
 
     public void navigateToMainActivity(Context context) {
