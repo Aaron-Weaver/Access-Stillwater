@@ -5,6 +5,8 @@
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#FF9800</color>
+    <color name="colorAccentDark">#FFCC80</color>
+    <color name="colorPrimaryMedium">#64B5F6</color>
     <color name="colorPrimaryLight">#BBDEFB</color>
     <color name="colorTextIcons">#FFFFFF</color>
     <color name="colorPrimaryText">#212121</color>

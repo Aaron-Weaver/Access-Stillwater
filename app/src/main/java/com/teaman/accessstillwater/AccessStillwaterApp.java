@@ -5,7 +5,6 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 import com.parse.Parse;
 import com.parse.ParseObject;
-import com.squareup.leakcanary.LeakCanary;
 import com.teaman.data.User;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.authorization.parse.ParseLoginAdapter;
@@ -53,7 +52,7 @@ public class AccessStillwaterApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
 
         Timber.plant(new Timber.DebugTree());
 
