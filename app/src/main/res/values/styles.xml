@@ -79,4 +79,8 @@
         <item name="actionMenuTextColor">@color/colorTextIcons</item>
     </style>
 
+    <style name="filter_category_block">
+        <item name="android:background">@color/colorAccent</item>
+    </style>
+
 </resources>
