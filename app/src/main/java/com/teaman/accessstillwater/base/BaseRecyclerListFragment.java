@@ -12,7 +12,7 @@ import butterknife.Bind;
 /**
  * Created by weava on 3/14/16.
  */
-public class BaseRecyclerListFragment extends BaseFragment {
+public abstract class BaseRecyclerListFragment extends BaseFragment {
 
     @Bind(R.id.recycler_view)
     protected RecyclerView mRecyclerView;

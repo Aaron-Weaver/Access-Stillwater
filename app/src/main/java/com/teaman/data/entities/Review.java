@@ -1,6 +1,8 @@
 package com.teaman.data.entities;
 
 import com.parse.ParseClassName;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.teaman.accessstillwater.base.BaseParseObject;
 
 /**
@@ -21,6 +23,7 @@ import com.teaman.accessstillwater.base.BaseParseObject;
 @ParseClassName("Review")
 public class Review extends BaseParseObject<Review> {
 
+    private ParseUser byUser;
     private String title;
     private String content;
     private float auditoryRating;
@@ -77,9 +80,21 @@ public class Review extends BaseParseObject<Review> {
         this.physicalRating = physicalRating;
     }
 
+    public ParseUser getByUser() {
+        return byUser;
+    }
+
+    public void setByUser(ParseUser byUser) {
+        this.byUser = byUser;
+    }
+
     @Override
     public Review instance()
     {
         return this;
+    }
+
+    public static ParseQuery<Review> getQuery() {
+        return ParseQuery.getQuery(Review.class);
     }
 }

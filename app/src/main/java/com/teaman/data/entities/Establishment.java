@@ -2,6 +2,7 @@ package com.teaman.data.entities;
 
 import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseQuery;
 import com.teaman.accessstillwater.base.BaseParseObject;
 
 /**
@@ -123,5 +124,9 @@ public class Establishment extends BaseParseObject<Establishment> {
     public Establishment instance()
     {
         return this;
+    }
+
+    public static ParseQuery<Establishment> getQuery() {
+        return ParseQuery.getQuery(Establishment.class);
     }
 }

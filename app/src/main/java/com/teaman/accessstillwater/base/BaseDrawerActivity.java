@@ -17,8 +17,8 @@ import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.ui.navigation.Navigator;
-import com.teaman.data.User;
 import com.teaman.data.authorization.LoginAdapter;
+import com.teaman.data.authorization.parse.ParseUserAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,7 +71,7 @@ public abstract class BaseDrawerActivity extends BaseActivity {
     @Bind(R.id.nav_header_layout)
     protected RelativeLayout mNavHeaderLayout;
 
-    private User mCurrentUser;
+    private ParseUserAdapter mCurrentUser;
     private LoginAdapter mLoginAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private Context mContext;

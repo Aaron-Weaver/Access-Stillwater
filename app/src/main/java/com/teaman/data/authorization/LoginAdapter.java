@@ -1,6 +1,6 @@
 package com.teaman.data.authorization;
 
-import com.teaman.data.User;
+import com.teaman.data.authorization.parse.ParseUserAdapter;
 
 /**
  * <h1> LoginAdapter </h1>
@@ -52,5 +52,5 @@ public interface LoginAdapter {
      *
      * @return  Implementation of User interface
      */
-    User getUser();
+    ParseUserAdapter getUser();
 }

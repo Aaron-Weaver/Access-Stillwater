@@ -4,12 +4,17 @@ import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.view.View;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseRecyclerListFragment;
 import com.teaman.accessstillwater.base.ItemCallback;
-import com.teaman.data.User;
 import com.teaman.data.authorization.LoginAdapter;
+import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
+
+import java.util.List;
 
 /**
  * Created by weava on 3/14/16.
@@ -29,7 +34,7 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
     private EstablishmentAdapter mEstablishmentAdapter;
     private int mEstablishmentListType;
 
-    private User mCurrentUser;
+    private ParseUser mCurrentUser;
 
     private LoginAdapter mLoginAdapter;
 
@@ -47,10 +52,29 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
         mLoginAdapter = AccessStillwaterApp.getmInstance().getLoginAdapter();
         mCurrentUser = mLoginAdapter.getUser();
         mEstablishmentAdapter = new EstablishmentAdapter(this);
+        initList(mEstablishmentAdapter, 1);
+        queryData();
     }
 
     @Override
     public void onCallback(Establishment item) {
 
+    }
+
+    public void queryData() {
+        mEstablishmentAdapter.clear();
+
+        if(mEstablishmentListType == FRAGMENT_FAVORITE) {
+            Activity.getQuery()
+                    .whereEqualTo("fromUser", mCurrentUser)
+                    .whereEqualTo("type", Activity.TYPE_FAVORITE).findInBackground(new FindCallback<Activity>() {
+                        @Override
+                        public void done(List<Activity> objects, ParseException e) {
+                            for(Activity act : objects) {
+                                mEstablishmentAdapter.add(act.getEstablishment());
+                            }
+                        }
+                    });
+        }
     }
 }

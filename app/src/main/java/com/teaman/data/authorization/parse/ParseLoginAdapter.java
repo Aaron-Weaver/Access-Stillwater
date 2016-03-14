@@ -97,11 +97,13 @@ public class ParseLoginAdapter implements LoginAdapter {
      * @return {@link User} that is currently logged in.
      */
     @Override
-    public User getUser() {
+    public ParseUserAdapter getUser() {
         if(this.isLoggedIn()) {
             return new ParseUserAdapter(ParseUser.getCurrentUser());
         } else {
             return null;
         }
     }
+
+
 }

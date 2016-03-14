@@ -16,9 +16,11 @@ import com.teaman.data.User;
  * @version 1.0
  * @since 1/31/16
  */
-public class ParseUserAdapter implements User {
+public class ParseUserAdapter extends ParseUser implements User{
 
     private ParseUser parseUser;
+
+    public ParseUserAdapter() { }
 
     public ParseUserAdapter(ParseUser parseUser) {
         this.parseUser = parseUser;
