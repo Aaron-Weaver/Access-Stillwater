@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
@@ -21,6 +23,9 @@ import com.teaman.accessstillwater.ui.establishment.EstablishmentListFragment;
 import com.teaman.accessstillwater.ui.navigation.Navigator;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.authorization.parse.ParseUserAdapter;
+import com.teaman.data.entities.Activity;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -144,7 +149,9 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
                                 Navigator.getInstance().navigateToLoginActivity(mContext);
                                 break;
                             case R.id.nav_home:
-                                Navigator.getInstance().navigateToMainActivity(mContext);
+                                if(!getTitle().equals(getString(R.string.activity_home))) {
+                                    Navigator.getInstance().navigateToMainActivity(mContext);
+                                }
                         }
                         return true;
                     }
@@ -184,7 +191,22 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
             }
 
             if(mFavoritesCount != null) {
-                mFavoritesCount.setText("0");
+                //mFavoritesCount.setText("0");
+                Activity.getQuery()
+                        .include("establishment")
+                        .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                        .whereEqualTo("type", Activity.TYPE_FAVORITE).findInBackground(new FindCallback<Activity>() {
+                    @Override
+                    public void done(List<Activity> objects, ParseException e) {
+                        Log.d("Establishments Results", "Establishments returning");
+
+                        if(objects != null) {
+                            mFavoritesCount.setText(String.valueOf(objects.size()));
+                        } else {
+                            mFavoritesCount.setText("0");
+                        }
+                    }
+                });
             }
 
             if(mReviewsCount != null) {
@@ -216,10 +238,13 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
 
     @Override
     public void onClick(View v) {
+        mDrawerLayout.closeDrawers();
         switch (v.getId()) {
             case R.id.favorites_linear_layout:
-                Navigator.getInstance().navigateToEstablishmentActivity(mContext,
-                        EstablishmentListFragment.FRAGMENT_FAVORITE);
+                if(!this.getTitle().equals(getString(R.string.activity_favorites))) {
+                    Navigator.getInstance().navigateToEstablishmentActivity(mContext,
+                            EstablishmentListFragment.FRAGMENT_FAVORITE);
+                }
                 break;
         }
     }

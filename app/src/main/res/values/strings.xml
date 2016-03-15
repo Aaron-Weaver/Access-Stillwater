@@ -55,9 +55,11 @@
     <string name="favorites_text">favorites</string>
 
     <!-- Drawer Menu strings -->
-    <string name="nav_sign_out">Sign out</string>
-    <string name="nav_home_string">Location finder</string>
+    <string name="nav_sign_out">Sign Out</string>
+    <string name="nav_home_string">Location Finder</string>
 
-    <string name="home_title">Location Finder</string>
+    <!-- Activity Titles -->
+    <string name="activity_home">Location Finder</string>
+    <string name="activity_favorites">Favorites</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
 import com.teaman.accessstillwater.utils.StringUtils;
 
@@ -29,6 +30,10 @@ public class EstablishmentActivity extends BaseDrawerActivity
         super.onCreate(savedInstanceState);
         mEstablishmentFragmentType = getIntent().getIntExtra(StringUtils.ESTABLISHMENT_TYPE_EXTRA,
                 EstablishmentListFragment.FRAGMENT_FAVORITE);
+
+        if(mEstablishmentFragmentType == EstablishmentListFragment.FRAGMENT_FAVORITE) {
+            setTitle(getString(R.string.activity_favorites));
+        }
 
         mEstablishmentListFragment = EstablishmentListFragment.newInstance(mEstablishmentFragmentType);
 
