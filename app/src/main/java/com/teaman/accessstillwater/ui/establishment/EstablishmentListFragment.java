@@ -52,7 +52,7 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
         super.onViewCreated(view, savedInstanceState);
         mLoginAdapter = AccessStillwaterApp.getmInstance().getLoginAdapter();
         mCurrentUser = mLoginAdapter.getBaseUser();
-        mEstablishmentAdapter = new EstablishmentAdapter(this);
+        mEstablishmentAdapter = new EstablishmentAdapter(this, getContext());
         mEstablishmentListType = getArguments().getInt(ESTABLISHMENT_LIST_TYPE);
         initList(mEstablishmentAdapter, 1);
         queryData();

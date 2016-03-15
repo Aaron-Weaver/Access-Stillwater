@@ -1,5 +1,6 @@
 package com.teaman.accessstillwater.ui.establishment;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
@@ -14,9 +15,11 @@ import com.teaman.data.entities.Establishment;
 public class EstablishmentAdapter extends BaseRecyclerAdapter<Establishment, EstablishmentViewHolder> {
 
     private ItemCallback<Establishment> mEstablishmentItemCallback;
+    private Context mContext;
 
-    public EstablishmentAdapter(ItemCallback<Establishment> establishmentItemCallback) {
+    public EstablishmentAdapter(ItemCallback<Establishment> establishmentItemCallback, Context context) {
         this.mEstablishmentItemCallback = establishmentItemCallback;
+        mContext = context;
     }
 
     @Override
@@ -26,7 +29,7 @@ public class EstablishmentAdapter extends BaseRecyclerAdapter<Establishment, Est
 
     @Override
     public EstablishmentViewHolder inflateViewHolder(View v) {
-        return new EstablishmentViewHolder(v, mEstablishmentItemCallback);
+        return new EstablishmentViewHolder(v, mEstablishmentItemCallback, mContext);
     }
 
     @Override

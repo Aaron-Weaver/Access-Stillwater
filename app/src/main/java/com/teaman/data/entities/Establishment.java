@@ -1,6 +1,7 @@
 package com.teaman.data.entities;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.teaman.accessstillwater.base.BaseParseObject;
@@ -34,8 +35,8 @@ public class Establishment extends BaseParseObject<Establishment> {
     private String name;
     private String type;
     private ParseGeoPoint location;
-    private String primaryImageURL;
-    private String[] alternateImageURLs;
+    private ParseFile businessImage;
+    private ParseFile[] alternateImages;
     private float auditoryRating;
     private float physicalRating;
     private float visualRating;
@@ -70,24 +71,24 @@ public class Establishment extends BaseParseObject<Establishment> {
         this.location = location;
     }
 
-    public String getPrimaryImageURL()
+    public ParseFile getBusinessImage()
     {
-        return primaryImageURL;
+        return businessImage;
     }
 
-    public void setPrimaryImageURL(String primaryImageURL)
+    public void setBusinessImage(ParseFile businessImage)
     {
-        this.primaryImageURL = primaryImageURL;
+        this.businessImage = businessImage;
     }
 
-    public String[] getAlternateImageURLs()
+    public ParseFile[] getAlternateImages()
     {
-        return alternateImageURLs;
+        return alternateImages;
     }
 
-    public void setAlternateImageURLs(String[] alternateImageURLs)
+    public void setAlternateImages(ParseFile[] alternateImages)
     {
-        this.alternateImageURLs = alternateImageURLs;
+        this.alternateImages = alternateImages;
     }
 
     public float getAuditoryRating()
