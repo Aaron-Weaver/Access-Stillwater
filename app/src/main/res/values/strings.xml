@@ -7,6 +7,8 @@
     <string name="login_fragment_tag">Login</string>
     <string name="login_activity">Login</string>
 
+    <string name="establishment_activity">Establishment List</string>
+
     <string name="signup_fragment_tag">Sign Up</string>
     <string name="signup_activity">Sign Up</string>
 
@@ -54,6 +56,8 @@
 
     <!-- Drawer Menu strings -->
     <string name="nav_sign_out">Sign out</string>
-    <string name="nav_home_string">Home</string>
+    <string name="nav_home_string">Location finder</string>
+
+    <string name="home_title">Location Finder</string>
 
 </resources>

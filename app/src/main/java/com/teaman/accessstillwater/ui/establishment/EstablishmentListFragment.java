@@ -2,6 +2,7 @@ package com.teaman.accessstillwater.ui.establishment;
 
 import android.os.Bundle;
 import android.support.annotation.IntDef;
+import android.util.Log;
 import android.view.View;
 
 import com.parse.FindCallback;
@@ -50,8 +51,9 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mLoginAdapter = AccessStillwaterApp.getmInstance().getLoginAdapter();
-        mCurrentUser = mLoginAdapter.getUser();
+        mCurrentUser = mLoginAdapter.getBaseUser();
         mEstablishmentAdapter = new EstablishmentAdapter(this);
+        mEstablishmentListType = getArguments().getInt(ESTABLISHMENT_LIST_TYPE);
         initList(mEstablishmentAdapter, 1);
         queryData();
     }
@@ -64,14 +66,27 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
     public void queryData() {
         mEstablishmentAdapter.clear();
 
+
         if(mEstablishmentListType == FRAGMENT_FAVORITE) {
+            Log.d("Establishments Results", "Establishments favoriteing");
             Activity.getQuery()
+                    .include("establishment")
                     .whereEqualTo("fromUser", mCurrentUser)
                     .whereEqualTo("type", Activity.TYPE_FAVORITE).findInBackground(new FindCallback<Activity>() {
                         @Override
                         public void done(List<Activity> objects, ParseException e) {
-                            for(Activity act : objects) {
-                                mEstablishmentAdapter.add(act.getEstablishment());
+                            Log.d("Establishments Results", "Establishments returning");
+
+                            if(objects != null) {
+                                if (objects.size() > 0) {
+                                    for (Activity act : objects) {
+                                        act = act.fromParseObject(act);
+                                        Establishment est = act.getEstablishment().fromParseObject(act.getEstablishment());
+                                        Log.d("Establishment Name", est.getName());
+
+                                        mEstablishmentAdapter.add(est);
+                                    }
+                                }
                             }
                         }
                     });

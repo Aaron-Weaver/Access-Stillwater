@@ -1,5 +1,6 @@
 package com.teaman.accessstillwater.ui.establishment;
 
+import android.util.Log;
 import android.view.View;
 
 import com.teaman.accessstillwater.R;
@@ -30,6 +31,7 @@ public class EstablishmentAdapter extends BaseRecyclerAdapter<Establishment, Est
 
     @Override
     public void onBindViewHolder(EstablishmentViewHolder holder, int position) {
+        Log.d("Binding View Name", mElements.get(position).getName());
         holder.bind(mElements.get(position));
     }
 }

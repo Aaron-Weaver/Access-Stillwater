@@ -73,9 +73,6 @@ public class LoginActivity extends BaseActivity implements LoginCallback, LoginI
 
     @Override
     public void loginSuccess() {
-        Log.d("Login Activity",
-                "login for user: " + mLoginAdapter.getUser().getUsername() + " was successful");
-
         this.mLoginLoadingDialog.dismiss();
 
         Navigator.getInstance().navigateToMainActivity(this);
