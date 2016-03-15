@@ -10,12 +10,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
+import com.teaman.accessstillwater.ui.establishment.EstablishmentListFragment;
 import com.teaman.accessstillwater.ui.navigation.Navigator;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.authorization.parse.ParseUserAdapter;
@@ -39,7 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * @version 1.0
  * @since 2/25/16
  */
-public abstract class BaseDrawerActivity extends BaseActivity {
+public abstract class BaseDrawerActivity extends BaseActivity implements View.OnClickListener{
 
     @Bind(R.id.nav_drawer_layout)
     protected DrawerLayout mDrawerLayout;
@@ -141,12 +143,19 @@ public abstract class BaseDrawerActivity extends BaseActivity {
                                 mLoginAdapter.logOut();
                                 Navigator.getInstance().navigateToLoginActivity(mContext);
                                 break;
+                            case R.id.nav_home:
+                                Navigator.getInstance().navigateToMainActivity(mContext);
                         }
                         return true;
                     }
                 });
 
         mNavHeaderLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.nav_header, null);
+
+        LinearLayout favoritesHeader = (LinearLayout)
+                mNavHeaderLayout.findViewById(R.id.favorites_linear_layout);
+
+        favoritesHeader.setOnClickListener(this);
 
         if(mNavHeaderLayout != null) {
             mNavMenu.addHeaderView(mNavHeaderLayout);
@@ -205,4 +214,13 @@ public abstract class BaseDrawerActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.favorites_linear_layout:
+                Navigator.getInstance().navigateToEstablishmentActivity(mContext,
+                        EstablishmentListFragment.FRAGMENT_FAVORITE);
+                break;
+        }
+    }
 }

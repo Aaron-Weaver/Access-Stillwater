@@ -53,6 +53,7 @@
     <string name="favorites_text">favorites</string>
 
     <!-- Drawer Menu strings -->
-    <string name="sign_out">Sign out</string>
+    <string name="nav_sign_out">Sign out</string>
+    <string name="nav_home_string">Home</string>
 
 </resources>

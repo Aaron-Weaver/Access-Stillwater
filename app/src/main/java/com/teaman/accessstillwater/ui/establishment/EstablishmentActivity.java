@@ -1,18 +1,37 @@
 package com.teaman.accessstillwater.ui.establishment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
+import com.teaman.accessstillwater.utils.StringUtils;
 
 /**
  * Created by weava on 3/12/16.
  */
 public class EstablishmentActivity extends BaseDrawerActivity
 {
+    @EstablishmentListFragment.EstablishmentListType int mEstablishmentFragmentType;
+
+    private EstablishmentListFragment mEstablishmentListFragment;
+
+    public static Intent getCallingIntent(Context context) {
+        Intent callingIntent = new Intent(context, EstablishmentActivity.class);
+        return callingIntent;
+    }
+
+    @SuppressWarnings("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        mEstablishmentFragmentType = getIntent().getIntExtra(StringUtils.ESTABLISHMENT_TYPE_EXTRA,
+                EstablishmentListFragment.FRAGMENT_FAVORITE);
+
+        mEstablishmentListFragment = EstablishmentListFragment.newInstance(mEstablishmentFragmentType);
+
+        this.addFragmentToContainer(mEstablishmentListFragment, "establishmentFragment");
     }
 }

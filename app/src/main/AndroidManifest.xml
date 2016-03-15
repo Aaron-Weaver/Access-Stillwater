@@ -53,6 +53,12 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.establishment.EstablishmentActivity"
+            android:label="Establishment List">
+
+        </activity>
+
     </application>
 
 </manifest>
