@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -27,6 +28,9 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.establishment_picture)
     protected ImageView mEstablishmentImage;
+
+    @Bind(R.id.linear_star_layout)
+    protected LinearLayout mReviewStarsLayout;
 
     @Bind({R.id.establishment_review_star_1, R.id.establishment_review_star_2,
             R.id.establishment_review_star_3, R.id.establishment_review_star_4,
@@ -55,12 +59,16 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
                     .into(mEstablishmentImage);
         }
 
-        for(int i = 0; i < mEstablishmentStarViews.size(); i++) {
-            if(i + 1 <= mEstablishment.getTotalRating()) {
-                Picasso.with(mContext)
-                        .load(R.drawable.ic_star_full)
-                        .into(mEstablishmentStarViews.get(i));
+        if(mEstablishment.getTotalRating() > 0) {
+            for (int i = 0; i < mEstablishmentStarViews.size(); i++) {
+                if (i + 1 <= mEstablishment.getTotalRating()) {
+                    Picasso.with(mContext)
+                            .load(R.drawable.ic_star_full)
+                            .into(mEstablishmentStarViews.get(i));
+                }
             }
+        } else {
+            mReviewStarsLayout.setVisibility(View.GONE);
         }
     }
 

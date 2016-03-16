@@ -72,26 +72,28 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
         if(mEstablishmentListType == FRAGMENT_FAVORITE) {
             Log.d("Establishments Results", "Establishments favoriteing");
             Activity.getQuery()
-                    .include("establishment")
-                    .whereEqualTo("fromUser", mCurrentUser)
-                    .whereEqualTo("type", Activity.TYPE_FAVORITE).findInBackground(new FindCallback<Activity>() {
-                        @Override
-                        public void done(List<Activity> objects, ParseException e) {
-                            Log.d("Establishments Results", "Establishments returning");
+                .include("establishment")
+                .whereEqualTo("fromUser", mCurrentUser)
+                .whereEqualTo("type", Activity.TYPE_FAVORITE).findInBackground(new FindCallback<Activity>() {
+                    @Override
+                    public void done(List<Activity> objects, ParseException e) {
+                        Log.d("Establishments Results", "Establishments returning");
 
-                            if(objects != null) {
-                                if (objects.size() > 0) {
-                                    for (Activity act : objects) {
-                                        act = act.fromParseObject(act);
-                                        Establishment est = act.getEstablishment().fromParseObject(act.getEstablishment());
-                                        Log.d("Establishment Name", est.getName());
+                        if(objects != null) {
+                            if (objects.size() > 0) {
+                                for (Activity act : objects) {
+                                    act = act.fromParseObject(act);
+                                    Establishment est = act.getEstablishment().fromParseObject(act.getEstablishment());
+                                    Log.d("Establishment Name", est.getName());
 
-                                        mEstablishmentAdapter.add(est);
-                                    }
+                                    mEstablishmentAdapter.add(est);
                                 }
                             }
                         }
-                    });
+                    }
+                });
+        } else if(mEstablishmentListType == FRAGMENT_SEARCH) {
+            // Grab results from search, cross-reference with establishments.
         }
     }
 }
