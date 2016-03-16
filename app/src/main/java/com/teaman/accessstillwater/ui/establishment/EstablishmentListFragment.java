@@ -11,6 +11,7 @@ import com.parse.ParseUser;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseRecyclerListFragment;
 import com.teaman.accessstillwater.base.ItemCallback;
+import com.teaman.accessstillwater.view.DividerItemDecoration;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
@@ -52,8 +53,9 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
         super.onViewCreated(view, savedInstanceState);
         mLoginAdapter = AccessStillwaterApp.getmInstance().getLoginAdapter();
         mCurrentUser = mLoginAdapter.getBaseUser();
-        mEstablishmentAdapter = new EstablishmentAdapter(this, getContext());
+        mEstablishmentAdapter = new EstablishmentAdapter(this, getActivity());
         mEstablishmentListType = getArguments().getInt(ESTABLISHMENT_LIST_TYPE);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         initList(mEstablishmentAdapter, 1);
         queryData();
     }

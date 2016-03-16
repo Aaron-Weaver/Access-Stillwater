@@ -37,9 +37,18 @@ public class Establishment extends BaseParseObject<Establishment> {
     private ParseGeoPoint location;
     private ParseFile businessImage;
     private ParseFile[] alternateImages;
+    private float totalRating;
     private float auditoryRating;
     private float physicalRating;
     private float visualRating;
+
+    public float getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(float totalRating) {
+        this.totalRating = totalRating;
+    }
 
     public String getName()
     {

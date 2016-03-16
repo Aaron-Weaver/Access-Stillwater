@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -11,9 +12,10 @@ import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.ItemCallback;
 import com.teaman.data.entities.Establishment;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by weava on 3/14/16.
@@ -24,7 +26,12 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
     protected TextView mEstablishmentName;
 
     @Bind(R.id.establishment_picture)
-    protected CircleImageView mEstablishmentImage;
+    protected ImageView mEstablishmentImage;
+
+    @Bind({R.id.establishment_review_star_1, R.id.establishment_review_star_2,
+            R.id.establishment_review_star_3, R.id.establishment_review_star_4,
+            R.id.establishment_review_star_5})
+    protected List<ImageView> mEstablishmentStarViews;
 
     private Establishment mEstablishment;
     private ItemCallback<Establishment> mEstablishmentItemCallback;
@@ -33,8 +40,8 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
     public EstablishmentViewHolder(View itemView, ItemCallback<Establishment> establishmentItemCallback, Context context) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-        mEstablishmentItemCallback = establishmentItemCallback;
         mContext = context;
+        mEstablishmentItemCallback = establishmentItemCallback;
     }
 
     private void setView() {
@@ -47,6 +54,14 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
                     .fit()
                     .into(mEstablishmentImage);
         }
+
+        for(int i = 0; i < mEstablishmentStarViews.size(); i++) {
+            if(i + 1 <= mEstablishment.getTotalRating()) {
+                Picasso.with(mContext)
+                        .load(R.drawable.ic_star_full)
+                        .into(mEstablishmentStarViews.get(i));
+            }
+        }
     }
 
     @Override
@@ -57,6 +72,7 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
     public void bind(Establishment est) {
         mEstablishment = est;
         Log.d("EstablishmentViewHolder", mEstablishment.getName());
+
         setView();
     }
 }
