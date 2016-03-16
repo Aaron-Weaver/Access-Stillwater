@@ -21,6 +21,7 @@ import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.ui.establishment.EstablishmentListFragment;
 import com.teaman.accessstillwater.ui.navigation.Navigator;
+import com.teaman.accessstillwater.ui.review.ReviewListFragment;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.authorization.parse.ParseUserAdapter;
 import com.teaman.data.entities.Activity;
@@ -161,8 +162,14 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
 
         LinearLayout favoritesHeader = (LinearLayout)
                 mNavHeaderLayout.findViewById(R.id.favorites_linear_layout);
+        LinearLayout reviewsHeader = (LinearLayout)
+                mNavHeaderLayout.findViewById(R.id.reviews_linear_layout);
+        LinearLayout friendsHeader = (LinearLayout)
+                mNavHeaderLayout.findViewById(R.id.friends_linear_layout);
 
         favoritesHeader.setOnClickListener(this);
+        reviewsHeader.setOnClickListener(this);
+        friendsHeader.setOnClickListener(this);
 
         if(mNavHeaderLayout != null) {
             mNavMenu.addHeaderView(mNavHeaderLayout);
@@ -193,7 +200,6 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
             if(mFavoritesCount != null) {
                 //mFavoritesCount.setText("0");
                 Activity.getQuery()
-                        .include("establishment")
                         .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
                         .whereEqualTo("type", Activity.TYPE_FAVORITE).findInBackground(new FindCallback<Activity>() {
                     @Override
@@ -210,7 +216,19 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
             }
 
             if(mReviewsCount != null) {
-                mReviewsCount.setText("0");
+                //mReviewsCount.setText("0");
+                Activity.getQuery()
+                        .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                        .whereEqualTo("type", Activity.TYPE_REVIEW).findInBackground(new FindCallback<Activity>() {
+                    @Override
+                    public void done(List<Activity> objects, ParseException e) {
+                        if(objects != null) {
+                            mReviewsCount.setText(String.valueOf(objects.size()));
+                        } else {
+                            mReviewsCount.setText("0");
+                        }
+                    }
+                });
             }
 
             if(mFriendsCount != null) {
@@ -244,6 +262,13 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
                 if(!this.getTitle().equals(getString(R.string.activity_favorites))) {
                     Navigator.getInstance().navigateToEstablishmentActivity(mContext,
                             EstablishmentListFragment.FRAGMENT_FAVORITE);
+                }
+                break;
+            case R.id.reviews_linear_layout:
+                Log.d("Nav Header", "Reviews clicked");
+                if(!this.getTitle().equals(R.string.activity_user_reviews)) {
+                    Navigator.getInstance().navigateToReviewListActivity(mContext,
+                            ReviewListFragment.FRAGMENT_USER);
                 }
                 break;
         }

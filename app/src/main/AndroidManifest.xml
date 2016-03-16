@@ -59,6 +59,12 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.review.ReviewListActivity"
+            android:label="@string/review_list_activity">
+
+        </activity>
+
     </application>
 
 </manifest>

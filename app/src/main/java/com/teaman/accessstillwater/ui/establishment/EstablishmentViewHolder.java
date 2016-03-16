@@ -59,7 +59,10 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
                     .into(mEstablishmentImage);
         }
 
-        if(mEstablishment.getTotalRating() > 0) {
+        Log.d("View Holder", mEstablishmentName + " | " + mEstablishment.getTotalRating() + " | "
+                + mEstablishment.getAuditoryRating() + "," + mEstablishment.getVisualRating() + "," + mEstablishment.getPhysicalRating());
+
+        if(mEstablishment.getTotalRating() >= 0) {
             for (int i = 0; i < mEstablishmentStarViews.size(); i++) {
                 if (i + 1 <= mEstablishment.getTotalRating()) {
                     Picasso.with(mContext)

@@ -9,6 +9,8 @@
 
     <string name="establishment_activity">Establishment List</string>
 
+    <string name="review_list_activity">Review List</string>
+
     <string name="signup_fragment_tag">Sign Up</string>
     <string name="signup_activity">Sign Up</string>
 
@@ -61,5 +63,6 @@
     <!-- Activity Titles -->
     <string name="activity_home">Location Finder</string>
     <string name="activity_favorites">Favorites</string>
+    <string name="activity_user_reviews">User Reviews</string>
 
 </resources>

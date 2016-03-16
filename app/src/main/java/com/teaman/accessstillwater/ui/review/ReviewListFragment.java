@@ -2,21 +2,25 @@ package com.teaman.accessstillwater.ui.review;
 
 import android.os.Bundle;
 import android.support.annotation.IntDef;
+import android.util.Log;
 import android.view.View;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseRecyclerListFragment;
 import com.teaman.accessstillwater.base.ItemCallback;
-import com.teaman.accessstillwater.ui.establishment.EstablishmentListFragment;
 import com.teaman.accessstillwater.view.DividerItemDecoration;
 import com.teaman.data.authorization.LoginAdapter;
-import com.teaman.data.entities.Review;
+import com.teaman.data.entities.Activity;
+
+import java.util.List;
 
 /**
  * Created by weava on 3/16/16.
  */
-public class ReviewListFragment extends BaseRecyclerListFragment implements ItemCallback<Review> {
+public class ReviewListFragment extends BaseRecyclerListFragment implements ItemCallback<Activity> {
 
     public static final String REVIEW_LIST_TYPE =
             "ReviewListType";
@@ -53,7 +57,7 @@ public class ReviewListFragment extends BaseRecyclerListFragment implements Item
     }
 
     @Override
-    public void onCallback(Review item) {
+    public void onCallback(Activity item) {
 
     }
 
@@ -61,6 +65,25 @@ public class ReviewListFragment extends BaseRecyclerListFragment implements Item
         mReviewListAdapter.clear();
 
         if(mReviewListType == FRAGMENT_USER) {
+            Activity.getQuery()
+                    .include("review")
+                    .include("establishment")
+                    .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                    .whereEqualTo("type", Activity.TYPE_REVIEW).findInBackground(new FindCallback<Activity>() {
+                @Override
+                public void done(List<Activity> objects, ParseException e) {
+                    if(objects != null) {
+                        if(objects.size() > 0) {
+                            for(Activity act : objects) {
+                                act = act.fromParseObject(act);
+                                Log.d("Review List", act.getType());
+
+                                mReviewListAdapter.add(act);
+                            }
+                        }
+                    }
+                }
+            });
 
         } else if(mReviewListType == FRAGMENT_ESTABLISHMENT) {
 

@@ -7,8 +7,6 @@ import android.support.annotation.Nullable;
 
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
-import com.teaman.accessstillwater.ui.establishment.EstablishmentActivity;
-import com.teaman.accessstillwater.ui.establishment.EstablishmentListFragment;
 import com.teaman.accessstillwater.utils.StringUtils;
 
 /**
@@ -21,7 +19,7 @@ public class ReviewListActivity extends BaseDrawerActivity {
     @ReviewListFragment.ReviewListType int mReviewListType;
 
     public static Intent getCallingIntent(Context context) {
-        Intent callingIntent = new Intent(context, EstablishmentActivity.class);
+        Intent callingIntent = new Intent(context, ReviewListActivity.class);
         return callingIntent;
     }
 
@@ -30,11 +28,11 @@ public class ReviewListActivity extends BaseDrawerActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        mReviewListType = getIntent().getIntExtra(StringUtils.ESTABLISHMENT_TYPE_EXTRA,
-                EstablishmentListFragment.FRAGMENT_FAVORITE);
+        mReviewListType = getIntent().getIntExtra(StringUtils.REVIEW_TYPE_EXTRA,
+                ReviewListFragment.FRAGMENT_USER);
 
-        if(mReviewListType == EstablishmentListFragment.FRAGMENT_FAVORITE) {
-            setTitle(getString(R.string.activity_favorites));
+        if(mReviewListType == ReviewListFragment.FRAGMENT_USER) {
+            setTitle(getString(R.string.activity_user_reviews));
         }
 
         mReviewListFragment = ReviewListFragment.newInstance(mReviewListType);

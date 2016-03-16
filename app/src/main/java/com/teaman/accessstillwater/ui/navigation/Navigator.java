@@ -8,6 +8,8 @@ import com.teaman.accessstillwater.ui.establishment.EstablishmentListFragment;
 import com.teaman.accessstillwater.ui.login.LoginActivity;
 import com.teaman.accessstillwater.ui.login.SignupActivity;
 import com.teaman.accessstillwater.ui.main.MainActivity;
+import com.teaman.accessstillwater.ui.review.ReviewListActivity;
+import com.teaman.accessstillwater.ui.review.ReviewListFragment;
 import com.teaman.accessstillwater.utils.StringUtils;
 
 /**
@@ -63,6 +65,14 @@ public class Navigator {
         if(context != null) {
             Intent moveToIntent = EstablishmentActivity.getCallingIntent(context);
             moveToIntent.putExtra(StringUtils.ESTABLISHMENT_TYPE_EXTRA, type);
+            context.startActivity(moveToIntent);
+        }
+    }
+
+    public void navigateToReviewListActivity(Context context, @ReviewListFragment.ReviewListType int type) {
+        if(context != null) {
+            Intent moveToIntent = ReviewListActivity.getCallingIntent(context);
+            moveToIntent.putExtra(StringUtils.REVIEW_TYPE_EXTRA, type);
             context.startActivity(moveToIntent);
         }
     }

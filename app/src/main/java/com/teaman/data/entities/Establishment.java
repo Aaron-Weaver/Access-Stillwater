@@ -37,17 +37,17 @@ public class Establishment extends BaseParseObject<Establishment> {
     private ParseGeoPoint location;
     private ParseFile businessImage;
     private ParseFile[] alternateImages;
-    private float totalRating;
-    private float auditoryRating;
-    private float physicalRating;
-    private float visualRating;
+    private int totalRating;
+    private int auditoryRating;
+    private int physicalRating;
+    private int visualRating;
 
-    public float getTotalRating() {
-        return totalRating;
+    public int getTotalRating() {
+        return (getAuditoryRating() + getPhysicalRating() + getVisualRating()) / 3;
     }
 
-    public void setTotalRating(float totalRating) {
-        this.totalRating = totalRating;
+    public void setTotalRating() {
+        this.totalRating = getTotalRating();
     }
 
     public String getName()
@@ -100,32 +100,32 @@ public class Establishment extends BaseParseObject<Establishment> {
         this.alternateImages = alternateImages;
     }
 
-    public float getAuditoryRating()
+    public int getAuditoryRating()
     {
         return auditoryRating;
     }
 
-    public void setAuditoryRating(float auditoryRating)
+    public void setAuditoryRating(int auditoryRating)
     {
         this.auditoryRating = auditoryRating;
     }
 
-    public float getPhysicalRating()
+    public int getPhysicalRating()
     {
         return physicalRating;
     }
 
-    public void setPhysicalRating(float physicalRating)
+    public void setPhysicalRating(int physicalRating)
     {
         this.physicalRating = physicalRating;
     }
 
-    public float getVisualRating()
+    public int getVisualRating()
     {
         return visualRating;
     }
 
-    public void setVisualRating(float visualRating)
+    public void setVisualRating(int visualRating)
     {
         this.visualRating = visualRating;
     }

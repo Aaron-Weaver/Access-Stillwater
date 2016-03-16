@@ -6,18 +6,18 @@ import android.view.View;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseRecyclerAdapter;
 import com.teaman.accessstillwater.base.ItemCallback;
-import com.teaman.data.entities.Review;
+import com.teaman.data.entities.Activity;
 
 /**
  * Created by weava on 3/16/16.
  */
-public class ReviewListAdapter extends BaseRecyclerAdapter<Review, ReviewViewHolder> {
+public class ReviewListAdapter extends BaseRecyclerAdapter<Activity, ReviewViewHolder> {
 
-    private ItemCallback<Review> mReviewItemCallback;
+    private ItemCallback<Activity> mActivityItemCallback;
     private Context mContext;
 
-    public ReviewListAdapter(ItemCallback<Review> establishmentItemCallback, Context context) {
-        this.mReviewItemCallback = establishmentItemCallback;
+    public ReviewListAdapter(ItemCallback<Activity> activityItemCallback, Context context) {
+        mActivityItemCallback = activityItemCallback;
         mContext = context;
     }
 
@@ -28,11 +28,11 @@ public class ReviewListAdapter extends BaseRecyclerAdapter<Review, ReviewViewHol
 
     @Override
     public ReviewViewHolder inflateViewHolder(View v) {
-        return null;
+        return new ReviewViewHolder(v, mActivityItemCallback, mContext);
     }
 
     @Override
     public void onBindViewHolder(ReviewViewHolder holder, int position) {
-
+        holder.bind(mElements.get(position));
     }
 }

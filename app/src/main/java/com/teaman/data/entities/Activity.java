@@ -32,6 +32,7 @@ public class Activity extends BaseParseObject<Activity> {
     private String type;
     private String content;
     private Establishment establishment;
+    private Review review;
 
     public Activity() {
 
@@ -43,19 +44,19 @@ public class Activity extends BaseParseObject<Activity> {
         return this;
     }
 
-    public ParseUser getFromUsername() {
+    public ParseUser getFromUser() {
         return fromUser;
     }
 
-    public void setFromUsername(ParseUser fromUsername) {
+    public void setFromUser(ParseUser fromUsername) {
         this.fromUser = fromUsername;
     }
 
-    public ParseUser getToUsername() {
+    public ParseUser getToUser() {
         return toUser;
     }
 
-    public void setToUsername(ParseUser toUsername) {
+    public void setToUser(ParseUser toUsername) {
         this.toUser = toUsername;
     }
 
@@ -81,6 +82,14 @@ public class Activity extends BaseParseObject<Activity> {
 
     public void setEstablishment(Establishment establishmentName) {
         this.establishment = establishmentName;
+    }
+
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
     }
 
     public static ParseQuery<Activity> getQuery() {
