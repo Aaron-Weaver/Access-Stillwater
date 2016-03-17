@@ -7,7 +7,9 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.teaman.data.User;
+import com.teaman.data.authorization.InformationAdapter;
 import com.teaman.data.authorization.LoginAdapter;
+import com.teaman.data.authorization.parse.ParseInformationAdapter;
 import com.teaman.data.authorization.parse.ParseLoginAdapter;
 import com.teaman.data.authorization.parse.ParseUserAdapter;
 import com.teaman.data.entities.Activity;
@@ -47,7 +49,12 @@ public class AccessStillwaterApp extends Application {
     private static AccessStillwaterApp mInstance;
 
     private LoginAdapter loginAdapter = new ParseLoginAdapter();
+<<<<<<< HEAD
+    private InformationAdapter informationAdapter = new ParseInformationAdapter();
+    private User user;
+=======
     private ParseUserAdapter user;
+>>>>>>> 5adc3a21f6e3c7ccb8471c6d1b9515b258d79b6b
 
     private PlacesApi mPlacesApi;
 
@@ -95,6 +102,14 @@ public class AccessStillwaterApp extends Application {
         }
 
         return this.loginAdapter;
+    }
+
+    public InformationAdapter getInformationAdapter(){
+        if(this.informationAdapter == null){
+            this.informationAdapter = new ParseInformationAdapter();
+        }
+
+        return this.informationAdapter;
     }
 
     /**

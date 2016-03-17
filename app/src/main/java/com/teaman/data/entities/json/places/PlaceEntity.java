@@ -1,6 +1,7 @@
 
 package com.teaman.data.entities.json.places;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -34,6 +35,10 @@ public class PlaceEntity
     @SerializedName("types")
     @Expose
     private List<String> types = new ArrayList<String>();
+    @SerializedName("photos")
+    @Expose
+    private List<Photo> photos = new ArrayList<Photo>();
+
 
     /**
      * 
@@ -162,21 +167,38 @@ public class PlaceEntity
     }
 
     /**
-     * 
+     *
      * @return
      *     The types
      */
-    public List<String> getTypes() {
-        return types;
+    public List<String> getTypes() { return types;
     }
 
     /**
-     * 
+     *
      * @param types
      *     The types
      */
     public void setTypes(List<String> types) {
         this.types = types;
+    }
+
+    /**
+     *
+     * @return
+     *     The photos
+     */
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    /**
+     *
+     * @param types
+     *     The photos
+     */
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
     }
 
 }
