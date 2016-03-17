@@ -7,7 +7,9 @@
     <dimen name="login_edit_text_margin">25dp</dimen>
     <dimen name="login_button_margin">50dp</dimen>
 
-    <dimen name="header_profile_image">75dp</dimen>
+    <dimen name="header_profile_image">64dp</dimen>
     <dimen name="header_internal_padding">24dp</dimen>
-    <dimen name="header_small_icon">40dp</dimen>
+    <dimen name="header_small_icon">24dp</dimen>
+
+    <dimen name="star_icon_size">24dp</dimen>
 </resources>

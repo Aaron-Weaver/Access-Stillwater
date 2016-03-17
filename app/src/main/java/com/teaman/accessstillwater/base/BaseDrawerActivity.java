@@ -1,6 +1,7 @@
 package com.teaman.accessstillwater.base;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -64,20 +64,12 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
     protected TextView mProfileName;
 
     @Nullable
-    @Bind(R.id.friends_count)
-    protected TextView mFriendsCount;
-
-    @Nullable
-    @Bind(R.id.reviews_count)
-    protected TextView mReviewsCount;
-
-    @Nullable
-    @Bind(R.id.favorites_count)
-    protected TextView mFavoritesCount;
+    @Bind(R.id.header_username_text)
+    protected TextView mUserName;
 
     @Nullable
     @Bind(R.id.nav_header_layout)
-    protected RelativeLayout mNavHeaderLayout;
+    protected LinearLayout mNavHeaderLayout;
 
     private ParseUserAdapter mCurrentUser;
     private LoginAdapter mLoginAdapter;
@@ -104,6 +96,12 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
         if(mDrawerLayout != null && mNavMenu != null) {
             drawerSetup();
         }
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -153,31 +151,73 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
                                 if(!getTitle().equals(getString(R.string.activity_home))) {
                                     Navigator.getInstance().navigateToMainActivity(mContext);
                                 }
+                                break;
+                            case R.id.nav_favorites:
+                                if(!getTitle().equals(getString(R.string.activity_user_favorites))) {
+                                    Navigator.getInstance().navigateToEstablishmentActivity(mContext,
+                                            EstablishmentListFragment.FRAGMENT_FAVORITE);
+                                }
+                                break;
+                            case R.id.nav_reviews:
+                                if(!getTitle().equals(R.string.activity_user_reviews)) {
+                                    Navigator.getInstance().navigateToReviewListActivity(mContext,
+                                            ReviewListFragment.FRAGMENT_USER);
+                                }
+                                break;
+                            case R.id.nav_friends:
+                                break;
                         }
                         return true;
                     }
                 });
 
-        mNavHeaderLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.nav_header, null);
+        final TextView favoritesCounter = (TextView) mNavMenu.getMenu().findItem(R.id.nav_favorites).getActionView();
+        final TextView reviewsCounter = (TextView) mNavMenu.getMenu().findItem(R.id.nav_reviews).getActionView();
+        final TextView friendsCounter = (TextView) mNavMenu.getMenu().findItem(R.id.nav_friends).getActionView();
 
-        LinearLayout favoritesHeader = (LinearLayout)
-                mNavHeaderLayout.findViewById(R.id.favorites_linear_layout);
-        LinearLayout reviewsHeader = (LinearLayout)
-                mNavHeaderLayout.findViewById(R.id.reviews_linear_layout);
-        LinearLayout friendsHeader = (LinearLayout)
-                mNavHeaderLayout.findViewById(R.id.friends_linear_layout);
+        if(favoritesCounter != null) {
+            Activity.getQuery()
+                    .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                    .whereEqualTo("type", Activity.TYPE_FAVORITE).findInBackground(new FindCallback<Activity>() {
+                @Override
+                public void done(List<Activity> objects, ParseException e) {
+                    Log.d("Establishments Results", "Establishments returning");
 
-        favoritesHeader.setOnClickListener(this);
-        reviewsHeader.setOnClickListener(this);
-        friendsHeader.setOnClickListener(this);
+                    if(objects != null) {
+                        favoritesCounter.setText(String.valueOf(objects.size()));
+                    } else {
+                        favoritesCounter.setText("0");
+                    }
+                }
+            });
+        }
+
+        if(reviewsCounter != null) {
+            Activity.getQuery()
+                    .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                    .whereEqualTo("type", Activity.TYPE_REVIEW).findInBackground(new FindCallback<Activity>() {
+                @Override
+                public void done(List<Activity> objects, ParseException e) {
+                    if(objects != null) {
+                        reviewsCounter.setText(String.valueOf(objects.size()));
+                    } else {
+                        reviewsCounter.setText("0");
+                    }
+                }
+            });
+        }
+
+        if(friendsCounter != null) {
+            friendsCounter.setText("0");
+        }
+
+        mNavHeaderLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.nav_header, null);
 
         if(mNavHeaderLayout != null) {
             mNavMenu.addHeaderView(mNavHeaderLayout);
             mProfileImage = ButterKnife.findById(mNavHeaderLayout, R.id.header_profile_image);
             mProfileName = ButterKnife.findById(mNavHeaderLayout, R.id.header_profile_name);
-            mFriendsCount = ButterKnife.findById(mNavHeaderLayout, R.id.friends_count);
-            mFavoritesCount = ButterKnife.findById(mNavHeaderLayout, R.id.favorites_count);
-            mReviewsCount = ButterKnife.findById(mNavHeaderLayout, R.id.reviews_count);
+            mUserName = ButterKnife.findById(mNavHeaderLayout, R.id.header_username_text);
             drawerUpdate();
         }
     }
@@ -197,42 +237,12 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
                 mProfileName.setText(mCurrentUser.getDisplayName(false));
             }
 
-            if(mFavoritesCount != null) {
-                //mFavoritesCount.setText("0");
-                Activity.getQuery()
-                        .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
-                        .whereEqualTo("type", Activity.TYPE_FAVORITE).findInBackground(new FindCallback<Activity>() {
-                    @Override
-                    public void done(List<Activity> objects, ParseException e) {
-                        Log.d("Establishments Results", "Establishments returning");
 
-                        if(objects != null) {
-                            mFavoritesCount.setText(String.valueOf(objects.size()));
-                        } else {
-                            mFavoritesCount.setText("0");
-                        }
-                    }
-                });
-            }
-
-            if(mReviewsCount != null) {
-                //mReviewsCount.setText("0");
-                Activity.getQuery()
-                        .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
-                        .whereEqualTo("type", Activity.TYPE_REVIEW).findInBackground(new FindCallback<Activity>() {
-                    @Override
-                    public void done(List<Activity> objects, ParseException e) {
-                        if(objects != null) {
-                            mReviewsCount.setText(String.valueOf(objects.size()));
-                        } else {
-                            mReviewsCount.setText("0");
-                        }
-                    }
-                });
-            }
-
-            if(mFriendsCount != null) {
-                mFriendsCount.setText("0");
+            if(mUserName != null) {
+                if(mLoginAdapter.getBaseUser().getString("username") != null) {
+                    Log.d("BASE DRAWER ACTIVITY", mLoginAdapter.getBaseUser().getString("username"));
+                    mUserName.setText(mLoginAdapter.getBaseUser().getString("username"));
+                }
             }
         }
     }
@@ -258,19 +268,7 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
     public void onClick(View v) {
         mDrawerLayout.closeDrawers();
         switch (v.getId()) {
-            case R.id.favorites_linear_layout:
-                if(!this.getTitle().equals(getString(R.string.activity_favorites))) {
-                    Navigator.getInstance().navigateToEstablishmentActivity(mContext,
-                            EstablishmentListFragment.FRAGMENT_FAVORITE);
-                }
-                break;
-            case R.id.reviews_linear_layout:
-                Log.d("Nav Header", "Reviews clicked");
-                if(!this.getTitle().equals(R.string.activity_user_reviews)) {
-                    Navigator.getInstance().navigateToReviewListActivity(mContext,
-                            ReviewListFragment.FRAGMENT_USER);
-                }
-                break;
+
         }
     }
 }

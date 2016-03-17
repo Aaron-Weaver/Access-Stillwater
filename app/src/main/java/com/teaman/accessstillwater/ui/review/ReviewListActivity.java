@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.teaman.accessstillwater.R;
-import com.teaman.accessstillwater.base.BaseDrawerActivity;
+import com.teaman.accessstillwater.base.BaseActivity;
 import com.teaman.accessstillwater.utils.StringUtils;
 
 /**
  * Created by weava on 3/16/16.
  */
-public class ReviewListActivity extends BaseDrawerActivity {
+public class ReviewListActivity extends BaseActivity {
 
     private ReviewListFragment mReviewListFragment;
 
@@ -28,6 +28,7 @@ public class ReviewListActivity extends BaseDrawerActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        this.enableBackNav();
         mReviewListType = getIntent().getIntExtra(StringUtils.REVIEW_TYPE_EXTRA,
                 ReviewListFragment.FRAGMENT_USER);
 

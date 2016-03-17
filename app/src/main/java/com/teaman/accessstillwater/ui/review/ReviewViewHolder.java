@@ -93,7 +93,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
             ParseUserAdapter user = new ParseUserAdapter(mActivity.getFromUser());
             Picasso.with(mContext)
                     .load(user.getUserAvatar())
-                    .placeholder(R.drawable.ic_account_circle_white_48dp)
+                    .placeholder(R.drawable.ic_action_account_circle_blue)
                     .fit()
                     .into(mReviewImage);
         }

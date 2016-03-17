@@ -7,7 +7,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/review_card_view"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="110dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -15,20 +15,22 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/review_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"/>
 
             <TextView
                 android:id="@+id/establishment_title_text"
                 android:layout_toRightOf="@id/review_image"
-                android:layout_alignTop="@id/review_image"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="Establishment"
-                style="@style/primary_text_sm"
+                style="@style/secondary_text_sm"
                 />
 
             <TextView
@@ -38,7 +40,9 @@
                 android:layout_below="@id/establishment_title_text"
                 android:layout_toRightOf="@id/review_image"
                 android:layout_alignLeft="@id/establishment_title_text"
-                style="@style/primary_text_lg"
+                android:maxLines="1"
+                android:ellipsize="end"
+                style="@style/primary_text_md"
                 android:text = "Review title"/>
 
             <LinearLayout
@@ -52,32 +56,32 @@
 
                 <ImageView
                     android:id="@+id/review_star_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
                     android:src="@drawable/ic_blank_star"/>
 
                 <ImageView
                     android:id="@+id/review_star_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
                     android:src="@drawable/ic_blank_star"/>
 
                 <ImageView
                     android:id="@+id/review_star_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
                     android:src="@drawable/ic_blank_star"/>
 
                 <ImageView
                     android:id="@+id/review_star_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
                     android:src="@drawable/ic_blank_star"/>
 
                 <ImageView
                     android:id="@+id/review_star_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
                     android:src="@drawable/ic_blank_star"/>
 
             </LinearLayout>
@@ -88,11 +92,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear_star_layout"
                 android:layout_alignLeft="@id/linear_star_layout"
-                android:layout_marginTop="5dp"
                 android:layout_marginRight="40dp"
-                style="@style/secondary_text_md"
+                style="@style/secondary_text_sm"
                 android:text="Lorem ipsom dolor"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:ellipsize="end"
                 />
 
