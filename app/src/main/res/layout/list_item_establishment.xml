@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/establishment_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/establishment_picture"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_store_placeholder"/>
+
+            <TextView
+                android:id="@+id/establishment_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_small"
+                style="@style/primary_text_md"
+                android:layout_alignTop="@+id/establishment_picture"
+                android:layout_toRightOf="@+id/establishment_picture"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="20dp"/>
+
+            <LinearLayout
+                android:id="@+id/linear_star_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/establishment_name"
+                android:layout_toRightOf="@id/establishment_picture"
+                android:layout_alignLeft="@id/establishment_name"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/establishment_review_star_1"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_blank_star"/>
+
+                <ImageView
+                    android:id="@+id/establishment_review_star_2"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_blank_star"/>
+
+                <ImageView
+                    android:id="@+id/establishment_review_star_3"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_blank_star"/>
+
+                <ImageView
+                    android:id="@+id/establishment_review_star_4"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_blank_star"/>
+
+                <ImageView
+                    android:id="@+id/establishment_review_star_5"
+                    android:layout_width="@dimen/star_icon_size"
+                    android:layout_height="@dimen/star_icon_size"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_blank_star"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -1,7 +1,9 @@
 package com.teaman.data.entities;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseQuery;
 import com.teaman.accessstillwater.base.BaseParseObject;
 
 /**
@@ -33,11 +35,20 @@ public class Establishment extends BaseParseObject<Establishment> {
     private String name;
     private String type;
     private ParseGeoPoint location;
-    private String primaryImageURL;
-    private String[] alternateImageURLs;
-    private float auditoryRating;
-    private float physicalRating;
-    private float visualRating;
+    private ParseFile businessImage;
+    private ParseFile[] alternateImages;
+    private int totalRating;
+    private int auditoryRating;
+    private int physicalRating;
+    private int visualRating;
+
+    public int getTotalRating() {
+        return (getAuditoryRating() + getPhysicalRating() + getVisualRating()) / 3;
+    }
+
+    public void setTotalRating() {
+        this.totalRating = getTotalRating();
+    }
 
     public String getName()
     {
@@ -69,52 +80,52 @@ public class Establishment extends BaseParseObject<Establishment> {
         this.location = location;
     }
 
-    public String getPrimaryImageURL()
+    public ParseFile getBusinessImage()
     {
-        return primaryImageURL;
+        return businessImage;
     }
 
-    public void setPrimaryImageURL(String primaryImageURL)
+    public void setBusinessImage(ParseFile businessImage)
     {
-        this.primaryImageURL = primaryImageURL;
+        this.businessImage = businessImage;
     }
 
-    public String[] getAlternateImageURLs()
+    public ParseFile[] getAlternateImages()
     {
-        return alternateImageURLs;
+        return alternateImages;
     }
 
-    public void setAlternateImageURLs(String[] alternateImageURLs)
+    public void setAlternateImages(ParseFile[] alternateImages)
     {
-        this.alternateImageURLs = alternateImageURLs;
+        this.alternateImages = alternateImages;
     }
 
-    public float getAuditoryRating()
+    public int getAuditoryRating()
     {
         return auditoryRating;
     }
 
-    public void setAuditoryRating(float auditoryRating)
+    public void setAuditoryRating(int auditoryRating)
     {
         this.auditoryRating = auditoryRating;
     }
 
-    public float getPhysicalRating()
+    public int getPhysicalRating()
     {
         return physicalRating;
     }
 
-    public void setPhysicalRating(float physicalRating)
+    public void setPhysicalRating(int physicalRating)
     {
         this.physicalRating = physicalRating;
     }
 
-    public float getVisualRating()
+    public int getVisualRating()
     {
         return visualRating;
     }
 
-    public void setVisualRating(float visualRating)
+    public void setVisualRating(int visualRating)
     {
         this.visualRating = visualRating;
     }
@@ -123,5 +134,9 @@ public class Establishment extends BaseParseObject<Establishment> {
     public Establishment instance()
     {
         return this;
+    }
+
+    public static ParseQuery<Establishment> getQuery() {
+        return ParseQuery.getQuery(Establishment.class);
     }
 }

@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/user_nav">
+
+        <item android:id="@+id/nav_friends"
+            android:title="@string/nav_friends"
+            android:icon="@drawable/ic_friends_black"
+            app:actionLayout="@layout/nav_menu_counter"/>
+
+        <item android:id="@+id/nav_favorites"
+            android:title="@string/nav_favorites"
+            android:icon="@drawable/ic_favorites_black"
+            app:actionLayout="@layout/nav_menu_counter"/>
+
+        <item android:id="@+id/nav_reviews"
+            android:title="@string/nav_reviews"
+            android:icon="@drawable/ic_reviews_black"
+              app:actionLayout="@layout/nav_menu_counter"/>
+
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/app_nav">
+
+        <item android:id="@+id/nav_home"
+              android:title="@string/nav_home_string"
+            android:icon="@drawable/ic_maps_marker"/>
+
         <item android:id="@+id/nav_sign_out"
-            android:title="@string/sign_out"/>
+            android:title="@string/nav_sign_out"
+            android:icon="@drawable/ic_sign_out"/>
     </group>
 </menu>

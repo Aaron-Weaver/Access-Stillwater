@@ -38,12 +38,12 @@ public class ParseLoginAdapter implements LoginAdapter {
     @Override
     public boolean login(String username, String password) {
         try {
-            ParseUser.logIn(username, password);
+            ParseUserAdapter.logIn(username, password);
         } catch(ParseException ex) {
             return false;
         }
 
-        return ParseUser.getCurrentUser() != null;
+        return ParseUserAdapter.getCurrentUser() != null;
     }
 
     /**
@@ -57,7 +57,7 @@ public class ParseLoginAdapter implements LoginAdapter {
     @Override
     public void loginAsync(final LoginCallback callback, String username, String password) {
 
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
+        ParseUserAdapter.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if(user != null) {
@@ -77,7 +77,7 @@ public class ParseLoginAdapter implements LoginAdapter {
      */
     @Override
     public boolean isLoggedIn() {
-        return ParseUser.getCurrentUser() != null && ParseUser.getCurrentUser().isAuthenticated();
+        return ParseUserAdapter.getCurrentUser() != null && ParseUserAdapter.getCurrentUser().isAuthenticated();
     }
 
     /**
@@ -86,7 +86,7 @@ public class ParseLoginAdapter implements LoginAdapter {
     @Override
     public void logOut() {
         if(ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().logOut();
+            ParseUserAdapter.getCurrentUser().logOut();
         }
     }
 
@@ -97,9 +97,18 @@ public class ParseLoginAdapter implements LoginAdapter {
      * @return {@link User} that is currently logged in.
      */
     @Override
-    public User getUser() {
+    public ParseUserAdapter getUser() {
         if(this.isLoggedIn()) {
             return new ParseUserAdapter(ParseUser.getCurrentUser());
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ParseUser getBaseUser() {
+        if(this.isLoggedIn()) {
+            return ParseUser.getCurrentUser();
         } else {
             return null;
         }

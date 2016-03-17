@@ -5,12 +5,13 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 import com.parse.Parse;
 import com.parse.ParseObject;
-import com.squareup.leakcanary.LeakCanary;
+import com.parse.ParseUser;
 import com.teaman.data.User;
 import com.teaman.data.authorization.InformationAdapter;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.authorization.parse.ParseInformationAdapter;
 import com.teaman.data.authorization.parse.ParseLoginAdapter;
+import com.teaman.data.authorization.parse.ParseUserAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.Review;
@@ -48,15 +49,19 @@ public class AccessStillwaterApp extends Application {
     private static AccessStillwaterApp mInstance;
 
     private LoginAdapter loginAdapter = new ParseLoginAdapter();
+<<<<<<< HEAD
     private InformationAdapter informationAdapter = new ParseInformationAdapter();
     private User user;
+=======
+    private ParseUserAdapter user;
+>>>>>>> 5adc3a21f6e3c7ccb8471c6d1b9515b258d79b6b
 
     private PlacesApi mPlacesApi;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
 
         Timber.plant(new Timber.DebugTree());
 
@@ -68,6 +73,7 @@ public class AccessStillwaterApp extends Application {
         ParseObject.registerSubclass(Activity.class);
         ParseObject.registerSubclass(Establishment.class);
         ParseObject.registerSubclass(Review.class);
+        ParseUser.registerSubclass(ParseUserAdapter.class);
 
         Parse.initialize(this);
 
@@ -111,7 +117,7 @@ public class AccessStillwaterApp extends Application {
      *
      * @return  Shared instance of a User object
      */
-    public User getUser() {
+    public ParseUserAdapter getUser() {
         if(this.user == null) {
             this.user = this.loginAdapter.getUser();
         }

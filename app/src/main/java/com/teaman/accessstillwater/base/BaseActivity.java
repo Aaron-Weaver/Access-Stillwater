@@ -63,6 +63,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if(mFragmentManager == null) {
             mFragmentManager = getFragmentManager(); // Gets a reference to the FragmentManager
         }
+
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
     }
 
     /**
