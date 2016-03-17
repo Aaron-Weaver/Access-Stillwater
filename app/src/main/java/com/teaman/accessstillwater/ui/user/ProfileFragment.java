@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseFragment;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by weava on 3/16/16.
  */
@@ -30,7 +32,9 @@ public class ProfileFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View v = inflater.inflate(getLayoutResource(), container, false);
+        ButterKnife.bind(this, v);
+        return v;
     }
 
     @Override
