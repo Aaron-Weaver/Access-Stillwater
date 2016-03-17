@@ -1,28 +1,29 @@
 package com.teaman.accessstillwater.ui.info;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.google.android.gms.location.places.Place;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
 import com.teaman.data.authorization.InformationAdapter;
+import com.teaman.data.entities.json.places.PlaceEntity;
 
 /**
  * Created by Alexander Melton on 3/12/2016.
  */
 public class InformationActivity extends BaseDrawerActivity {
     private Fragment mInformationFragment;
+    private Fragment mParallaxFragment;
+
     private AccessStillwaterApp mApplication;
     private InformationAdapter mInformationAdapter;
 
-    private ProgressDialog mInformationLoadingDialog;
+    private PlaceEntity mPlace;
 
-    private Place mPlace;
+    private final Context context = this;
 
 
     @Override
@@ -34,18 +35,14 @@ public class InformationActivity extends BaseDrawerActivity {
 
         mPlace = mInformationAdapter.getPlace();
 
-        getSupportActionBar().setTitle(mPlace.getName());
+        if(mPlace != null){
+            getSupportActionBar().setTitle(mPlace.getName());
+        }
 
-        /*
-        mApplication.getPlacesApi().getPhotoForEstablishment(
-
-                200,
-                200
-        );
-        */
-        
         mInformationFragment = new InformationFragment();
-        super.addFragmentToContainer(mInformationFragment, "temp");
+        mParallaxFragment = new ParallaxFragment();
+        super.overlayFragmentToContainer(mParallaxFragment, "Parallax");
+        super.overlayFragmentToContainer(mInformationFragment, "Info");
     }
 
 

@@ -1,22 +1,22 @@
 package com.teaman.data.authorization.parse;
 
-import com.google.android.gms.location.places.Place;
 import com.teaman.data.authorization.InformationAdapter;
+import com.teaman.data.entities.json.places.PlaceEntity;
 
 /**
  * Created by Dilancuan on 3/13/2016.
  */
 public class ParseInformationAdapter implements InformationAdapter {
 
-    private Place mPlace;
+    private PlaceEntity mPlace;
 
     @Override
-    public void setPlace(Place place) {
+    public void setPlace(PlaceEntity place) {
         mPlace = place;
     }
 
     @Override
-    public Place getPlace() {
+    public PlaceEntity getPlace() {
         return mPlace;
     }
 }

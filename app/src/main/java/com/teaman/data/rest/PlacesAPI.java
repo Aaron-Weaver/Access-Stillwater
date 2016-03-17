@@ -1,7 +1,8 @@
 package com.teaman.data.rest;
 
-import com.teaman.data.entities.json.places.PlaceEntity;
+import com.google.android.gms.location.places.PlacePhotoResult;
 import com.teaman.data.entities.json.Results;
+import com.teaman.data.entities.json.places.PlaceEntity;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -35,11 +36,17 @@ public interface PlacesApi
             @Query("name") String name
     );
 
+
+    @GET("details/json?key=" + API_KEY)
+    Call<Results<PlaceEntity>> getAllDetails(
+            @Query("placeid") String id
+    );
+
     ///place/photo?photoreference=PHOTO_REFERENCE&sensor=false&maxheight=MAX_HEIGHT&maxwidth=MAX_WIDTH&key=YOUR_API_KEY
     @GET("photo?key=" + API_KEY)
-    Call<Object> getPhotoForEstablishment(
+    Call<PlacePhotoResult> getPhotoForEstablishment(
             @Query("photoreference") String reference,
-            @Query("maxheight") int height,
             @Query("maxwidth") int width
     );
+
 }

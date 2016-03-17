@@ -14,6 +14,10 @@ public class Results<T>
     @Expose
     private List<T> results;
 
+    @SerializedName("result")
+    @Expose
+    private T singleResult;
+
     public List<T> getResults() {
         return results;
     }
@@ -21,4 +25,8 @@ public class Results<T>
     public void setResults(List<T> results) {
         this.results = results;
     }
+
+    public T getSingleResult(){ return singleResult; };
+
+    public void setSingleResult(T result){ this.singleResult = result; }
 }

@@ -1,6 +1,6 @@
 package com.teaman.data.authorization;
 
-import com.google.android.gms.location.places.Place;
+import com.teaman.data.entities.json.places.PlaceEntity;
 
 /**
  * Created by Dilancuan on 3/13/2016.
@@ -11,7 +11,7 @@ public interface InformationAdapter {
      * @param place  A user's selected place
      */
 
-    void setPlace(Place place);
+    void setPlace(PlaceEntity place);
 
-    Place getPlace();
+    PlaceEntity getPlace();
 }
