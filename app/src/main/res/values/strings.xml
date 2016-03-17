@@ -67,5 +67,6 @@
     <string name="activity_home">Location Finder</string>
     <string name="activity_user_favorites">My Favorites</string>
     <string name="activity_user_reviews">My Reviews</string>
+    <string name="activity_user_profile">My Profile</string>
 
 </resources>

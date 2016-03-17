@@ -10,6 +10,7 @@ import com.teaman.accessstillwater.ui.login.SignupActivity;
 import com.teaman.accessstillwater.ui.main.MainActivity;
 import com.teaman.accessstillwater.ui.review.ReviewListActivity;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
+import com.teaman.accessstillwater.ui.user.ProfileActivity;
 import com.teaman.accessstillwater.utils.StringUtils;
 
 /**
@@ -73,6 +74,13 @@ public class Navigator {
         if(context != null) {
             Intent moveToIntent = ReviewListActivity.getCallingIntent(context);
             moveToIntent.putExtra(StringUtils.REVIEW_TYPE_EXTRA, type);
+            context.startActivity(moveToIntent);
+        }
+    }
+
+    public void navigateToProfileActivity(Context context) {
+        if(context != null) {
+            Intent moveToIntent = ProfileActivity.getCallingIntent(context);
             context.startActivity(moveToIntent);
         }
     }

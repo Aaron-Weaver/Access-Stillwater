@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -213,6 +214,9 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
 
         mNavHeaderLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.nav_header, null);
 
+        RelativeLayout navProfileView = (RelativeLayout) mNavHeaderLayout.findViewById(R.id.linear_profile_view);
+        navProfileView.setOnClickListener(this);
+
         if(mNavHeaderLayout != null) {
             mNavMenu.addHeaderView(mNavHeaderLayout);
             mProfileImage = ButterKnife.findById(mNavHeaderLayout, R.id.header_profile_image);
@@ -268,7 +272,11 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
     public void onClick(View v) {
         mDrawerLayout.closeDrawers();
         switch (v.getId()) {
-
+            case R.id.linear_profile_view:
+                if(!getTitle().equals(getString(R.string.activity_user_profile))) {
+                    Navigator.getInstance().navigateToProfileActivity(this);
+                }
+                break;
         }
     }
 }

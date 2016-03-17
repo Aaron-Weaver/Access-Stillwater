@@ -35,9 +35,9 @@
             android:text="Aaron Weaver"/>
 
         <TextView
+            android:id="@+id/header_username_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/header_username_text"
             android:layout_toRightOf="@id/header_profile_image"
             android:layout_below="@id/header_profile_name"
             style="@style/logo_text_sm"
