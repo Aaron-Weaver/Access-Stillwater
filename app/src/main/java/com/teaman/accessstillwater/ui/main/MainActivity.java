@@ -94,6 +94,7 @@ public class MainActivity extends BaseDrawerActivity implements
                 mPlaceAutocompleteFragment, "Autocomplete Frag").commit();
 
         mPlaceAutocompleteFragment.setOnPlaceSelectedListener(this);
+        this.setTitle(getString(R.string.activity_home));
 
         mMainFragment = new MainFragment();
         addFragmentToContainer(mMainFragment, "Main Frag");

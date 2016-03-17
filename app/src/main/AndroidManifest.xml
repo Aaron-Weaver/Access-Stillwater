@@ -21,7 +21,7 @@
         <!-- Places API keys -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAvxFTH3maGn2ZuwCvxogFfVTJkr6bH2TU"/>
+            android:value="AIzaSyAMEYQLqMrTwms9muF_xY-HrrbG32_wNlE"/>
 
         <!-- Parse API keys -->
         <meta-data
@@ -43,7 +43,7 @@
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
 
         </activity>
 
@@ -51,6 +51,23 @@
             android:name=".ui.login.SignupActivity"
             android:label="@string/signup_activity">
 
+        </activity>
+
+        <activity
+            android:name=".ui.establishment.EstablishmentActivity"
+            android:label="@string/establishment_activity">
+
+        </activity>
+
+        <activity
+            android:name=".ui.review.ReviewListActivity"
+            android:label="@string/review_list_activity">
+
+        </activity>
+
+        <activity
+            android:name=".ui.user.ProfileActivity"
+            android:label="@string/activity_user_profile">
         </activity>
 
     </application>

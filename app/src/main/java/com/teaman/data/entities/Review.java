@@ -1,6 +1,8 @@
 package com.teaman.data.entities;
 
 import com.parse.ParseClassName;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.teaman.accessstillwater.base.BaseParseObject;
 
 /**
@@ -21,11 +23,21 @@ import com.teaman.accessstillwater.base.BaseParseObject;
 @ParseClassName("Review")
 public class Review extends BaseParseObject<Review> {
 
+    private ParseUser byUser;
     private String title;
     private String content;
-    private float auditoryRating;
-    private float visualRating;
-    private float physicalRating;
+    private int totalRating;
+    private int auditoryRating;
+    private int visualRating;
+    private int physicalRating;
+
+    public int getTotalRating() {
+        return (getAuditoryRating() + getPhysicalRating() + getVisualRating()) / 3;
+    }
+
+    public void setTotalRating() {
+        this.totalRating = getTotalRating();
+    }
 
     public String getTitle()
     {
@@ -47,39 +59,51 @@ public class Review extends BaseParseObject<Review> {
         this.content = content;
     }
 
-    public float getAuditoryRating()
+    public int getAuditoryRating()
     {
         return auditoryRating;
     }
 
-    public void setAuditoryRating(float auditoryRating)
+    public void setAuditoryRating(int auditoryRating)
     {
         this.auditoryRating = auditoryRating;
     }
 
-    public float getVisualRating()
+    public int getVisualRating()
     {
         return visualRating;
     }
 
-    public void setVisualRating(float visualRating)
+    public void setVisualRating(int visualRating)
     {
         this.visualRating = visualRating;
     }
 
-    public float getPhysicalRating()
+    public int getPhysicalRating()
     {
         return physicalRating;
     }
 
-    public void setPhysicalRating(float physicalRating)
+    public void setPhysicalRating(int physicalRating)
     {
         this.physicalRating = physicalRating;
+    }
+
+    public ParseUser getByUser() {
+        return byUser;
+    }
+
+    public void setByUser(ParseUser byUser) {
+        this.byUser = byUser;
     }
 
     @Override
     public Review instance()
     {
         return this;
+    }
+
+    public static ParseQuery<Review> getQuery() {
+        return ParseQuery.getQuery(Review.class);
     }
 }

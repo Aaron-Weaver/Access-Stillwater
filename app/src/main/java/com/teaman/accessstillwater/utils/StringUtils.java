@@ -20,6 +20,9 @@ import java.util.regex.Pattern;
  */
 public class StringUtils {
 
+    public static final String ESTABLISHMENT_TYPE_EXTRA = "establishmentFragType";
+    public static final String REVIEW_TYPE_EXTRA = "reviewFragType";
+
     private static final String EMAIL_REGEX = "^[\\\\w\\\\.-]+@([\\\\w\\\\-]+\\\\.)+[A-Z]{2,4}$";
 
     public static boolean isNullOrEmpty(String checkString) {

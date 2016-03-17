@@ -1,6 +1,8 @@
 package com.teaman.data.entities;
 
 import com.parse.ParseClassName;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.teaman.accessstillwater.base.BaseParseObject;
 
 /**
@@ -25,11 +27,12 @@ public class Activity extends BaseParseObject<Activity> {
     public static String TYPE_REVIEW = "review";
     public static String TYPE_FRIEND = "friend";
 
-    private String fromUsername;
-    private String toUsername;
+    private ParseUser fromUser;
+    private ParseUser toUser;
     private String type;
     private String content;
-    private String establishmentName;
+    private Establishment establishment;
+    private Review review;
 
     public Activity() {
 
@@ -41,20 +44,20 @@ public class Activity extends BaseParseObject<Activity> {
         return this;
     }
 
-    public String getFromUsername() {
-        return fromUsername;
+    public ParseUser getFromUser() {
+        return fromUser;
     }
 
-    public void setFromUsername(String fromUsername) {
-        this.fromUsername = fromUsername;
+    public void setFromUser(ParseUser fromUsername) {
+        this.fromUser = fromUsername;
     }
 
-    public String getToUsername() {
-        return toUsername;
+    public ParseUser getToUser() {
+        return toUser;
     }
 
-    public void setToUsername(String toUsername) {
-        this.toUsername = toUsername;
+    public void setToUser(ParseUser toUsername) {
+        this.toUser = toUsername;
     }
 
     public String getType() {
@@ -73,11 +76,23 @@ public class Activity extends BaseParseObject<Activity> {
         this.content = content;
     }
 
-    public String getEstablishmentName() {
-        return establishmentName;
+    public Establishment getEstablishment() {
+        return establishment;
     }
 
-    public void setEstablishmentName(String establishmentName) {
-        this.establishmentName = establishmentName;
+    public void setEstablishment(Establishment establishmentName) {
+        this.establishment = establishmentName;
+    }
+
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
+
+    public static ParseQuery<Activity> getQuery() {
+        return ParseQuery.getQuery(Activity.class);
     }
 }

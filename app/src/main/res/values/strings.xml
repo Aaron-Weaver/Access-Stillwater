@@ -7,6 +7,10 @@
     <string name="login_fragment_tag">Login</string>
     <string name="login_activity">Login</string>
 
+    <string name="establishment_activity">Establishment List</string>
+
+    <string name="review_list_activity">Review List</string>
+
     <string name="signup_fragment_tag">Sign Up</string>
     <string name="signup_activity">Sign Up</string>
 
@@ -53,6 +57,16 @@
     <string name="favorites_text">favorites</string>
 
     <!-- Drawer Menu strings -->
-    <string name="sign_out">Sign out</string>
+    <string name="nav_sign_out">Sign Out</string>
+    <string name="nav_home_string">Location Finder</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_friends">Friends</string>
+    <string name="nav_reviews">Reviews</string>
+
+    <!-- Activity Titles -->
+    <string name="activity_home">Location Finder</string>
+    <string name="activity_user_favorites">My Favorites</string>
+    <string name="activity_user_reviews">My Reviews</string>
+    <string name="activity_user_profile">My Profile</string>
 
 </resources>
