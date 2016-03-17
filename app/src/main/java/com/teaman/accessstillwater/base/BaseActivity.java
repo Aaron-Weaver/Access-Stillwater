@@ -94,6 +94,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.container, fragment, tag).commit();
     }
 
+    protected  void overlayFragmentToContainer(Fragment fragment, String tag){
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.container, fragment, tag).commit();
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected void setStatusBarColor(@ColorRes int color) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

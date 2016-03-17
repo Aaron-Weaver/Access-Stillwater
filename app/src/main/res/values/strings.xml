@@ -69,4 +69,6 @@
     <string name="activity_user_reviews">My Reviews</string>
     <string name="activity_user_profile">My Profile</string>
 
+    <!--Information strings -->
+    <string name="place">Place</string>
 </resources>

@@ -25,7 +25,9 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
+import com.teaman.accessstillwater.ui.navigation.Navigator;
 import com.teaman.data.entities.json.Results;
+import com.teaman.data.entities.json.places.Photo;
 import com.teaman.data.entities.json.places.PlaceEntity;
 
 import butterknife.Bind;
@@ -64,7 +66,7 @@ public class MainActivity extends BaseDrawerActivity implements
 
     private GoogleApiClient mApiClient;
 
-    private Context mContext;
+    private final Context mContext = this;
 
     public static Intent getCallingIntent(Context context)
     {
@@ -77,7 +79,7 @@ public class MainActivity extends BaseDrawerActivity implements
     {
         super.onCreate(savedInstanceState);
 
-        mContext = this;
+        //mContext = this;
         this.mApplication = AccessStillwaterApp.getmInstance();
 
         mApiClient = new GoogleApiClient
@@ -114,7 +116,11 @@ public class MainActivity extends BaseDrawerActivity implements
         } else {
             //getUserCurrentLocation();
         }
+
+//        PendingResult<PlaceLikelihoodBuffer> result =
+//                Places.PlaceDetectionApi.getCurrentPlace(mApiClient, null);
     }
+//    Log.d("Maps", "set map current location");
 
     private void getUserCurrentLocation() {
 
@@ -222,11 +228,43 @@ public class MainActivity extends BaseDrawerActivity implements
     public void onPlaceSelected(Place place)
     {
         Log.d("Place fragment", place.getName().toString());
+        Log.d("Place ID", place.getId());
+
+
+
+        mApplication.getPlacesApi().getAllDetails(
+                place.getId()
+        ).enqueue(new Callback<Results<PlaceEntity>>() {
+            @Override
+            public void onResponse(Call<Results<PlaceEntity>> call, Response<Results<PlaceEntity>> response) {
+                if (response.body() != null) {
+
+                    for (Photo photo : response.body().getSingleResult().getPhotos()) {
+                        Log.d("PHOTO REFERENCE:", photo.getPhotoReference());
+                    }
+                    Log.d("DETAILS:", response.body().getSingleResult().getName());
+
+                    mApplication.getInformationAdapter().setPlace(response.body().getSingleResult());
+                    Navigator.getInstance().navigateToInformationActivity(mContext);
+
+                } else {
+                    Log.d("DETAILS", "EMPTY");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Results<PlaceEntity>> call, Throwable t) {
+                Log.d("Places API Call", t.getMessage() + " | " + t.getStackTrace());
+            }
+        });
+
     }
 
     @Override
     public void onError(Status status)
     {
         Log.d("Place fragment", status.getStatusMessage());
+
     }
 }

@@ -1,4 +1,4 @@
-package com.teaman.accessstillwater.ui.user;
+package com.teaman.accessstillwater.ui.info;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,20 +12,13 @@ import com.teaman.accessstillwater.base.BaseFragment;
 import butterknife.ButterKnife;
 
 /**
- * Created by weava on 3/16/16.
+ * Created by Alexander on 3/13/2016.
  */
-public class ProfileFragment extends BaseFragment {
-
-    public static ProfileFragment newInstance() {
-        Bundle args = new Bundle();
-        ProfileFragment fragment = new ProfileFragment();
-
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class InformationFragment extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
 
@@ -38,7 +31,11 @@ public class ProfileFragment extends BaseFragment {
     }
 
     @Override
-    protected int getLayoutResource() {
-        return R.layout.fragment_profile;
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
+
+    protected int getLayoutResource(){return R.layout.fragment_information;}
+
 }
