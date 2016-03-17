@@ -49,12 +49,9 @@ public class AccessStillwaterApp extends Application {
     private static AccessStillwaterApp mInstance;
 
     private LoginAdapter loginAdapter = new ParseLoginAdapter();
-<<<<<<< HEAD
     private InformationAdapter informationAdapter = new ParseInformationAdapter();
-    private User user;
-=======
+
     private ParseUserAdapter user;
->>>>>>> 5adc3a21f6e3c7ccb8471c6d1b9515b258d79b6b
 
     private PlacesApi mPlacesApi;
 

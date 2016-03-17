@@ -3,12 +3,10 @@ package com.teaman.accessstillwater.ui.navigation;
 import android.content.Context;
 import android.content.Intent;
 
-<<<<<<< HEAD
 import com.teaman.accessstillwater.ui.info.InformationActivity;
-=======
+
 import com.teaman.accessstillwater.ui.establishment.EstablishmentActivity;
 import com.teaman.accessstillwater.ui.establishment.EstablishmentListFragment;
->>>>>>> 5adc3a21f6e3c7ccb8471c6d1b9515b258d79b6b
 import com.teaman.accessstillwater.ui.login.LoginActivity;
 import com.teaman.accessstillwater.ui.login.SignupActivity;
 import com.teaman.accessstillwater.ui.main.MainActivity;

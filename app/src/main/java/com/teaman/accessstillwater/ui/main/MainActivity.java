@@ -22,32 +22,13 @@ import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-<<<<<<< HEAD
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.api.client.json.Json;
-import com.google.gson.JsonObject;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
 import com.teaman.accessstillwater.ui.navigation.Navigator;
+import com.teaman.data.entities.json.Results;
 import com.teaman.data.entities.json.places.Photo;
 import com.teaman.data.entities.json.places.PlaceEntity;
-import com.teaman.data.entities.json.Results;
-import com.teaman.data.entities.json.Results;
-
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
-=======
-import com.teaman.accessstillwater.AccessStillwaterApp;
-import com.teaman.accessstillwater.R;
-import com.teaman.accessstillwater.base.BaseDrawerActivity;
-import com.teaman.data.entities.json.Results;
-import com.teaman.data.entities.json.places.PlaceEntity;
->>>>>>> 5adc3a21f6e3c7ccb8471c6d1b9515b258d79b6b
 
 import butterknife.Bind;
 import retrofit2.Call;
@@ -135,16 +116,13 @@ public class MainActivity extends BaseDrawerActivity implements
         } else {
             //getUserCurrentLocation();
         }
+
+//        PendingResult<PlaceLikelihoodBuffer> result =
+//                Places.PlaceDetectionApi.getCurrentPlace(mApiClient, null);
     }
+//    Log.d("Maps", "set map current location");
 
-<<<<<<< HEAD
-        Log.d("Maps", "set map current location");
-
-        PendingResult<PlaceLikelihoodBuffer> result =
-                Places.PlaceDetectionApi.getCurrentPlace(mApiClient, null);
-=======
     private void getUserCurrentLocation() {
->>>>>>> 5adc3a21f6e3c7ccb8471c6d1b9515b258d79b6b
 
         try
         {
