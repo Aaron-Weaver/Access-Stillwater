@@ -75,5 +75,6 @@
 
     <!-- Personal Info Card Strings -->
     <string name="personal_info_card_title">Personal Info</string>
+    <string name="profile_disability_info">Disability Info</string>
 
 </resources>
