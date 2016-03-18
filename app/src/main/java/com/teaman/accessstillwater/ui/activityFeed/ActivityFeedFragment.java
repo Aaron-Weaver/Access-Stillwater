@@ -51,7 +51,7 @@ public class ActivityFeedFragment extends BaseRecyclerListFragment {
                 .include("toUser")
                 .include("review")
                 .whereEqualTo("fromUser", mCurrentUser)
-                .orderByAscending("createdAt").findInBackground(new FindCallback<Activity>() {
+                .orderByDescending("createdAt").findInBackground(new FindCallback<Activity>() {
 
             @Override
             public void done(List<Activity> objects, ParseException e) {

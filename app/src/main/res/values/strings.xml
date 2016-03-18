@@ -58,13 +58,13 @@
 
     <!-- Drawer Menu strings -->
     <string name="nav_sign_out">Sign Out</string>
-    <string name="nav_home_string">Location Finder</string>
+    <string name="nav_home_string">Home</string>
     <string name="nav_favorites">Favorites</string>
     <string name="nav_friends">Friends</string>
     <string name="nav_reviews">Reviews</string>
 
     <!-- Activity Titles -->
-    <string name="activity_home">Location Finder</string>
+    <string name="activity_home">Home</string>
     <string name="activity_user_favorites">My Favorites</string>
     <string name="activity_user_reviews">My Reviews</string>
     <string name="activity_user_profile">My Profile</string>

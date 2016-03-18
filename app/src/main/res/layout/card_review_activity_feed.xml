@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="165dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     android:orientation="vertical"
@@ -18,12 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="5dp"
             android:paddingLeft="20dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/from_user_image"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_action_account_circle_blue"/>
 
@@ -32,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/primary_text_sm"
-                android:text="Wrote a new review"
+                android:text="Wrote a review"
                 android:paddingLeft="20dp"
                 android:layout_toRightOf="@id/from_user_image"
                 android:layout_centerVertical="true"/>
@@ -62,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingLeft="70dp">
+            android:paddingLeft="40dp">
 
             <ImageView
                 android:id="@+id/establishment_image"
@@ -100,8 +102,9 @@
 
                         <ImageView
                             android:id="@+id/activity_physical_review_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:paddingTop="5dp"
                             android:src="@drawable/ic_physical_disability_gray"/>
 
                         <TextView
@@ -114,10 +117,10 @@
 
                         <ImageView
                             android:id="@+id/activity_auditory_review_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:paddingLeft="5dp"
-                            android:src="@drawable/ic_physical_disability_gray"/>
+                            android:src="@drawable/ic_auditory_disability_gray"/>
 
                         <TextView
                             android:id="@+id/activity_auditory_review_rating"
@@ -129,10 +132,11 @@
 
                         <ImageView
                             android:id="@+id/activity_visual_review_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:paddingTop="3dp"
                             android:paddingLeft="5dp"
-                            android:src="@drawable/ic_physical_disability_gray"/>
+                            android:src="@drawable/ic_visual_disability_gray"/>
 
                         <TextView
                             android:id="@+id/activity_visual_review_rating"
