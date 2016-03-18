@@ -35,6 +35,13 @@ public class FlipAnimation extends Animation {
     public void reverse()
     {
         forward = false;
+    }
+
+    public void forward(){
+        forward = true;
+    }
+
+    public void swap(){
         View switchView = toView;
         toView = fromView;
         fromView = switchView;
