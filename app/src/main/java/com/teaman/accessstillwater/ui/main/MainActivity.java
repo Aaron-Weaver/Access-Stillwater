@@ -19,6 +19,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
@@ -99,6 +101,7 @@ public class MainActivity extends BaseDrawerActivity implements
         mApiClient.connect();
 
         mPlaceAutocompleteFragment = new PlaceAutocompleteFragment();
+        mPlaceAutocompleteFragment.setBoundsBias(new LatLngBounds(new LatLng(36.04, -97.15), new LatLng(36.21, -97.0)));
         mActivityFeedFragment = ActivityFeedFragment.newInstance();
 
         getFragmentManager().beginTransaction().add(R.id.toolbar_search_button,

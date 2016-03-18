@@ -78,5 +78,6 @@
     <string name="profile_disability_info">Disability Info</string>
     <string name="nav_settings_string">Settings</string>
     <string name="location_search_string">Search for locations</string>
+    <string name="nav_about_string">About</string>
 
 </resources>
