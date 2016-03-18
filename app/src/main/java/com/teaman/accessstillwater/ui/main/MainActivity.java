@@ -21,8 +21,9 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.parse.GetCallback;
+import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.SaveCallback;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
@@ -32,6 +33,8 @@ import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.json.Results;
 import com.teaman.data.entities.json.places.Photo;
 import com.teaman.data.entities.json.places.PlaceEntity;
+
+import java.util.List;
 
 import butterknife.Bind;
 import retrofit2.Call;
@@ -184,31 +187,25 @@ public class MainActivity extends BaseDrawerActivity implements
 
                     mApplication.getInformationAdapter().setPlace(response.body().getSingleResult());
 
-                    Establishment.getQuery().whereEqualTo("placeEntity",
-                            response.body().getSingleResult()).getFirstInBackground(new GetCallback<Establishment>() {
+                    Establishment.getQuery().whereEqualTo("placesId",
+                            response.body().getSingleResult().getPlaceId()).findInBackground(new FindCallback<Establishment>() {
                         @Override
-                        public void done(Establishment object, ParseException e) {
-                            if(e == null)
-                            {
-                                //object exists
-                            }
-                            else
-                            {
-                                if(e.getCode() == ParseException.OBJECT_NOT_FOUND)
-                                {
+                        public void done(List<Establishment> objects, ParseException e) {
+                            if(objects != null) {
+                                if(objects.size() <= 0) {
                                     Establishment est = new Establishment();
-                                    est.setPlacesId(response.body().getSingleResult().getId());
-                                    est.toParseObject(est);
-                                    est.saveInBackground();
-                                }
-                                else
-                                {
-                                    //unknown error, debug
+                                    est.setPlacesId(response.body().getSingleResult().getPlaceId());
+                                    est.toParseObject(est).saveEventually(new SaveCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            Log.d("Establishment Save", "Establishment has been saved");
+                                        }
+                                    });
                                 }
                             }
+                            Log.d("Parse Query", "Query done");
                         }
                     });
-
                     Navigator.getInstance().navigateToInformationActivity(mContext);
 
                 } else {

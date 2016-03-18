@@ -4,6 +4,8 @@ import com.parse.ParseClassName;
 import com.parse.ParseQuery;
 import com.teaman.accessstillwater.base.BaseParseObject;
 
+import java.util.List;
+
 /**
  * <h1> [Insert class name here] </h1>
  * <p>
@@ -31,10 +33,6 @@ public class Establishment extends BaseParseObject<Establishment> {
     public static String TYPE_ARTS_ENTERTAINMENT = "artsEntertainment";
 
     private String placesId;
-    private int totalRating;
-    private int auditoryRating;
-    private int physicalRating;
-    private int visualRating;
 
     public String getPlacesId() {
         return placesId;
@@ -44,43 +42,20 @@ public class Establishment extends BaseParseObject<Establishment> {
         this.placesId = placesId;
     }
 
-    public int getTotalRating() {
-        return (getAuditoryRating() + getPhysicalRating() + getVisualRating()) / 3;
+    public int getTotalRatingWithReviews(List<Review> reviews) {
+        int reviewCount = reviews.size();
+        int totalRating = 0;
+
+        for (Review rev : reviews) {
+            totalRating += rev.getTotalRating();
+        }
+
+        if(reviewCount > 0) {
+            return totalRating / reviewCount;
+        }
+        return 0;
     }
 
-    public void setTotalRating() {
-        this.totalRating = getTotalRating();
-    }
-
-    public int getAuditoryRating()
-    {
-        return auditoryRating;
-    }
-
-    public void setAuditoryRating(int auditoryRating)
-    {
-        this.auditoryRating = auditoryRating;
-    }
-
-    public int getPhysicalRating()
-    {
-        return physicalRating;
-    }
-
-    public void setPhysicalRating(int physicalRating)
-    {
-        this.physicalRating = physicalRating;
-    }
-
-    public int getVisualRating()
-    {
-        return visualRating;
-    }
-
-    public void setVisualRating(int visualRating)
-    {
-        this.visualRating = visualRating;
-    }
 
     @Override
     public Establishment instance()
