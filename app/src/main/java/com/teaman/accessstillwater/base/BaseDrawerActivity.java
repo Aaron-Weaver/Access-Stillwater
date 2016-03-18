@@ -160,6 +160,8 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
                                 break;
                             case R.id.nav_friends:
                                 break;
+                            case R.id.nav_info:
+                                break;
                         }
                         return true;
                     }

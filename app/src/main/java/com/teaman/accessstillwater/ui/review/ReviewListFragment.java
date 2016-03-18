@@ -11,7 +11,6 @@ import com.parse.ParseUser;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseRecyclerListFragment;
 import com.teaman.accessstillwater.base.ItemCallback;
-import com.teaman.accessstillwater.view.DividerItemDecoration;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.entities.Activity;
 
@@ -51,7 +50,6 @@ public class ReviewListFragment extends BaseRecyclerListFragment implements Item
         mCurrentUser = mLoginAdapter.getBaseUser();
         mReviewListAdapter = new ReviewListAdapter(this, getActivity());
         mReviewListType = getArguments().getInt(REVIEW_LIST_TYPE);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         initList(mReviewListAdapter, 1);
         queryData();
     }

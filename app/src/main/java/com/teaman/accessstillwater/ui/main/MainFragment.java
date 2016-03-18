@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseFragment;
 
@@ -31,8 +30,6 @@ import butterknife.OnClick;
  */
 public class MainFragment extends BaseFragment {
 
-    private PlaceAutocompleteFragment mPlaceAutocompleteFragment;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +48,13 @@ public class MainFragment extends BaseFragment {
         return R.layout.fragment_main;
     }
 
-    @OnClick({R.id.physical_disability_filter, R.id.audio_disability_filter, R.id.visual_disability_filter})
+    @OnClick({R.id.physical_disability_filter, R.id.auditory_disability_filter, R.id.visual_disability_filter})
     public void onFilterClicked(View view) {
         switch (view.getId()) {
             case R.id.physical_disability_filter:
                 Log.d("Filter Clicked", "Physical");
                 break;
-            case R.id.audio_disability_filter:
+            case R.id.auditory_disability_filter:
                 Log.d("Filter Clicked", "Audio");
                 break;
             case R.id.visual_disability_filter:

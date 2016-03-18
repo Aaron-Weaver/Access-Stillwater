@@ -15,4 +15,6 @@
 
     <include layout="@layout/card_personal_info"/>
 
+    <include layout="@layout/card_disability_info"/>
+
 </LinearLayout>

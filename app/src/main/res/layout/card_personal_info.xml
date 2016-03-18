@@ -18,14 +18,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/personal_info_card_title"
-            style="@style/primary_text_md"
+            style="@style/primary_text_sm"
             android:textStyle="bold"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
-            android:background="@color/colorSecondaryText"/>
+            android:background="@color/md_grey_300"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,9 +44,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                style="@style/primary_text_md"
+                style="@style/primary_text_sm"
                 android:paddingLeft="15dp"
-                android:text="Aaron Weaver"/>
+                android:text="Test Name"/>
 
         </LinearLayout>
 
@@ -64,12 +64,12 @@
 
             <TextView
                 android:id="@+id/profile_email"
-                style="@style/primary_text_md"
+                style="@style/primary_text_sm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="15dp"
-                android:text="weavakid@gmail.com"/>
+                android:text="test@test.com"/>
 
         </LinearLayout>
 
