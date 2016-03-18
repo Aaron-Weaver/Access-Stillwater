@@ -38,6 +38,16 @@ public class PlaceEntity
     @SerializedName("photos")
     @Expose
     private List<Photo> photos = new ArrayList<Photo>();
+    @SerializedName("formatted_address")
+    @Expose
+    private String address;
+    @SerializedName("formatted_phone_number")
+    @Expose
+    private String phone;
+    @SerializedName("website")
+    @Expose
+    private String website;
+
 
 
     /**
@@ -199,6 +209,30 @@ public class PlaceEntity
      */
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 }

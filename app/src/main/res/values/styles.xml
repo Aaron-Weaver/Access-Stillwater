@@ -103,6 +103,16 @@
         <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
 
+    <style name="RateBarSmall" parent="Widget.AppCompat.RatingBar" >
+        <item name="android:progressDrawable">@drawable/ic_rating</item>
+        <item name="android:numStars">5</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">16dp</item>
+        <item name="android:layout_marginLeft">4dip</item>
+    </style>
+
     <style name="loading_background">
         <item name="android:bottomBright">@color/colorPrimary</item>
         <item name="android:bottomDark">@color/colorPrimary</item>

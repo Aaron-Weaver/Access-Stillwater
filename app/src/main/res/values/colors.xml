@@ -14,6 +14,7 @@
     <color name="colorDivider">#B6B6B6</color>
     <!-- End material colors -->
 
+    <color name="black">#000000</color>
     <color name="blue_200">#E3F2FD</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#CCCCCC</color>
