@@ -23,7 +23,11 @@ public class StringUtils {
     public static final String ESTABLISHMENT_TYPE_EXTRA = "establishmentFragType";
     public static final String REVIEW_TYPE_EXTRA = "reviewFragType";
 
+    private static String API_KEY = "AIzaSyA9Zm_3nqNWTIyX8vbC0FpSmFLCH6z8z9A";
+
     private static final String EMAIL_REGEX = "^[\\\\w\\\\.-]+@([\\\\w\\\\-]+\\\\.)+[A-Z]{2,4}$";
+
+    public static String MAPS_API_PHOTO_URL= "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&key=" + API_KEY + "&photoreference=";
 
     public static boolean isNullOrEmpty(String checkString) {
         if(checkString == null || checkString.trim().isEmpty()) {

@@ -29,6 +29,7 @@ import com.teaman.accessstillwater.ui.ImageAdapterCallback;
 import com.teaman.accessstillwater.ui.ImagePagerAdapter;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
 import com.teaman.data.authorization.InformationAdapter;
+import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.json.places.Photo;
 import com.teaman.data.entities.json.places.PlaceEntity;
 
@@ -72,6 +73,8 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
     @Bind(R.id.tabs)
     protected TabLayout mTabLayout;
 
+    private Establishment mEstablishment;
+
     ArrayList<String> imageUrls;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -98,7 +101,6 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
             InformationFragment informationFragment = new InformationFragment();
             ReviewListFragment reviewListFragment = ReviewListFragment.newInstance(ReviewListFragment.FRAGMENT_ESTABLISHMENT);
-
 
             adapter.addFragment(informationFragment, "Details");
             adapter.addFragment(reviewListFragment, "Reviews");

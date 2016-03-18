@@ -48,5 +48,4 @@ public class Southwest {
     public void setLng(Double lng) {
         this.lng = lng;
     }
-
 }

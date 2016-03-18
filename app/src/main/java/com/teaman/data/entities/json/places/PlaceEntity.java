@@ -4,6 +4,9 @@ package com.teaman.data.entities.json.places;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+import com.teaman.accessstillwater.base.BaseParseObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -234,5 +237,4 @@ public class PlaceEntity
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 }

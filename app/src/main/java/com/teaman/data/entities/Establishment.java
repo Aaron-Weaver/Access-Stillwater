@@ -1,8 +1,6 @@
 package com.teaman.data.entities;
 
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
-import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.teaman.accessstillwater.base.BaseParseObject;
 
@@ -32,15 +30,19 @@ public class Establishment extends BaseParseObject<Establishment> {
     public static String TYPE_PUBLIC_GOVERNMENT = "publicGovernment";
     public static String TYPE_ARTS_ENTERTAINMENT = "artsEntertainment";
 
-    private String name;
-    private String type;
-    private ParseGeoPoint location;
-    private ParseFile businessImage;
-    private ParseFile[] alternateImages;
+    private String placesId;
     private int totalRating;
     private int auditoryRating;
     private int physicalRating;
     private int visualRating;
+
+    public String getPlaceEntity() {
+        return placesId;
+    }
+
+    public void setPlaceEntity(String placesId) {
+        this.placesId = placesId;
+    }
 
     public int getTotalRating() {
         return (getAuditoryRating() + getPhysicalRating() + getVisualRating()) / 3;
@@ -48,56 +50,6 @@ public class Establishment extends BaseParseObject<Establishment> {
 
     public void setTotalRating() {
         this.totalRating = getTotalRating();
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public String getType()
-    {
-        return type;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
-    public ParseGeoPoint getLocation()
-    {
-        return location;
-    }
-
-    public void setLocation(ParseGeoPoint location)
-    {
-        this.location = location;
-    }
-
-    public ParseFile getBusinessImage()
-    {
-        return businessImage;
-    }
-
-    public void setBusinessImage(ParseFile businessImage)
-    {
-        this.businessImage = businessImage;
-    }
-
-    public ParseFile[] getAlternateImages()
-    {
-        return alternateImages;
-    }
-
-    public void setAlternateImages(ParseFile[] alternateImages)
-    {
-        this.alternateImages = alternateImages;
     }
 
     public int getAuditoryRating()
