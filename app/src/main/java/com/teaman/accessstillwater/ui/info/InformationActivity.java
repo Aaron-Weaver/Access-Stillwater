@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.parse.ParseUser;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseActivity;
@@ -30,6 +30,7 @@ import com.teaman.accessstillwater.ui.ImagePagerAdapter;
 import com.teaman.accessstillwater.ui.animations.FlipAnimation;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
 import com.teaman.data.authorization.InformationAdapter;
+import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.json.places.Photo;
 import com.teaman.data.entities.json.places.PlaceEntity;
@@ -80,6 +81,8 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
     FlipAnimation flipAnimation;
 
     private Establishment mEstablishment;
+    private ParseUser mCurrentUser;
+    private LoginAdapter mLoginAdapter;
 
     ArrayList<String> imageUrls;
     /**
@@ -95,6 +98,8 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
         enableBackNav();
         this.mApplication = AccessStillwaterApp.getmInstance();
         this.mInformationAdapter = this.mApplication.getInformationAdapter();
+        this.mLoginAdapter = AccessStillwaterApp.getmInstance().getLoginAdapter();
+        this.mCurrentUser = mLoginAdapter.getBaseUser();
 
         mPlace = mInformationAdapter.getPlace();
 
@@ -152,15 +157,22 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
     @Override
     public void onClick(View v) {
 
-        if(!isFavorite){
-            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccentDark)));
-            Log.d("FAB", "Fav'd!");
-            isFavorite = true;
-        }else{
-            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
-            Log.d("FAB", "unFav'd");
-            isFavorite = false;
+        switch (v.getId()) {
+            case R.id.fab_info_fav:
+                break;
+            case R.id.fab_info_comment:
+                break;
         }
+
+//        if(!isFavorite){
+//            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccentDark)));
+//            Log.d("FAB", "Fav'd!");
+//            isFavorite = true;
+//        }else{
+//            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+//            Log.d("FAB", "unFav'd");
+//            isFavorite = false;
+//        }
     }
 
     public static Intent getCallingIntent(Context context) {
