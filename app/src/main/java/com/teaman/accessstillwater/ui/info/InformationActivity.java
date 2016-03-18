@@ -79,6 +79,7 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
     protected TabLayout mTabLayout;
 
     FlipAnimation flipAnimation;
+    FlipAnimation flipAnimationReverse;
 
     private Establishment mEstablishment;
     private ParseUser mCurrentUser;
@@ -127,6 +128,8 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
         mFloatingActionButtonComment.setOnClickListener(this);
 
         flipAnimation = new FlipAnimation(mFloatingActionButton, mFloatingActionButtonComment);
+        flipAnimationReverse = new FlipAnimation(mFloatingActionButtonComment, mFloatingActionButton);
+        flipAnimationReverse.reverse();
 
         mInforPager.addOnPageChangeListener(this);
     }
@@ -138,15 +141,15 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     @Override
     public void onPageSelected(int position) {
+        //flipAnimation.swap();
         if(position == 1){
             mFloatingActionButton.startAnimation(flipAnimation);
             mFloatingActionButtonComment.startAnimation(flipAnimation);
         }else if(position == 0){
-            flipAnimation.reverse();
-            mFloatingActionButtonComment.startAnimation(flipAnimation);
-            mFloatingActionButton.startAnimation(flipAnimation);
-            flipAnimation.reverse();
+            mFloatingActionButtonComment.startAnimation(flipAnimationReverse);
+            mFloatingActionButton.startAnimation(flipAnimationReverse);
         }
+
     }
 
     @Override
