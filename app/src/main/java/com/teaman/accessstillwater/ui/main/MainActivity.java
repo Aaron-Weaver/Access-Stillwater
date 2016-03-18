@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -60,6 +61,12 @@ public class MainActivity extends BaseDrawerActivity implements
     @Bind(R.id.activity_feed_container)
     protected FrameLayout mActivityFeedContainer;
 
+    @Bind(R.id.toolbar_search_button)
+    protected FrameLayout mToolbarSearchAutocomplete;
+
+    @Bind(R.id.toolbar_title)
+    protected TextView mToolbarTitleTV;
+
     private MainFragment mMainFragment;
 
     private PlaceAutocompleteFragment mPlaceAutocompleteFragment;
@@ -94,11 +101,13 @@ public class MainActivity extends BaseDrawerActivity implements
         mPlaceAutocompleteFragment = new PlaceAutocompleteFragment();
         mActivityFeedFragment = ActivityFeedFragment.newInstance();
 
-        getFragmentManager().beginTransaction().add(R.id.place_autocomplete_container,
+        getFragmentManager().beginTransaction().add(R.id.toolbar_search_button,
                 mPlaceAutocompleteFragment, "Autocomplete Frag").commit();
 
         mPlaceAutocompleteFragment.setOnPlaceSelectedListener(this);
         this.setTitle(getString(R.string.activity_home));
+
+        mToolbarTitleTV.setText(getString(R.string.activity_home));
 
         mMainFragment = new MainFragment();
         addFragmentToContainer(mMainFragment, "Main Frag");
@@ -190,4 +199,6 @@ public class MainActivity extends BaseDrawerActivity implements
         Log.d("Place fragment", status.getStatusMessage());
 
     }
+
+
 }

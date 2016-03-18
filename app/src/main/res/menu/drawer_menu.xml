@@ -3,6 +3,15 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single"
+           android:id="@+id/main_nav">
+
+        <item android:id="@+id/nav_home"
+              android:title="@string/nav_home_string"
+              android:icon="@drawable/ic_home"/>
+
+    </group>
+
+    <group android:checkableBehavior="single"
         android:id="@+id/user_nav">
 
         <item android:id="@+id/nav_friends"
@@ -25,9 +34,9 @@
     <group android:checkableBehavior="single"
         android:id="@+id/app_nav">
 
-        <item android:id="@+id/nav_home"
-              android:title="@string/nav_home_string"
-            android:icon="@drawable/ic_maps_marker"/>
+        <item android:id="@+id/nav_settings"
+              android:title="@string/nav_settings_string"
+              android:icon="@drawable/ic_action_settings"/>
 
         <item android:id="@+id/nav_sign_out"
             android:title="@string/nav_sign_out"

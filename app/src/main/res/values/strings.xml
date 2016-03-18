@@ -76,5 +76,7 @@
     <!-- Personal Info Card Strings -->
     <string name="personal_info_card_title">Personal Info</string>
     <string name="profile_disability_info">Disability Info</string>
+    <string name="nav_settings_string">Settings</string>
+    <string name="location_search_string">Search for locations</string>
 
 </resources>
