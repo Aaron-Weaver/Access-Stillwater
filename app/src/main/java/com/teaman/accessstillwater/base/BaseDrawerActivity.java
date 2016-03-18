@@ -1,7 +1,6 @@
 package com.teaman.accessstillwater.base;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -97,12 +96,6 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
         if(mDrawerLayout != null && mNavMenu != null) {
             drawerSetup();
         }
-
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -270,11 +263,10 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        mDrawerLayout.closeDrawers();
         switch (v.getId()) {
             case R.id.linear_profile_view:
                 if(!getTitle().equals(getString(R.string.activity_user_profile))) {
-                    Navigator.getInstance().navigateToProfileActivity(this);
+                    Navigator.getInstance().navigateToProfileActivity(this, mProfileImage);
                 }
                 break;
         }

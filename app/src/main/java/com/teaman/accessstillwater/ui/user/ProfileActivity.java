@@ -2,11 +2,15 @@ package com.teaman.accessstillwater.ui.user;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.graphics.Palette;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -31,6 +35,9 @@ public class ProfileActivity extends BaseActivity
 
     @Bind(R.id.profile_app_bar)
     protected AppBarLayout mAppBarLayout;
+
+    @Bind(R.id.profile_view_picture)
+    protected ImageView mProfilePicture;
 
     @Bind(R.id.parallax_background)
     protected ImageView mProfileBackground;
@@ -59,17 +66,30 @@ public class ProfileActivity extends BaseActivity
 
         Picasso.with(this)
                 .load(mLoginAdapter.getUser().getUserAvatar())
-                .resize(300, 300)
-                .centerCrop()
-                .placeholder(R.drawable.ic_nav_drawer_background)
-                .into(mProfileBackground);
+                .fit()
+                .placeholder(R.drawable.ic_account_circle_white_48dp)
+                .into(mProfilePicture);
 
-        mCollapsingToolbarLayout.setTitle(mLoginAdapter.getUser().getDisplayName(false));
-        mCollapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.white));
-        mCollapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.white));
+        mCollapsingToolbarLayout.setTitle(mLoginAdapter.getUser().getDisplayName(true));
 
-        mCollapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorPrimary));
-        mCollapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(android.R.color.transparent));
+        Drawable backgroundImageDraw = mProfileBackground.getDrawable();
+
+        if (backgroundImageDraw instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) backgroundImageDraw;
+            Bitmap bm = bitmapDrawable.getBitmap();
+            Palette.from(bm).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(Palette palette) {
+
+                    if(palette.getDarkMutedSwatch() != null ) {
+                        Palette.Swatch swatch = palette.getDarkMutedSwatch();
+
+                        mCollapsingToolbarLayout.setExpandedTitleColor(swatch.getBodyTextColor());
+                    }
+                }
+            });
+        }
+
     }
 
     @Override

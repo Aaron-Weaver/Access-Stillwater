@@ -71,4 +71,9 @@
 
     <!--Information strings -->
     <string name="place">Place</string>
+    <string name="profile_image_transition">imageTransition</string>
+
+    <!-- Personal Info Card Strings -->
+    <string name="personal_info_card_title">Personal Info</string>
+
 </resources>

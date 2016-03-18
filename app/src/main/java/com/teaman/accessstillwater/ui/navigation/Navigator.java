@@ -1,12 +1,16 @@
 package com.teaman.accessstillwater.ui.navigation;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.widget.ImageView;
 
-import com.teaman.accessstillwater.ui.info.InformationActivity;
-
+import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.ui.establishment.EstablishmentActivity;
 import com.teaman.accessstillwater.ui.establishment.EstablishmentListFragment;
+import com.teaman.accessstillwater.ui.info.InformationActivity;
 import com.teaman.accessstillwater.ui.login.LoginActivity;
 import com.teaman.accessstillwater.ui.login.SignupActivity;
 import com.teaman.accessstillwater.ui.main.MainActivity;
@@ -87,10 +91,16 @@ public class Navigator {
         }
     }
 
-    public void navigateToProfileActivity(Context context) {
-        if(context != null) {
-            Intent moveToIntent = ProfileActivity.getCallingIntent(context);
-            context.startActivity(moveToIntent);
+    public void navigateToProfileActivity(Activity activity, ImageView imageView) {
+        if(activity != null) {
+            Intent moveToIntent = ProfileActivity.getCallingIntent(activity);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, imageView,
+                        activity.getString(R.string.profile_image_transition));
+                activity.startActivity(moveToIntent, options.toBundle());
+            } else {
+                activity.startActivity(moveToIntent);
+            }
         }
     }
 }
