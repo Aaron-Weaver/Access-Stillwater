@@ -8,15 +8,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.ItemCallback;
 import com.teaman.accessstillwater.utils.StringUtils;
+import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
+import com.teaman.data.entities.Review;
 import com.teaman.data.entities.json.Results;
 import com.teaman.data.entities.json.places.PlaceEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -49,6 +54,8 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
     private ItemCallback<Establishment> mEstablishmentItemCallback;
     private Context mContext;
 
+    private List<Review> mEstablishmentReviews;
+
     public EstablishmentViewHolder(View itemView, ItemCallback<Establishment> establishmentItemCallback, Context context) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -67,12 +74,14 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
                     .into(mEstablishmentImage);
         }
 
-        Log.d("View Holder", mEstablishmentName + " | " + mEstablishment.getTotalRating() + " | "
-                + mEstablishment.getAuditoryRating() + "," + mEstablishment.getVisualRating() + "," + mEstablishment.getPhysicalRating());
+        int totalScore = mEstablishment.getTotalRatingWithReviews(mEstablishmentReviews);
 
-        if(mEstablishment.getTotalRating() >= 0) {
+        Log.d("Total Revies", "" + mEstablishmentReviews.size());
+        Log.d("Total Score", "" + totalScore);
+
+        if(totalScore >= 0) {
             for (int i = 0; i < mEstablishmentStarViews.size(); i++) {
-                if (i + 1 <= mEstablishment.getTotalRating()) {
+                if (i + 1 <= totalScore) {
                     Picasso.with(mContext)
                             .load(R.drawable.ic_star_full)
                             .into(mEstablishmentStarViews.get(i));
@@ -90,13 +99,32 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Establishment est) {
         mEstablishment = est;
+        mEstablishmentReviews = new ArrayList<>();
         Log.d("EstablishmentViewHolder", mEstablishment.getPlacesId());
 
         AccessStillwaterApp.getmInstance().getPlacesApi().getAllDetails(mEstablishment.getPlacesId()).enqueue(new Callback<Results<PlaceEntity>>() {
             @Override
             public void onResponse(Call<Results<PlaceEntity>> call, Response<Results<PlaceEntity>> response) {
                 mPlaceEntity = response.body().getSingleResult();
-                setView();
+
+                Activity.getQuery()
+                        .whereEqualTo("establishment", mEstablishment)
+                        .whereEqualTo("type", Activity.TYPE_REVIEW)
+                        .include("review")
+                        .findInBackground(new FindCallback<Activity>() {
+                            @Override
+                            public void done(List<Activity> objects, ParseException e) {
+                                if(objects != null) {
+                                    if(objects.size() > 0) {
+                                        for (Activity act : objects) {
+                                            Review rev = act.getReview().fromParseObject(act.getReview());
+                                            mEstablishmentReviews.add(rev);
+                                        }
+                                    }
+                                }
+                                setView();
+                            }
+                        });
             }
 
             @Override
