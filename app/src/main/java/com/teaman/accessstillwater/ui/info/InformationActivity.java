@@ -20,7 +20,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.parse.DeleteCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseActivity;
@@ -31,6 +36,7 @@ import com.teaman.accessstillwater.ui.animations.FlipAnimation;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
 import com.teaman.data.authorization.InformationAdapter;
 import com.teaman.data.authorization.LoginAdapter;
+import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.json.places.Photo;
 import com.teaman.data.entities.json.places.PlaceEntity;
@@ -124,6 +130,8 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
         }
 
+        determineFavoriteStatus();
+
         mFloatingActionButton.setOnClickListener(this);
         mFloatingActionButtonComment.setOnClickListener(this);
 
@@ -152,6 +160,45 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     }
 
+    private void setFavoriteFabImage(int resource) {
+        Picasso.with(context)
+                .load(resource)
+                .resize(48, 48)
+                .centerInside()
+                .into(mFloatingActionButton);
+    }
+
+    private void determineFavoriteStatus() {
+        Establishment.getQuery()
+                .whereEqualTo("placesId", mPlace.getPlaceId())
+                .getFirstInBackground(new GetCallback<Establishment>() {
+                    @Override
+                    public void done(Establishment object, ParseException e) {
+                        mEstablishment = object.fromParseObject(object);
+
+                        Log.d("User", mLoginAdapter.getBaseUser().getString("username"));
+                        Log.d("EstablishmentID", mEstablishment.getPlacesId());
+
+                        Activity.getQuery()
+                                .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                                .whereEqualTo("type", Activity.TYPE_FAVORITE)
+                                .whereEqualTo("establishment", mEstablishment)
+                                .getFirstInBackground(new GetCallback<Activity>() {
+                                    @Override
+                                    public void done(Activity object, ParseException e) {
+                                        if(e != null) {
+                                            if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+                                                setFavoriteFabImage(R.drawable.ic_favorites);
+                                            }
+                                        } else {
+                                            setFavoriteFabImage(R.drawable.ic_action_favorite);
+                                        }
+                                    }
+                                });
+                    }
+                });
+    }
+
     @Override
     public void onPageScrollStateChanged(int state) {
 
@@ -162,6 +209,7 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
         switch (v.getId()) {
             case R.id.fab_info_fav:
+                clickFavoriteButton();
                 break;
             case R.id.fab_info_comment:
                 break;
@@ -176,6 +224,44 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 //            Log.d("FAB", "unFav'd");
 //            isFavorite = false;
 //        }
+    }
+
+    private void clickFavoriteButton() {
+        Log.d("Favorite Clicked", "fav icon clicked");
+        mFloatingActionButton.setClickable(false);
+
+        Activity.getQuery()
+                .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                .whereEqualTo("type", Activity.TYPE_FAVORITE)
+                .whereEqualTo("establishment", mEstablishment)
+                .getFirstInBackground(new GetCallback<Activity>() {
+                    @Override
+                    public void done(Activity object, ParseException e) {
+                        if(e != null) {
+                            if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+                                Activity act = new Activity();
+                                act.setFromUser(mLoginAdapter.getBaseUser());
+                                act.setEstablishment(mEstablishment);
+                                act.setType(Activity.TYPE_FAVORITE);
+                                act.toParseObject(act).saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        mFloatingActionButton.setClickable(true);
+                                        setFavoriteFabImage(R.drawable.ic_action_favorite);
+                                    }
+                                });
+                            }
+                        } else {
+                            object.deleteInBackground(new DeleteCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    mFloatingActionButton.setClickable(true);
+                                    setFavoriteFabImage(R.drawable.ic_favorites);
+                                }
+                            });
+                        }
+                    }
+                });
     }
 
     public static Intent getCallingIntent(Context context) {
