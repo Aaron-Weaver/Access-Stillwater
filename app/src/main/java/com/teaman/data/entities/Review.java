@@ -2,7 +2,6 @@ package com.teaman.data.entities;
 
 import com.parse.ParseClassName;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.teaman.accessstillwater.base.BaseParseObject;
 
 /**
@@ -23,20 +22,14 @@ import com.teaman.accessstillwater.base.BaseParseObject;
 @ParseClassName("Review")
 public class Review extends BaseParseObject<Review> {
 
-    private ParseUser byUser;
     private String title;
     private String content;
-    private int totalRating;
     private int auditoryRating;
     private int visualRating;
     private int physicalRating;
 
     public int getTotalRating() {
-        return (getAuditoryRating() + getPhysicalRating() + getVisualRating()) / 3;
-    }
-
-    public void setTotalRating() {
-        this.totalRating = getTotalRating();
+        return (getAuditoryRating() + getVisualRating() + getPhysicalRating()) / 3;
     }
 
     public String getTitle()
@@ -87,14 +80,6 @@ public class Review extends BaseParseObject<Review> {
     public void setPhysicalRating(int physicalRating)
     {
         this.physicalRating = physicalRating;
-    }
-
-    public ParseUser getByUser() {
-        return byUser;
-    }
-
-    public void setByUser(ParseUser byUser) {
-        this.byUser = byUser;
     }
 
     @Override
