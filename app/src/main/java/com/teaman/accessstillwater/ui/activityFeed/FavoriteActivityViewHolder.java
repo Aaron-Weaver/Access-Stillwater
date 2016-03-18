@@ -1,11 +1,14 @@
 package com.teaman.accessstillwater.ui.activityFeed;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
@@ -13,10 +16,13 @@ import com.teaman.accessstillwater.utils.StringUtils;
 import com.teaman.data.authorization.parse.ParseUserAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
+import com.teaman.data.entities.Review;
 import com.teaman.data.entities.json.Results;
 import com.teaman.data.entities.json.places.PlaceEntity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,10 +48,15 @@ public class FavoriteActivityViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.establishment_title)
     protected TextView mEstablishmentTitle;
 
+    @Bind(R.id.activity_rating_bar)
+    protected AppCompatRatingBar mRatingBar;
+
     private Context mContext;
     private Activity mActivity;
     private PlaceEntity mPlaceEntity;
     private Establishment mEstablishment;
+
+    private List<Review> mEstablishmentReviews;
 
     public FavoriteActivityViewHolder(View itemView, Context context) {
         super(itemView);
@@ -81,10 +92,17 @@ public class FavoriteActivityViewHolder extends RecyclerView.ViewHolder {
                     .fit()
                     .into(mFromUserImage);
         }
+
+        int totalScore = mEstablishment.getTotalRatingWithReviews(mEstablishmentReviews);
+
+        if(totalScore >= 0) {
+            mRatingBar.setRating(totalScore);
+        }
     }
 
     public void bind(Activity act) {
         mActivity = act;
+        mEstablishmentReviews = new ArrayList<>();
 
         if(mActivity != null) {
             if(mActivity.getEstablishment() != null) {
@@ -95,7 +113,25 @@ public class FavoriteActivityViewHolder extends RecyclerView.ViewHolder {
                     @Override
                     public void onResponse(Call<Results<PlaceEntity>> call, Response<Results<PlaceEntity>> response) {
                         mPlaceEntity = response.body().getSingleResult();
-                        setupView();
+
+                        Activity.getQuery()
+                                .whereEqualTo("establishment", mEstablishment)
+                                .whereEqualTo("type", Activity.TYPE_REVIEW)
+                                .include("review")
+                                .findInBackground(new FindCallback<Activity>() {
+                                    @Override
+                                    public void done(List<Activity> objects, ParseException e) {
+                                        if(objects != null) {
+                                            if(objects.size() > 0) {
+                                                for (Activity act : objects) {
+                                                    Review rev = act.getReview().fromParseObject(act.getReview());
+                                                    mEstablishmentReviews.add(rev);
+                                                }
+                                            }
+                                        }
+                                        setupView();
+                                    }
+                                });
                     }
 
                     @Override

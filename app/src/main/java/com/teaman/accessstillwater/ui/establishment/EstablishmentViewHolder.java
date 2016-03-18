@@ -1,6 +1,7 @@
 package com.teaman.accessstillwater.ui.establishment;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -44,10 +45,8 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.linear_star_layout)
     protected LinearLayout mReviewStarsLayout;
 
-    @Bind({R.id.establishment_review_star_1, R.id.establishment_review_star_2,
-            R.id.establishment_review_star_3, R.id.establishment_review_star_4,
-            R.id.establishment_review_star_5})
-    protected List<ImageView> mEstablishmentStarViews;
+    @Bind(R.id.rating_bar_establishment)
+    protected AppCompatRatingBar mEstablishmentStarViews;
 
     private PlaceEntity mPlaceEntity;
     private Establishment mEstablishment;
@@ -80,13 +79,7 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
         Log.d("Total Score", "" + totalScore);
 
         if(totalScore >= 0) {
-            for (int i = 0; i < mEstablishmentStarViews.size(); i++) {
-                if (i + 1 <= totalScore) {
-                    Picasso.with(mContext)
-                            .load(R.drawable.ic_star_full)
-                            .into(mEstablishmentStarViews.get(i));
-                }
-            }
+            mEstablishmentStarViews.setRating(totalScore);
         } else {
             mReviewStarsLayout.setVisibility(View.GONE);
         }
