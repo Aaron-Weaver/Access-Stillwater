@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.teaman.accessstillwater.R;
-import com.teaman.accessstillwater.base.BaseActivity;
+import com.teaman.accessstillwater.base.BaseDrawerActivity;
 import com.teaman.accessstillwater.utils.StringUtils;
 
 /**
  * Created by weava on 3/12/16.
  */
-public class EstablishmentActivity extends BaseActivity
+public class EstablishmentActivity extends BaseDrawerActivity
 {
     @EstablishmentListFragment.EstablishmentListType int mEstablishmentFragmentType;
 

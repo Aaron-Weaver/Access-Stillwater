@@ -21,6 +21,7 @@
             android:layout_width="@dimen/header_profile_image"
             android:layout_height="@dimen/header_profile_image"
             android:layout_gravity="center"
+            android:transitionName="@string/profile_image_transition"
             android:src="@drawable/ic_account_circle_white_48dp"/>
 
         <TextView
