@@ -36,11 +36,11 @@ public class Establishment extends BaseParseObject<Establishment> {
     private int physicalRating;
     private int visualRating;
 
-    public String getPlaceEntity() {
+    public String getPlacesId() {
         return placesId;
     }
 
-    public void setPlaceEntity(String placesId) {
+    public void setPlacesId(String placesId) {
         this.placesId = placesId;
     }
 

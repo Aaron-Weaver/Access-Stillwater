@@ -7,18 +7,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.utils.StringUtils;
 import com.teaman.data.authorization.parse.ParseUserAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.Review;
+import com.teaman.data.entities.json.Results;
+import com.teaman.data.entities.json.places.PlaceEntity;
 
 import java.text.SimpleDateFormat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by weava on 3/18/16.
@@ -59,6 +65,8 @@ public class ReviewActivityViewHolder extends RecyclerView.ViewHolder {
     private Establishment mEstablishment;
     private Review mReview;
 
+    private PlaceEntity mPlaceEntity;
+
     public ReviewActivityViewHolder(View itemView, Context context) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -69,13 +77,13 @@ public class ReviewActivityViewHolder extends RecyclerView.ViewHolder {
         if(mActivity.getEstablishment() != null) {
             Establishment est =
                     mActivity.getEstablishment().fromParseObject(mActivity.getEstablishment());
-            if(est.getPlaceEntity().getName() != null) {
-                mEstablishmentTitleView.setText(est.getPlaceEntity().getName());
+            if(mPlaceEntity.getName() != null) {
+                mEstablishmentTitleView.setText(mPlaceEntity.getName());
             }
 
-            if(est.getPlaceEntity().getPhotos().get(0).getPhotoReference() != null) {
+            if(mPlaceEntity.getPhotos().get(0).getPhotoReference() != null) {
                 Picasso.with(mContext)
-                        .load(StringUtils.MAPS_API_PHOTO_URL + est.getPlaceEntity().getPhotos().get(0).getPhotoReference())
+                        .load(StringUtils.MAPS_API_PHOTO_URL + mPlaceEntity.getPhotos().get(0).getPhotoReference())
                         .fit()
                         .into(mEstablishmentImageView);
             }
@@ -121,6 +129,21 @@ public class ReviewActivityViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Activity act) {
         mActivity = act;
-        setupViews();
+        mEstablishment = mActivity.getEstablishment().fromParseObject(mActivity.getEstablishment());
+        mFromUser = new ParseUserAdapter(mActivity.getFromUser());
+        mReview = mActivity.getReview().fromParseObject(mActivity.getReview());
+
+        AccessStillwaterApp.getmInstance().getPlacesApi().getAllDetails(mEstablishment.getPlacesId()).enqueue(new Callback<Results<PlaceEntity>>() {
+            @Override
+            public void onResponse(Call<Results<PlaceEntity>> call, Response<Results<PlaceEntity>> response) {
+                mPlaceEntity = response.body().getSingleResult();
+                setupViews();
+            }
+
+            @Override
+            public void onFailure(Call<Results<PlaceEntity>> call, Throwable t) {
+
+            }
+        });
     }
 }
