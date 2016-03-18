@@ -21,11 +21,14 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
 import com.teaman.accessstillwater.ui.activityFeed.ActivityFeedFragment;
 import com.teaman.accessstillwater.ui.navigation.Navigator;
+import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.json.Results;
 import com.teaman.data.entities.json.places.Photo;
 import com.teaman.data.entities.json.places.PlaceEntity;
@@ -171,7 +174,7 @@ public class MainActivity extends BaseDrawerActivity implements
                 place.getId()
         ).enqueue(new Callback<Results<PlaceEntity>>() {
             @Override
-            public void onResponse(Call<Results<PlaceEntity>> call, Response<Results<PlaceEntity>> response) {
+            public void onResponse(Call<Results<PlaceEntity>> call, final Response<Results<PlaceEntity>> response) {
                 if (response.body() != null) {
 
                     for (Photo photo : response.body().getSingleResult().getPhotos()) {
@@ -180,6 +183,32 @@ public class MainActivity extends BaseDrawerActivity implements
                     Log.d("DETAILS:", response.body().getSingleResult().getName());
 
                     mApplication.getInformationAdapter().setPlace(response.body().getSingleResult());
+
+                    Establishment.getQuery().whereEqualTo("placeEntity",
+                            response.body().getSingleResult()).getFirstInBackground(new GetCallback<Establishment>() {
+                        @Override
+                        public void done(Establishment object, ParseException e) {
+                            if(e == null)
+                            {
+                                //object exists
+                            }
+                            else
+                            {
+                                if(e.getCode() == ParseException.OBJECT_NOT_FOUND)
+                                {
+                                    Establishment est = new Establishment();
+                                    est.setPlaceEntity(response.body().getSingleResult());
+                                    est.toParseObject(est);
+                                    est.saveInBackground();
+                                }
+                                else
+                                {
+                                    //unknown error, debug
+                                }
+                            }
+                        }
+                    });
+
                     Navigator.getInstance().navigateToInformationActivity(mContext);
 
                 } else {

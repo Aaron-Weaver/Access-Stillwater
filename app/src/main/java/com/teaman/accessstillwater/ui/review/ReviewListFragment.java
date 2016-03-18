@@ -13,6 +13,7 @@ import com.teaman.accessstillwater.base.BaseRecyclerListFragment;
 import com.teaman.accessstillwater.base.ItemCallback;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.entities.Activity;
+import com.teaman.data.entities.Establishment;
 
 import java.util.List;
 
@@ -39,6 +40,14 @@ public class ReviewListFragment extends BaseRecyclerListFragment implements Item
         Bundle args = new Bundle();
         ReviewListFragment fragment = new ReviewListFragment();
         args.putInt(REVIEW_LIST_TYPE, type);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static ReviewListFragment newInstanceForEstablishment(Establishment est) {
+        Bundle args = new Bundle();
+        ReviewListFragment fragment = new ReviewListFragment();
+        args.putInt(REVIEW_LIST_TYPE, FRAGMENT_ESTABLISHMENT);
         fragment.setArguments(args);
         return fragment;
     }

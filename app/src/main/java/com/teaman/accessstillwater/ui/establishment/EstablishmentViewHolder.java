@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.ItemCallback;
+import com.teaman.accessstillwater.utils.StringUtils;
 import com.teaman.data.entities.Establishment;
 
 import java.util.List;
@@ -49,12 +50,12 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setView() {
-        if(mEstablishment.getName() != null) {
-            mEstablishmentName.setText(mEstablishment.getName());
+        if(mEstablishment.getPlaceEntity().getName() != null) {
+            mEstablishmentName.setText(mEstablishment.getPlaceEntity().getName());
         }
-        if(mEstablishment.getBusinessImage() != null) {
+        if(mEstablishment.getPlaceEntity().getPhotos().get(0).getPhotoReference() != null) {
             Picasso.with(mContext)
-                    .load(mEstablishment.getBusinessImage().getUrl())
+                    .load(StringUtils.MAPS_API_PHOTO_URL + mEstablishment.getPlaceEntity().getPhotos().get(0).getPhotoReference())
                     .fit()
                     .into(mEstablishmentImage);
         }
@@ -82,7 +83,7 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Establishment est) {
         mEstablishment = est;
-        Log.d("EstablishmentViewHolder", mEstablishment.getName());
+        Log.d("EstablishmentViewHolder", mEstablishment.getPlaceEntity().getName());
 
         setView();
     }

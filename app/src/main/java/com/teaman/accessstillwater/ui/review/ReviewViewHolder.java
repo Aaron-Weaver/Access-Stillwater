@@ -61,8 +61,8 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
         if(mActivity.getEstablishment() != null) {
             Establishment est =
                     mActivity.getEstablishment().fromParseObject(mActivity.getEstablishment());
-            if(est.getName() != null) {
-                mEstablishmentTitleText.setText(est.getName());
+            if(est.getPlaceEntity().getName() != null) {
+                mEstablishmentTitleText.setText(est.getPlaceEntity().getName());
             }
         }
 

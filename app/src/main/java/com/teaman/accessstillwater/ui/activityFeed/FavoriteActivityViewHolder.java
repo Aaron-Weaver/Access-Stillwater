@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.R;
+import com.teaman.accessstillwater.utils.StringUtils;
 import com.teaman.data.authorization.parse.ParseUserAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
@@ -48,12 +49,12 @@ public class FavoriteActivityViewHolder extends RecyclerView.ViewHolder {
         if(mActivity.getEstablishment() != null) {
             Establishment est =
                     mActivity.getEstablishment().fromParseObject(mActivity.getEstablishment());
-            if(est.getName() != null) {
-                mEstablishmentTitle.setText(est.getName());
+            if(est.getPlaceEntity().getName() != null) {
+                mEstablishmentTitle.setText(est.getPlaceEntity().getName());
             }
-            if(est.getBusinessImage() != null) {
+            if(est.getPlaceEntity().getPhotos().get(0).getPhotoReference() != null) {
                 Picasso.with(mContext)
-                        .load(est.getBusinessImage().getUrl())
+                        .load(StringUtils.MAPS_API_PHOTO_URL + est.getPlaceEntity().getPhotos().get(0).getPhotoReference())
                         .fit()
                         .into(mEstablishmentImageView);
             }

@@ -41,12 +41,11 @@ public class Viewport {
     }
 
     /**
-     * 
+     *
      * @param southwest
      *     The southwest
      */
     public void setSouthwest(Southwest southwest) {
         this.southwest = southwest;
     }
-
 }

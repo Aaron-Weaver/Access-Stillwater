@@ -34,7 +34,7 @@ public class EstablishmentAdapter extends BaseRecyclerAdapter<Establishment, Est
 
     @Override
     public void onBindViewHolder(EstablishmentViewHolder holder, int position) {
-        Log.d("Binding View Name", mElements.get(position).getName());
+        Log.d("Binding View Name", mElements.get(position).getPlaceEntity().getName());
         holder.bind(mElements.get(position));
     }
 }
