@@ -28,18 +28,29 @@
 
         </android.support.design.widget.AppBarLayout>
 
+
         <FrameLayout
             android:id="@+id/place_autocomplete_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
         </FrameLayout>
 
-        <!-- Activity Content -->
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="true">
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider"/>
+
+        <FrameLayout
+            android:id="@+id/activity_feed_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:clipToPadding="true">
         </FrameLayout>
 

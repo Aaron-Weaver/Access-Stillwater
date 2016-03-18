@@ -66,7 +66,6 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
     public void queryData() {
         mEstablishmentAdapter.clear();
 
-
         if(mEstablishmentListType == FRAGMENT_FAVORITE) {
             Log.d("Establishments Results", "Establishments favoriteing");
             Activity.getQuery()

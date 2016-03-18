@@ -4,36 +4,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_marginTop="8dp"
+    android:layout_height="70dp"
     android:layout_marginBottom="1dp"
-    app:cardElevation="3dp">
+    app:cardBackgroundColor="@color/window_background"
+    app:cardElevation="0dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/colorPrimaryDark">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:background="@color/colorPrimaryDark">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/logo_text_md"
-            android:layout_centerInParent="true"
-            android:text="Filter By"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--style="@style/logo_text_md"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:text="Filter By"/>-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/colorDivider"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/physical_disability_filter"
             android:layout_width="0dp"
             android:layout_weight="0.33"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
@@ -57,14 +61,13 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/colorDivider"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="50dp"/>
 
         <LinearLayout
             android:id="@+id/auditory_disability_filter"
             android:layout_width="0dp"
             android:layout_weight="0.33"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
@@ -88,14 +91,13 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/colorDivider"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="50dp"/>
 
         <LinearLayout
             android:id="@+id/visual_disability_filter"
             android:layout_width="0dp"
             android:layout_weight="0.33"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView

@@ -1,7 +1,9 @@
 package com.teaman.accessstillwater.ui.activityFeed;
 
+import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.teaman.accessstillwater.R;
@@ -17,15 +19,21 @@ public class ActivityFeedAdapter extends BaseMultiViewRecyclerAdapter<Activity> 
     private static final int VIEW_TYPE_REVIEW = 1;
     private static final int VIEW_TYPE_FAVORITE = 2;
 
+    private Context mContext;
+
     @IntDef({VIEW_TYPE_FRIEND, VIEW_TYPE_REVIEW, VIEW_TYPE_FAVORITE})
     public @interface ActivityFeedViewType {}
+
+    public ActivityFeedAdapter(Context context) {
+        mContext = context;
+    }
 
     @Override
     public RecyclerView.ViewHolder inflateViewHolder(View v, int viewType) {
         switch (viewType) {
-            case VIEW_TYPE_FAVORITE: return new FavoriteActivityViewHolder(v);
+            case VIEW_TYPE_FAVORITE: return new FavoriteActivityViewHolder(v, mContext);
             case VIEW_TYPE_FRIEND: return new FriendActivityViewHolder(v);
-            case VIEW_TYPE_REVIEW: return new ReviewActivityViewHolder(v);
+            case VIEW_TYPE_REVIEW: return new ReviewActivityViewHolder(v, mContext);
             default: return new FriendActivityViewHolder(v);
         }
     }
@@ -64,6 +72,9 @@ public class ActivityFeedAdapter extends BaseMultiViewRecyclerAdapter<Activity> 
 
     @Override
     public int getItemViewType(int position) {
+
+        Log.d("Activity type", mElements.get(position).getType());
+
         switch (mElements.get(position).getType()) {
             case "review":
                 return VIEW_TYPE_REVIEW;
