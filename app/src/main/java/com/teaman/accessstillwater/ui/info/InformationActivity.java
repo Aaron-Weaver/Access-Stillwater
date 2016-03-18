@@ -27,6 +27,7 @@ import com.teaman.accessstillwater.base.BaseActivity;
 import com.teaman.accessstillwater.ui.CustomFragmentAdapter;
 import com.teaman.accessstillwater.ui.ImageAdapterCallback;
 import com.teaman.accessstillwater.ui.ImagePagerAdapter;
+import com.teaman.accessstillwater.ui.animations.FlipAnimation;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
 import com.teaman.data.authorization.InformationAdapter;
 import com.teaman.data.entities.Establishment;
@@ -42,7 +43,7 @@ import uk.co.senab.photoview.PhotoView;
 /**
  * Created by Alexander Melton on 3/12/2016.
  */
-public class InformationActivity extends BaseActivity implements ImageAdapterCallback, View.OnClickListener {
+public class InformationActivity extends BaseActivity implements ImageAdapterCallback, View.OnClickListener, ViewPager.OnPageChangeListener{
     private Fragment mInformationFragment;
     private Fragment mParallaxFragment;
 
@@ -56,8 +57,11 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     private Boolean isFavorite = false;
 
-    @Bind(R.id.fab_info)
+    @Bind(R.id.fab_info_fav)
     FloatingActionButton mFloatingActionButton;
+
+    @Bind(R.id.fab_info_comment)
+    FloatingActionButton mFloatingActionButtonComment;
 
     @Nullable
     @Bind(R.id.infoViewPager)
@@ -72,6 +76,8 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
     @Nullable
     @Bind(R.id.tabs)
     protected TabLayout mTabLayout;
+
+    FlipAnimation flipAnimation;
 
     private Establishment mEstablishment;
 
@@ -113,7 +119,33 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
         }
 
         mFloatingActionButton.setOnClickListener(this);
+        mFloatingActionButtonComment.setOnClickListener(this);
 
+        flipAnimation = new FlipAnimation(mFloatingActionButton, mFloatingActionButtonComment);
+
+        mInforPager.addOnPageChangeListener(this);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if(position == 1){
+            mFloatingActionButton.startAnimation(flipAnimation);
+            mFloatingActionButtonComment.startAnimation(flipAnimation);
+        }else if(position == 0){
+            flipAnimation.reverse();
+            mFloatingActionButtonComment.startAnimation(flipAnimation);
+            mFloatingActionButton.startAnimation(flipAnimation);
+            flipAnimation.reverse();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
     }
 
