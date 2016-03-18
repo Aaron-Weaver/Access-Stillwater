@@ -9,22 +9,22 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceLikelihood;
-import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseDrawerActivity;
+import com.teaman.accessstillwater.ui.activityFeed.ActivityFeedFragment;
 import com.teaman.accessstillwater.ui.navigation.Navigator;
 import com.teaman.data.entities.json.Results;
 import com.teaman.data.entities.json.places.Photo;
@@ -60,9 +60,19 @@ public class MainActivity extends BaseDrawerActivity implements
     @Bind(R.id.place_autocomplete_container)
     protected FrameLayout mPlacesContainer;
 
+    @Bind(R.id.activity_feed_container)
+    protected FrameLayout mActivityFeedContainer;
+
+    @Bind(R.id.toolbar_search_button)
+    protected FrameLayout mToolbarSearchAutocomplete;
+
+    @Bind(R.id.toolbar_title)
+    protected TextView mToolbarTitleTV;
+
     private MainFragment mMainFragment;
 
     private PlaceAutocompleteFragment mPlaceAutocompleteFragment;
+    private ActivityFeedFragment mActivityFeedFragment;
 
     private GoogleApiClient mApiClient;
 
@@ -91,15 +101,22 @@ public class MainActivity extends BaseDrawerActivity implements
         mApiClient.connect();
 
         mPlaceAutocompleteFragment = new PlaceAutocompleteFragment();
+        mPlaceAutocompleteFragment.setBoundsBias(new LatLngBounds(new LatLng(36.04, -97.15), new LatLng(36.21, -97.0)));
+        mActivityFeedFragment = ActivityFeedFragment.newInstance();
 
-        getFragmentManager().beginTransaction().add(R.id.place_autocomplete_container,
+        getFragmentManager().beginTransaction().add(R.id.toolbar_search_button,
                 mPlaceAutocompleteFragment, "Autocomplete Frag").commit();
 
         mPlaceAutocompleteFragment.setOnPlaceSelectedListener(this);
         this.setTitle(getString(R.string.activity_home));
 
+        mToolbarTitleTV.setText(getString(R.string.activity_home));
+
         mMainFragment = new MainFragment();
         addFragmentToContainer(mMainFragment, "Main Frag");
+
+        getFragmentManager().beginTransaction().add(R.id.activity_feed_container,
+                mActivityFeedFragment, "Activity Feed Frag").commit();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -116,90 +133,8 @@ public class MainActivity extends BaseDrawerActivity implements
         } else {
             //getUserCurrentLocation();
         }
-
-//        PendingResult<PlaceLikelihoodBuffer> result =
-//                Places.PlaceDetectionApi.getCurrentPlace(mApiClient, null);
-    }
-//    Log.d("Maps", "set map current location");
-
-    private void getUserCurrentLocation() {
-
-        try
-        {
-            PendingResult<PlaceLikelihoodBuffer> result =
-                    Places.PlaceDetectionApi.getCurrentPlace(mApiClient, null);
-
-            result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>()
-            {
-                @Override
-                public void onResult(@NonNull PlaceLikelihoodBuffer placeLikelihoods)
-                {
-                    PlaceLikelihood mostLikely = null;
-                    if (placeLikelihoods.getCount() <= 0)
-                    {
-                        Toast.makeText(mContext, "No Place found", Toast.LENGTH_SHORT).show();
-                    }
-                    for (PlaceLikelihood place : placeLikelihoods)
-                    {
-                        if (mostLikely != null)
-                        {
-                            if (place.getLikelihood() > mostLikely.getLikelihood())
-                            {
-                                mostLikely = place;
-                            }
-                        }
-                        else
-                        {
-                            mostLikely = place;
-                        }
-                        Log.i("Place Activity", String.format("Place '%s' has likelihood: %g",
-                                place.getPlace().getName(),
-                                place.getLikelihood()));
-                    }
-                    if (mostLikely != null)
-                    {
-                        getLocationsAroundUser(mostLikely.getPlace());
-                    }
-                    placeLikelihoods.release();
-                }
-            });
-        } catch (SecurityException ex) {
-
-        }
     }
 
-    private void getLocationsAroundUser(Place currentLocation) {
-
-        String latLongStr = String.valueOf(currentLocation.getLatLng().latitude);
-        latLongStr += ", " + String.valueOf(currentLocation.getLatLng().longitude);
-
-        mApplication.getPlacesApi().getAllNearbyEstablishments(
-                latLongStr,
-                100000f
-        ).enqueue(new Callback<Results<PlaceEntity>>()
-        {
-            @Override
-            public void onResponse(Call<Results<PlaceEntity>> call, Response<Results<PlaceEntity>> response)
-            {
-                if(response.body() != null) {
-                    for (PlaceEntity place : response.body().getResults()) {
-                        if(response.body() != null) {
-                            Log.d("Places API Call", place.getName());
-                        } else {
-                            Log.d("Places API NULL", response.message());
-                        }
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Results<PlaceEntity>> call, Throwable t)
-            {
-                Log.d("Places API Call", t.getMessage() + " | " + t.getStackTrace());
-            }
-        });
-    }
 
     @Override
     protected int getLayoutResource()
@@ -267,4 +202,6 @@ public class MainActivity extends BaseDrawerActivity implements
         Log.d("Place fragment", status.getStatusMessage());
 
     }
+
+
 }

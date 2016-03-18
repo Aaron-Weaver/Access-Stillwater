@@ -99,7 +99,9 @@ public class ParseLoginAdapter implements LoginAdapter {
     @Override
     public ParseUserAdapter getUser() {
         if(this.isLoggedIn()) {
-            return new ParseUserAdapter(ParseUser.getCurrentUser());
+            ParseUser u = ParseUser.getCurrentUser();
+            u.fetchIfNeededInBackground();
+            return new ParseUserAdapter(u);
         } else {
             return null;
         }
