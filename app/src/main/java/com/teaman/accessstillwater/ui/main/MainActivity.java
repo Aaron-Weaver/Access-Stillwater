@@ -197,7 +197,7 @@ public class MainActivity extends BaseDrawerActivity implements
                                 if(e.getCode() == ParseException.OBJECT_NOT_FOUND)
                                 {
                                     Establishment est = new Establishment();
-                                    est.setPlaceEntity(response.body().getSingleResult());
+                                    est.setPlacesId(response.body().getSingleResult().getId());
                                     est.toParseObject(est);
                                     est.saveInBackground();
                                 }

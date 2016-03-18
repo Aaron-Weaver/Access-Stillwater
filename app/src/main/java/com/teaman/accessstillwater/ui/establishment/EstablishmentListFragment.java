@@ -81,7 +81,6 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
                                 for (Activity act : objects) {
                                     act = act.fromParseObject(act);
                                     Establishment est = act.getEstablishment().fromParseObject(act.getEstablishment());
-                                    Log.d("Establishment Name", est.getPlaceEntity().getName());
 
                                     mEstablishmentAdapter.add(est);
                                 }
