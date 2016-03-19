@@ -45,7 +45,6 @@ import com.teaman.data.entities.json.places.PlaceEntity;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import retrofit2.http.HEAD;
 import timber.log.Timber;
 import uk.co.senab.photoview.PhotoView;
 
@@ -121,16 +120,26 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
         if(mInforPager != null){
             adapter = new CustomFragmentAdapter(getFragmentManager());
 
-            InformationFragment informationFragment = new InformationFragment();
-            ReviewListFragment reviewListFragment = ReviewListFragment.newInstance(ReviewListFragment.FRAGMENT_ESTABLISHMENT);
+            Establishment.getQuery()
+                    .whereEqualTo("placesId", mPlace.getPlaceId())
+                    .getFirstInBackground(new GetCallback<Establishment>() {
+                        @Override
+                        public void done(Establishment object, ParseException e) {
+                            if(object != null) {
+                                AccessStillwaterApp.getmInstance().getEstablishmentAdapter().setEstablishment(object);
+                                ReviewListFragment reviewListFragment = ReviewListFragment.newInstance(ReviewListFragment.FRAGMENT_ESTABLISHMENT);
+                                InformationFragment informationFragment = new InformationFragment();
+                                adapter.addFragment(informationFragment, "Details");
+                                adapter.addFragment(reviewListFragment, "Reviews");
 
-            adapter.addFragment(informationFragment, "Details");
-            adapter.addFragment(reviewListFragment, "Reviews");
+                                mInforPager.setAdapter(adapter);
+                                if (mTabLayout != null) {
+                                    mTabLayout.setupWithViewPager(mInforPager);
+                                }
+                            }
+                        }
+                    });
 
-            mInforPager.setAdapter(adapter);
-            if (mTabLayout != null) {
-                mTabLayout.setupWithViewPager(mInforPager);
-            }
         }
 
         determineFavoriteStatus();

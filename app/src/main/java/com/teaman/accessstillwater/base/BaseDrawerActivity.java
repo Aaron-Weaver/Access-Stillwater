@@ -16,14 +16,15 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.ui.establishment.EstablishmentListFragment;
 import com.teaman.accessstillwater.ui.navigation.Navigator;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
+import com.teaman.data.User;
 import com.teaman.data.authorization.LoginAdapter;
-import com.teaman.data.authorization.parse.ParseUserAdapter;
 import com.teaman.data.entities.Activity;
 
 import java.util.List;
@@ -71,7 +72,7 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
     @Bind(R.id.nav_header_layout)
     protected LinearLayout mNavHeaderLayout;
 
-    private ParseUserAdapter mCurrentUser;
+    private ParseUser mCurrentUser;
     private LoginAdapter mLoginAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private Context mContext;
@@ -90,7 +91,7 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
         }
 
         if(mLoginAdapter.isLoggedIn()) {
-            mCurrentUser = mLoginAdapter.getUser();
+            mCurrentUser = mLoginAdapter.getBaseUser();
         }
 
         if(mDrawerLayout != null && mNavMenu != null) {
@@ -225,16 +226,17 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
     private void drawerUpdate() {
         if(mCurrentUser != null) {
             if(mProfileImage != null) {
-                Picasso.with(this)
-                        .load(mCurrentUser.getUserAvatar())
-                        .fit()
-                        .placeholder(R.drawable.ic_account_circle_white_48dp)
-                        .into(mProfileImage);
+                if(mCurrentUser.getParseFile("profilePicture") != null) {
+                    Picasso.with(this)
+                            .load(mCurrentUser.getParseFile("profilePicture").getUrl())
+                            .fit()
+                            .placeholder(R.drawable.ic_account_circle_white_48dp)
+                            .into(mProfileImage);
+                }
             }
 
             if(mProfileName != null) {
-                Log.d("BASE DRAWER ACTIVITY", mCurrentUser.getDisplayName(false));
-                mProfileName.setText(mCurrentUser.getDisplayName(false));
+                mProfileName.setText(mCurrentUser.getString(User.FIRST_NAME) + " " + mCurrentUser.getString(User.LAST_NAME));
             }
 
 

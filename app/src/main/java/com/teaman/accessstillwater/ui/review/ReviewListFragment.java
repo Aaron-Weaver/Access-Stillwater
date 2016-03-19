@@ -11,6 +11,7 @@ import com.parse.ParseUser;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseRecyclerListFragment;
 import com.teaman.accessstillwater.base.ItemCallback;
+import com.teaman.accessstillwater.ui.establishment.EstablishmentAdapter;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
@@ -34,6 +35,8 @@ public class ReviewListFragment extends BaseRecyclerListFragment implements Item
     private ParseUser mCurrentUser;
     private LoginAdapter mLoginAdapter;
     private ReviewListAdapter mReviewListAdapter;
+    private EstablishmentAdapter mEstablishmentAdapter;
+    private Establishment mEstablishment;
     private int mReviewListType;
 
     public static ReviewListFragment newInstance(@ReviewListType int type) {
@@ -59,6 +62,11 @@ public class ReviewListFragment extends BaseRecyclerListFragment implements Item
         mCurrentUser = mLoginAdapter.getBaseUser();
         mReviewListAdapter = new ReviewListAdapter(this, getActivity());
         mReviewListType = getArguments().getInt(REVIEW_LIST_TYPE);
+
+        if(mReviewListType == FRAGMENT_ESTABLISHMENT) {
+            mEstablishment = AccessStillwaterApp.getmInstance().getEstablishmentAdapter().getEstablishment();
+        }
+
         initList(mReviewListAdapter, 1);
         queryData();
     }
@@ -93,7 +101,26 @@ public class ReviewListFragment extends BaseRecyclerListFragment implements Item
             });
 
         } else if(mReviewListType == FRAGMENT_ESTABLISHMENT) {
+            Activity.getQuery()
+                    .include("review")
+                    .include("fromUser")
+                    .include("establishment")
+                    .whereEqualTo("establishment", mEstablishment)
+                    .whereEqualTo("type", Activity.TYPE_REVIEW)
+                    .findInBackground(new FindCallback<Activity>() {
+                        @Override
+                        public void done(List<Activity> objects, ParseException e) {
+                            if(objects != null) {
+                                if(objects.size() >= 0) {
+                                    for(Activity act : objects) {
+                                        act = act.fromParseObject(act);
 
+                                        mReviewListAdapter.add(act);
+                                    }
+                                }
+                            }
+                        }
+                    });
         }
     }
 }

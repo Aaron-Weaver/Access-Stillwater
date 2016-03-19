@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseActivity;
+import com.teaman.data.User;
 import com.teaman.data.authorization.LoginAdapter;
 
 import butterknife.Bind;
@@ -64,13 +65,15 @@ public class ProfileActivity extends BaseActivity
 
         ViewCompat.setTransitionName(mAppBarLayout, IMAGE_TRANS);
 
-        Picasso.with(this)
-                .load(mLoginAdapter.getUser().getUserAvatar())
-                .fit()
-                .placeholder(R.drawable.ic_account_circle_white_48dp)
-                .into(mProfilePicture);
+        if(mLoginAdapter.getBaseUser().getParseFile("profilePicture") != null) {
+            Picasso.with(this)
+                    .load(mLoginAdapter.getBaseUser().getParseFile("profilePicture").getUrl())
+                    .fit()
+                    .placeholder(R.drawable.ic_account_circle_white_48dp)
+                    .into(mProfilePicture);
+        }
 
-        mCollapsingToolbarLayout.setTitle(mLoginAdapter.getUser().getDisplayName(true));
+        mCollapsingToolbarLayout.setTitle(mLoginAdapter.getUser().getString(User.FIRST_NAME) + " " + mLoginAdapter.getUser().getString(User.LAST_NAME));
 
         Drawable backgroundImageDraw = mProfileBackground.getDrawable();
 
