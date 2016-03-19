@@ -16,6 +16,7 @@ import com.teaman.accessstillwater.ui.login.SignupActivity;
 import com.teaman.accessstillwater.ui.main.MainActivity;
 import com.teaman.accessstillwater.ui.review.ReviewListActivity;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
+import com.teaman.accessstillwater.ui.settings.AboutLibrariesActivity;
 import com.teaman.accessstillwater.ui.user.ProfileActivity;
 import com.teaman.accessstillwater.utils.StringUtils;
 
@@ -110,6 +111,13 @@ public class Navigator {
             } else {
                 activity.startActivity(moveToIntent);
             }
+        }
+    }
+
+    public void navigateToAboutLibsActivity(Context context) {
+        if(context != null) {
+            Intent moveToIntent = AboutLibrariesActivity.getCallingIntent(context);
+            context.startActivity(moveToIntent);
         }
     }
 }
