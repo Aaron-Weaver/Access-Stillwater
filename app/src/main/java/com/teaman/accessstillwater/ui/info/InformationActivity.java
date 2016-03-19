@@ -180,34 +180,42 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
     }
 
     private void determineFavoriteStatus() {
-        Establishment.getQuery()
-                .whereEqualTo("placesId", mPlace.getPlaceId())
-                .getFirstInBackground(new GetCallback<Establishment>() {
-                    @Override
-                    public void done(Establishment object, ParseException e) {
-                        mEstablishment = object.fromParseObject(object);
+        try {
+            Establishment.getQuery()
+                    .whereEqualTo("placesId", mPlace.getPlaceId())
+                    .getFirstInBackground(new GetCallback<Establishment>() {
+                        @Override
+                        public void done(Establishment object, ParseException e) {
+                            try {
+                                mEstablishment = object.fromParseObject(object);
+                            }catch (Exception ex){
+                                
+                            }
 
-                        Log.d("User", mLoginAdapter.getBaseUser().getString("username"));
-                        Log.d("EstablishmentID", mEstablishment.getPlacesId());
+                            Log.d("User", mLoginAdapter.getBaseUser().getString("username"));
+                            Log.d("EstablishmentID", mEstablishment.getPlacesId());
 
-                        Activity.getQuery()
-                                .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
-                                .whereEqualTo("type", Activity.TYPE_FAVORITE)
-                                .whereEqualTo("establishment", mEstablishment)
-                                .getFirstInBackground(new GetCallback<Activity>() {
-                                    @Override
-                                    public void done(Activity object, ParseException e) {
-                                        if(e != null) {
-                                            if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
-                                                setFavoriteFabImage(R.drawable.ic_favorites);
+                            Activity.getQuery()
+                                    .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                                    .whereEqualTo("type", Activity.TYPE_FAVORITE)
+                                    .whereEqualTo("establishment", mEstablishment)
+                                    .getFirstInBackground(new GetCallback<Activity>() {
+                                        @Override
+                                        public void done(Activity object, ParseException e) {
+                                            if (e != null) {
+                                                if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+                                                    setFavoriteFabImage(R.drawable.ic_favorites);
+                                                }
+                                            } else {
+                                                setFavoriteFabImage(R.drawable.ic_action_favorite);
                                             }
-                                        } else {
-                                            setFavoriteFabImage(R.drawable.ic_action_favorite);
                                         }
-                                    }
-                                });
-                    }
-                });
+                                    });
+                        }
+                    });
+        }catch(NullPointerException e){
+
+        }
     }
 
     @Override
