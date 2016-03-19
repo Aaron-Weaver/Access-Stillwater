@@ -159,8 +159,8 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
                                             ReviewListFragment.FRAGMENT_USER);
                                 }
                                 break;
-                            case R.id.nav_friends:
-                                break;
+//                            case R.id.nav_friends:
+//                                break;
                             case R.id.nav_info:
                                 Navigator.getInstance().navigateToAboutLibsActivity(mContext);
                                 break;
@@ -171,7 +171,7 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
 
         final TextView favoritesCounter = (TextView) mNavMenu.getMenu().findItem(R.id.nav_favorites).getActionView();
         final TextView reviewsCounter = (TextView) mNavMenu.getMenu().findItem(R.id.nav_reviews).getActionView();
-        final TextView friendsCounter = (TextView) mNavMenu.getMenu().findItem(R.id.nav_friends).getActionView();
+//        final TextView friendsCounter = (TextView) mNavMenu.getMenu().findItem(R.id.nav_friends).getActionView();
 
         if(favoritesCounter != null) {
             Activity.getQuery()
@@ -205,9 +205,9 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
             });
         }
 
-        if(friendsCounter != null) {
-            friendsCounter.setText("0");
-        }
+//        if(friendsCounter != null) {
+//            friendsCounter.setText("0");
+//        }
 
         mNavHeaderLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.nav_header, null);
 
