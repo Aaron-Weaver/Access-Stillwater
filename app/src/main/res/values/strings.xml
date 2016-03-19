@@ -80,5 +80,7 @@
     <string name="nav_settings_string">Settings</string>
     <string name="location_search_string">Search for locations</string>
     <string name="nav_about_string">About</string>
+    <string name="activity_pictures">Pictures Activity</string>
+    <string name="activity_open_source">Open Source Libraries</string>
 
 </resources>

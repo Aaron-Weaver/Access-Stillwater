@@ -23,6 +23,8 @@ public class StringUtils {
     public static final String ESTABLISHMENT_TYPE_EXTRA = "establishmentFragType";
     public static final String REVIEW_TYPE_EXTRA = "reviewFragType";
 
+    public static final String SEARCH_FILTER_EXTRA = "searchFilterType";
+
     private static String API_KEY = "AIzaSyA9Zm_3nqNWTIyX8vbC0FpSmFLCH6z8z9A";
 
     private static final String EMAIL_REGEX = "^[\\\\w\\\\.-]+@([\\\\w\\\\-]+\\\\.)+[A-Z]{2,4}$";

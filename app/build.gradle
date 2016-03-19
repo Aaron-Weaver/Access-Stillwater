@@ -73,6 +73,10 @@ dependencies {
         transitive = true
     }
 
+    compile('com.mikepenz:aboutlibraries:5.5.9@aar') {
+        transitive = true
+    }
+
     // Parse API
     compile 'com.parse:parse-android:1.13.0'
     

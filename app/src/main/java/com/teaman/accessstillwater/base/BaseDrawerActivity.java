@@ -161,6 +161,7 @@ public abstract class BaseDrawerActivity extends BaseActivity implements View.On
                             case R.id.nav_friends:
                                 break;
                             case R.id.nav_info:
+                                Navigator.getInstance().navigateToAboutLibsActivity(mContext);
                                 break;
                         }
                         return true;
