@@ -43,13 +43,13 @@ public class EstablishmentActivity extends BaseDrawerActivity
         } else {
             switch (mSearchFilterType) {
                 case EstablishmentListFragment.SEARCH_AUDITORY:
-                    setTitle("Best Auditory");
+                    setTitle("Best Auditory Accommodations");
                     break;
                 case EstablishmentListFragment.SEARCH_PHYSICAL:
-                    setTitle("Best Physical");
+                    setTitle("Best Physical Accommodations");
                     break;
                 case EstablishmentListFragment.SEARCH_VISUAL:
-                    setTitle("Best Visual");
+                    setTitle("Best Visual Accommodations");
             }
             mEstablishmentListFragment = EstablishmentListFragment.newInstanceForSearchFilter(mSearchFilterType);
         }

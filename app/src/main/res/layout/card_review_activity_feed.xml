@@ -30,9 +30,18 @@
                 android:src="@drawable/ic_action_account_circle_blue"/>
 
             <TextView
+                android:id="@+id/from_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/from_user_image"
+                android:layout_below="@+id/from_user_image"
+                android:text="Aaron Weaver"/>
+
+            <TextView
                 android:id="@+id/activity_type_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 style="@style/primary_text_sm"
                 android:text="Wrote a review"
                 android:paddingLeft="20dp"
@@ -45,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:paddingRight="20dp"
+                android:paddingBottom="10dp"
                 style="@style/secondary_text_def"
                 android:layout_alignTop="@id/activity_type_text"
                 android:layout_centerVertical="true"

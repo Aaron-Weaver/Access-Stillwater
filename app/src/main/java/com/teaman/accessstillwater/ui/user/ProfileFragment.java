@@ -66,7 +66,7 @@ public class ProfileFragment extends BaseFragment {
         mLoginAdapter = AccessStillwaterApp.getmInstance().getLoginAdapter();
 
         mUser = mLoginAdapter.getUser();
-        mProfileName.setText(mUser.getString(User.FIRST_NAME) + mUser.getString(User.LAST_NAME));
+        mProfileName.setText(mUser.getString(User.FIRST_NAME) + " " + mUser.getString(User.LAST_NAME));
 
 
         mProfileEmail.setText(mLoginAdapter.getBaseUser().getString("email"));

@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.utils.StringUtils;
+import com.teaman.data.User;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.Review;
@@ -58,6 +59,8 @@ public class ReviewActivityViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.activity_review_content)
     protected TextView mActivityReviewContent;
 
+    @Bind(R.id.from_user_name)
+    protected TextView mFromUserName;
 
     private Context mContext;
     private Activity mActivity;
@@ -112,6 +115,8 @@ public class ReviewActivityViewHolder extends RecyclerView.ViewHolder {
 
         if(mActivity.getFromUser() != null) {
             ParseUser user = mActivity.getFromUser();
+
+            mFromUserName.setText(user.getString(User.FIRST_NAME) + " " + user.getString(User.LAST_NAME));
 
             if(user.getParseFile("profilePicture") != null) {
                 Picasso.with(mContext)
