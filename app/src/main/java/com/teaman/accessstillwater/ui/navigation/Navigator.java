@@ -83,6 +83,15 @@ public class Navigator {
         }
     }
 
+    public void navigateToEstablishmentActivityWithFilter(Context context, @EstablishmentListFragment.SearchListType int filter) {
+        if(context != null) {
+            Intent moveToIntent = EstablishmentActivity.getCallingIntent(context);
+            moveToIntent.putExtra(StringUtils.SEARCH_FILTER_EXTRA, filter);
+            moveToIntent.putExtra(StringUtils.ESTABLISHMENT_TYPE_EXTRA, EstablishmentListFragment.FRAGMENT_SEARCH);
+            context.startActivity(moveToIntent);
+        }
+    }
+
     public void navigateToReviewListActivity(Context context, @ReviewListFragment.ReviewListType int type) {
         if(context != null) {
             Intent moveToIntent = ReviewListActivity.getCallingIntent(context);

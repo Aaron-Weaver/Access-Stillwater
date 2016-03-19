@@ -11,6 +11,7 @@ import com.parse.ParseUser;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseRecyclerListFragment;
 import com.teaman.accessstillwater.base.ItemCallback;
+import com.teaman.accessstillwater.utils.StringUtils;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
@@ -26,14 +27,24 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
     public static final String ESTABLISHMENT_LIST_TYPE =
             "EstablishmentListType";
 
+    public static final String SEARCH_LIST_TYPE = "SearchListType";
+
     public static final int FRAGMENT_SEARCH = 0;
     public static final int FRAGMENT_FAVORITE = 1;
 
     @IntDef({FRAGMENT_FAVORITE, FRAGMENT_SEARCH})
     public @interface EstablishmentListType {}
 
+    public static final int SEARCH_AUDITORY = 10;
+    public static final int SEARCH_VISUAL = 11;
+    public static final int SEARCH_PHYSICAL = 12;
+
+    @IntDef({SEARCH_AUDITORY, SEARCH_PHYSICAL, SEARCH_VISUAL})
+    public @interface SearchListType {}
+
     private EstablishmentAdapter mEstablishmentAdapter;
     private int mEstablishmentListType;
+    private int mEstablishmentFilterType;
 
     private ParseUser mCurrentUser;
 
@@ -47,6 +58,15 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
         return fragment;
     }
 
+    public static EstablishmentListFragment newInstanceForSearchFilter(@SearchListType int filterType) {
+        Bundle args = new Bundle();
+        EstablishmentListFragment fragment = new EstablishmentListFragment();
+        args.putInt(ESTABLISHMENT_LIST_TYPE, FRAGMENT_SEARCH);
+        args.putInt(SEARCH_LIST_TYPE, filterType);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -54,6 +74,11 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
         mCurrentUser = mLoginAdapter.getBaseUser();
         mEstablishmentAdapter = new EstablishmentAdapter(this, getActivity());
         mEstablishmentListType = getArguments().getInt(ESTABLISHMENT_LIST_TYPE);
+        if(mEstablishmentListType == FRAGMENT_SEARCH) {
+            if(getArguments().getInt(SEARCH_LIST_TYPE) != 0) {
+                mEstablishmentFilterType = getArguments().getInt(SEARCH_LIST_TYPE);
+            }
+        }
         initList(mEstablishmentAdapter, 1);
         queryData();
     }
@@ -89,6 +114,58 @@ public class EstablishmentListFragment extends BaseRecyclerListFragment
                     }
                 });
         } else if(mEstablishmentListType == FRAGMENT_SEARCH) {
+
+            String filterKey = "";
+
+            switch (mEstablishmentFilterType) {
+                case SEARCH_AUDITORY:
+                    filterKey = "auditoryRating";
+                    break;
+                case SEARCH_PHYSICAL:
+                    filterKey = "physicalRating";
+                    break;
+                case SEARCH_VISUAL:
+                    filterKey = "visualRating";
+                    break;
+                default:
+                    filterKey = "";
+                    break;
+            }
+
+            if(!StringUtils.isNullOrEmpty(filterKey)) {
+                Establishment.getQuery()
+                        .orderByDescending(filterKey)
+                        .findInBackground(new FindCallback<Establishment>() {
+                            @Override
+                            public void done(List<Establishment> objects, ParseException e) {
+                                if (objects != null) {
+                                    if (objects.size() > 0) {
+                                        for (Establishment est : objects) {
+                                            est = est.fromParseObject(est);
+
+                                            mEstablishmentAdapter.add(est);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+            } else {
+                Establishment.getQuery()
+                        .findInBackground(new FindCallback<Establishment>() {
+                            @Override
+                            public void done(List<Establishment> objects, ParseException e) {
+                                if (objects != null) {
+                                    if (objects.size() > 0) {
+                                        for (Establishment est : objects) {
+                                            est = est.fromParseObject(est);
+
+                                            mEstablishmentAdapter.add(est);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+            }
             // Grab results from search, cross-reference with establishments.
         }
     }
