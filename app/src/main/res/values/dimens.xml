@@ -10,6 +10,7 @@
     <dimen name="header_profile_image">64dp</dimen>
     <dimen name="header_internal_padding">24dp</dimen>
     <dimen name="header_small_icon">24dp</dimen>
+    <dimen name="dialog_corners">2dp</dimen>
 
     <dimen name="star_icon_size">24dp</dimen>
 </resources>

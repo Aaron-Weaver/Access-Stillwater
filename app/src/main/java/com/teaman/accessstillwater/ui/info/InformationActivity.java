@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,6 +28,7 @@ import com.teaman.accessstillwater.ui.ImageAdapterCallback;
 import com.teaman.accessstillwater.ui.ImagePagerAdapter;
 import com.teaman.accessstillwater.ui.animations.FlipAnimation;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
+import com.teaman.accessstillwater.ui.review.ReviewPostNew;
 import com.teaman.data.authorization.InformationAdapter;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.json.places.Photo;
@@ -79,6 +79,8 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     FlipAnimation flipAnimation;
     FlipAnimation flipAnimationReverse;
+    
+    private CustomFragmentAdapter adapter;
 
     private Establishment mEstablishment;
 
@@ -104,7 +106,7 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
         }
 
         if(mInforPager != null){
-            CustomFragmentAdapter adapter = new CustomFragmentAdapter(getFragmentManager());
+            adapter = new CustomFragmentAdapter(getFragmentManager());
 
             InformationFragment informationFragment = new InformationFragment();
             ReviewListFragment reviewListFragment = ReviewListFragment.newInstance(ReviewListFragment.FRAGMENT_ESTABLISHMENT);
@@ -116,7 +118,6 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
             if (mTabLayout != null) {
                 mTabLayout.setupWithViewPager(mInforPager);
             }
-
         }
 
         mFloatingActionButton.setOnClickListener(this);
@@ -136,7 +137,6 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     @Override
     public void onPageSelected(int position) {
-        //flipAnimation.swap();
         if(position == 1){
             mFloatingActionButton.startAnimation(flipAnimation);
             mFloatingActionButtonComment.startAnimation(flipAnimation);
@@ -154,16 +154,16 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     @Override
     public void onClick(View v) {
-
-        if(!isFavorite){
-            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccentDark)));
-            Log.d("FAB", "Fav'd!");
-            isFavorite = true;
-        }else{
-            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
-            Log.d("FAB", "unFav'd");
-            isFavorite = false;
+        if(v == mFloatingActionButtonComment){
+            writeComment();
         }
+    }
+
+    private void writeComment(){
+        Log.d("comment", "clicked");
+        Intent i = new Intent(this, ReviewPostNew.class);
+        this.startActivity(i);
+
     }
 
     public static Intent getCallingIntent(Context context) {
