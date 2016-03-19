@@ -34,6 +34,7 @@ import com.teaman.accessstillwater.ui.ImageAdapterCallback;
 import com.teaman.accessstillwater.ui.ImagePagerAdapter;
 import com.teaman.accessstillwater.ui.animations.FlipAnimation;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
+import com.teaman.accessstillwater.ui.review.ReviewPostNew;
 import com.teaman.data.authorization.InformationAdapter;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.entities.Activity;
@@ -44,6 +45,7 @@ import com.teaman.data.entities.json.places.PlaceEntity;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import retrofit2.http.HEAD;
 import timber.log.Timber;
 import uk.co.senab.photoview.PhotoView;
 
@@ -86,6 +88,8 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     FlipAnimation flipAnimation;
     FlipAnimation flipAnimationReverse;
+    
+    private CustomFragmentAdapter adapter;
 
     private Establishment mEstablishment;
     private ParseUser mCurrentUser;
@@ -115,7 +119,7 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
         }
 
         if(mInforPager != null){
-            CustomFragmentAdapter adapter = new CustomFragmentAdapter(getFragmentManager());
+            adapter = new CustomFragmentAdapter(getFragmentManager());
 
             InformationFragment informationFragment = new InformationFragment();
             ReviewListFragment reviewListFragment = ReviewListFragment.newInstance(ReviewListFragment.FRAGMENT_ESTABLISHMENT);
@@ -127,7 +131,6 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
             if (mTabLayout != null) {
                 mTabLayout.setupWithViewPager(mInforPager);
             }
-
         }
 
         determineFavoriteStatus();
@@ -149,7 +152,6 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     @Override
     public void onPageSelected(int position) {
-        //flipAnimation.swap();
         if(position == 1){
             mFloatingActionButton.startAnimation(flipAnimation);
             mFloatingActionButtonComment.startAnimation(flipAnimation);
@@ -206,14 +208,12 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.fab_info_fav:
                 clickFavoriteButton();
                 break;
             case R.id.fab_info_comment:
                 break;
-        }
 
 //        if(!isFavorite){
 //            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccentDark)));
@@ -224,6 +224,11 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 //            Log.d("FAB", "unFav'd");
 //            isFavorite = false;
 //        }
+        }
+
+        if (v == mFloatingActionButtonComment) {
+            writeComment();
+        }
     }
 
     private void clickFavoriteButton() {
@@ -262,6 +267,13 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
                         }
                     }
                 });
+    }
+
+    private void writeComment(){
+        Log.d("comment", "clicked");
+        Intent i = new Intent(this, ReviewPostNew.class);
+        this.startActivity(i);
+
     }
 
     public static Intent getCallingIntent(Context context) {
