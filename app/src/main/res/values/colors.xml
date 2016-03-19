@@ -18,6 +18,9 @@
     <color name="blue_200">#E3F2FD</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#CCCCCC</color>
+    <color name="background_light">#fafafa</color> <!-- grey 50 -->
+    <color name="background_lightish">#e0e0e0</color> <!-- grey 300 -->
+    <color name="background_dark">#ff333333</color>
 
     <color name="window_background">#EEEEEE</color>
 

@@ -77,9 +77,18 @@
         </activity>
 
         <activity
-            android:name=".ui.info.PicturesActivity"
-            android:label="PicturesActivity">
+            android:name=".ui.review.ReviewPostNew"
+            android:label="New Review">
         </activity>
+
+        <activity
+            android:name=".ui.info.PicturesActivity"
+            android:label="@string/activity_pictures">
+        </activity>
+
+        <activity android:name=".ui.settings.AboutLibrariesActivity"
+            android:label="@string/activity_open_source"/>
+
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data

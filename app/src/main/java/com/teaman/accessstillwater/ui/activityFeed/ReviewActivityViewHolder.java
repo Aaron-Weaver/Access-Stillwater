@@ -6,11 +6,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.utils.StringUtils;
-import com.teaman.data.authorization.parse.ParseUserAdapter;
+import com.teaman.data.User;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.Review;
@@ -58,10 +59,12 @@ public class ReviewActivityViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.activity_review_content)
     protected TextView mActivityReviewContent;
 
+    @Bind(R.id.from_user_name)
+    protected TextView mFromUserName;
 
     private Context mContext;
     private Activity mActivity;
-    private ParseUserAdapter mFromUser;
+    private ParseUser mFromUser;
     private Establishment mEstablishment;
     private Review mReview;
 
@@ -111,12 +114,18 @@ public class ReviewActivityViewHolder extends RecyclerView.ViewHolder {
         }
 
         if(mActivity.getFromUser() != null) {
-            ParseUserAdapter user = new ParseUserAdapter(mActivity.getFromUser());
-            Picasso.with(mContext)
-                    .load(user.getUserAvatar())
-                    .placeholder(R.drawable.ic_action_account_circle_blue)
-                    .fit()
-                    .into(mFromUserImageView);
+            ParseUser user = mActivity.getFromUser();
+
+            mFromUserName.setText(user.getString(User.FIRST_NAME) + " " + user.getString(User.LAST_NAME));
+
+            if(user.getParseFile("profilePicture") != null) {
+                Picasso.with(mContext)
+                        .load(user.getParseFile("profilePicture").getUrl())
+                        .placeholder(R.drawable.ic_action_account_circle_blue)
+                        .fit()
+                        .into(mFromUserImageView);
+            }
+
 
             if(mActivity.getCreatedAt() != null) {
                 SimpleDateFormat format = new SimpleDateFormat("MMM d");
@@ -130,7 +139,8 @@ public class ReviewActivityViewHolder extends RecyclerView.ViewHolder {
     public void bind(Activity act) {
         mActivity = act;
         mEstablishment = mActivity.getEstablishment().fromParseObject(mActivity.getEstablishment());
-        mFromUser = new ParseUserAdapter(mActivity.getFromUser());
+
+        mFromUser = mActivity.getFromUser();
         mReview = mActivity.getReview().fromParseObject(mActivity.getReview());
 
         AccessStillwaterApp.getmInstance().getPlacesApi().getAllDetails(mEstablishment.getPlacesId()).enqueue(new Callback<Results<PlaceEntity>>() {

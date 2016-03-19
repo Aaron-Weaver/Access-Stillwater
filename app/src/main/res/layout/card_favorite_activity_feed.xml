@@ -29,9 +29,17 @@
                 android:src="@drawable/ic_action_account_circle_blue"/>
 
             <TextView
+                android:id="@+id/from_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/from_user_image"
+                android:layout_below="@+id/from_user_image"/>
+
+            <TextView
                 android:id="@+id/activity_type_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 style="@style/primary_text_sm"
                 android:text="Found a new favorite spot"
                 android:paddingLeft="20dp"
@@ -44,10 +52,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:paddingRight="20dp"
+                android:paddingBottom="10dp"
                 style="@style/secondary_text_def"
                 android:layout_alignTop="@id/activity_type_text"
-                android:layout_centerVertical="true"
-                android:text="10/10/2015"/>
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 
@@ -80,8 +88,7 @@
                 android:layout_alignTop="@+id/establishment_image"
                 android:paddingLeft="20dp"
                 android:paddingTop="5dp"
-                style="@style/primary_text_sm"
-                android:text="Establishment Name"/>
+                style="@style/primary_text_sm"/>
 
             <android.support.v7.widget.AppCompatRatingBar
                 android:id="@+id/activity_rating_bar"

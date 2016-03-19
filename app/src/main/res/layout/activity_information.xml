@@ -79,6 +79,7 @@
             android:clickable="true"
             android:src="@drawable/ic_favorites"
             app:layout_anchor="@id/content_layout"
+            android:visibility="visible"
             app:layout_behavior="com.teaman.accessstillwater.ui.animations.ScrollAwareBehavior"
             app:layout_anchorGravity="bottom|right|end" />
 

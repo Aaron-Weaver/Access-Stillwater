@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,6 +20,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.parse.DeleteCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseActivity;
@@ -29,7 +34,10 @@ import com.teaman.accessstillwater.ui.ImageAdapterCallback;
 import com.teaman.accessstillwater.ui.ImagePagerAdapter;
 import com.teaman.accessstillwater.ui.animations.FlipAnimation;
 import com.teaman.accessstillwater.ui.review.ReviewListFragment;
+import com.teaman.accessstillwater.ui.review.ReviewPostNew;
 import com.teaman.data.authorization.InformationAdapter;
+import com.teaman.data.authorization.LoginAdapter;
+import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.json.places.Photo;
 import com.teaman.data.entities.json.places.PlaceEntity;
@@ -78,8 +86,13 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
     protected TabLayout mTabLayout;
 
     FlipAnimation flipAnimation;
+    FlipAnimation flipAnimationReverse;
+    
+    private CustomFragmentAdapter adapter;
 
     private Establishment mEstablishment;
+    private ParseUser mCurrentUser;
+    private LoginAdapter mLoginAdapter;
 
     ArrayList<String> imageUrls;
     /**
@@ -95,6 +108,8 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
         enableBackNav();
         this.mApplication = AccessStillwaterApp.getmInstance();
         this.mInformationAdapter = this.mApplication.getInformationAdapter();
+        this.mLoginAdapter = AccessStillwaterApp.getmInstance().getLoginAdapter();
+        this.mCurrentUser = mLoginAdapter.getBaseUser();
 
         mPlace = mInformationAdapter.getPlace();
 
@@ -103,25 +118,38 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
         }
 
         if(mInforPager != null){
-            CustomFragmentAdapter adapter = new CustomFragmentAdapter(getFragmentManager());
+            adapter = new CustomFragmentAdapter(getFragmentManager());
 
-            InformationFragment informationFragment = new InformationFragment();
-            ReviewListFragment reviewListFragment = ReviewListFragment.newInstance(ReviewListFragment.FRAGMENT_ESTABLISHMENT);
+            Establishment.getQuery()
+                    .whereEqualTo("placesId", mPlace.getPlaceId())
+                    .getFirstInBackground(new GetCallback<Establishment>() {
+                        @Override
+                        public void done(Establishment object, ParseException e) {
+                            if(object != null) {
+                                AccessStillwaterApp.getmInstance().getEstablishmentAdapter().setEstablishment(object);
+                                ReviewListFragment reviewListFragment = ReviewListFragment.newInstance(ReviewListFragment.FRAGMENT_ESTABLISHMENT);
+                                InformationFragment informationFragment = new InformationFragment();
+                                adapter.addFragment(informationFragment, "Details");
+                                adapter.addFragment(reviewListFragment, "Reviews");
 
-            adapter.addFragment(informationFragment, "Details");
-            adapter.addFragment(reviewListFragment, "Reviews");
-
-            mInforPager.setAdapter(adapter);
-            if (mTabLayout != null) {
-                mTabLayout.setupWithViewPager(mInforPager);
-            }
+                                mInforPager.setAdapter(adapter);
+                                if (mTabLayout != null) {
+                                    mTabLayout.setupWithViewPager(mInforPager);
+                                }
+                            }
+                        }
+                    });
 
         }
+
+        determineFavoriteStatus();
 
         mFloatingActionButton.setOnClickListener(this);
         mFloatingActionButtonComment.setOnClickListener(this);
 
         flipAnimation = new FlipAnimation(mFloatingActionButton, mFloatingActionButtonComment);
+        flipAnimationReverse = new FlipAnimation(mFloatingActionButtonComment, mFloatingActionButton);
+        flipAnimationReverse.reverse();
 
         mInforPager.addOnPageChangeListener(this);
     }
@@ -137,11 +165,49 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
             mFloatingActionButton.startAnimation(flipAnimation);
             mFloatingActionButtonComment.startAnimation(flipAnimation);
         }else if(position == 0){
-            flipAnimation.reverse();
-            mFloatingActionButtonComment.startAnimation(flipAnimation);
-            mFloatingActionButton.startAnimation(flipAnimation);
-            flipAnimation.reverse();
+            mFloatingActionButtonComment.startAnimation(flipAnimationReverse);
+            mFloatingActionButton.startAnimation(flipAnimationReverse);
         }
+
+    }
+
+    private void setFavoriteFabImage(int resource) {
+        Picasso.with(context)
+                .load(resource)
+                .resize(48, 48)
+                .centerInside()
+                .into(mFloatingActionButton);
+    }
+
+    private void determineFavoriteStatus() {
+        Establishment.getQuery()
+                .whereEqualTo("placesId", mPlace.getPlaceId())
+                .getFirstInBackground(new GetCallback<Establishment>() {
+                    @Override
+                    public void done(Establishment object, ParseException e) {
+                        mEstablishment = object.fromParseObject(object);
+
+                        Log.d("User", mLoginAdapter.getBaseUser().getString("username"));
+                        Log.d("EstablishmentID", mEstablishment.getPlacesId());
+
+                        Activity.getQuery()
+                                .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                                .whereEqualTo("type", Activity.TYPE_FAVORITE)
+                                .whereEqualTo("establishment", mEstablishment)
+                                .getFirstInBackground(new GetCallback<Activity>() {
+                                    @Override
+                                    public void done(Activity object, ParseException e) {
+                                        if(e != null) {
+                                            if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+                                                setFavoriteFabImage(R.drawable.ic_favorites);
+                                            }
+                                        } else {
+                                            setFavoriteFabImage(R.drawable.ic_action_favorite);
+                                        }
+                                    }
+                                });
+                    }
+                });
     }
 
     @Override
@@ -151,16 +217,72 @@ public class InformationActivity extends BaseActivity implements ImageAdapterCal
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_info_fav:
+                clickFavoriteButton();
+                break;
+            case R.id.fab_info_comment:
+                break;
 
-        if(!isFavorite){
-            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccentDark)));
-            Log.d("FAB", "Fav'd!");
-            isFavorite = true;
-        }else{
-            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
-            Log.d("FAB", "unFav'd");
-            isFavorite = false;
+//        if(!isFavorite){
+//            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccentDark)));
+//            Log.d("FAB", "Fav'd!");
+//            isFavorite = true;
+//        }else{
+//            mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+//            Log.d("FAB", "unFav'd");
+//            isFavorite = false;
+//        }
         }
+
+        if (v == mFloatingActionButtonComment) {
+            writeComment();
+        }
+    }
+
+    private void clickFavoriteButton() {
+        Log.d("Favorite Clicked", "fav icon clicked");
+        mFloatingActionButton.setClickable(false);
+
+        Activity.getQuery()
+                .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
+                .whereEqualTo("type", Activity.TYPE_FAVORITE)
+                .whereEqualTo("establishment", mEstablishment)
+                .getFirstInBackground(new GetCallback<Activity>() {
+                    @Override
+                    public void done(Activity object, ParseException e) {
+                        if(e != null) {
+                            if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+                                Activity act = new Activity();
+                                act.setFromUser(mLoginAdapter.getBaseUser());
+                                act.setEstablishment(mEstablishment);
+                                act.setType(Activity.TYPE_FAVORITE);
+                                act.toParseObject(act).saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        mFloatingActionButton.setClickable(true);
+                                        setFavoriteFabImage(R.drawable.ic_action_favorite);
+                                    }
+                                });
+                            }
+                        } else {
+                            object.deleteInBackground(new DeleteCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    mFloatingActionButton.setClickable(true);
+                                    setFavoriteFabImage(R.drawable.ic_favorites);
+                                }
+                            });
+                        }
+                    }
+                });
+    }
+
+    private void writeComment(){
+        Log.d("comment", "clicked");
+        Intent i = new Intent(this, ReviewPostNew.class);
+        this.startActivity(i);
+
     }
 
     public static Intent getCallingIntent(Context context) {

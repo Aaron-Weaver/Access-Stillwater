@@ -6,11 +6,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.ItemCallback;
-import com.teaman.data.authorization.parse.ParseUserAdapter;
+import com.teaman.data.User;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.Review;
@@ -46,6 +47,9 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.review_content_preview)
     protected TextView mReviewContentPreview;
+
+    @Bind(R.id.from_user_name)
+    protected TextView mFromUserName;
 
     private Activity mActivity;
     private ItemCallback<Activity> mActivityItemCallback;
@@ -97,12 +101,23 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
         }
 
         if(mActivity.getFromUser() != null) {
-            ParseUserAdapter user = new ParseUserAdapter(mActivity.getFromUser());
-            Picasso.with(mContext)
-                    .load(user.getUserAvatar())
-                    .placeholder(R.drawable.ic_action_account_circle_blue)
-                    .fit()
-                    .into(mReviewImage);
+            ParseUser user = mActivity.getFromUser();
+
+            mFromUserName.setText(user.getString(User.FIRST_NAME) + " " + user.getString(User.LAST_NAME));
+
+            if(user.getParseFile("profilePicture") != null) {
+                Picasso.with(mContext)
+                        .load(user.getParseFile("profilePicture").getUrl())
+                        .placeholder(R.drawable.ic_action_account_circle_blue)
+                        .fit()
+                        .into(mReviewImage);
+            }
+            else {
+                Picasso.with(mContext)
+                        .load(R.drawable.ic_action_account_circle_blue)
+                        .fit()
+                        .into(mReviewImage);
+            }
         }
     }
 

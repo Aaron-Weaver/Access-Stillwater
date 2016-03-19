@@ -32,8 +32,7 @@
             style="@style/logo_text_md"
             android:layout_below="@id/header_profile_image"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:text="Aaron Weaver"/>
+            android:layout_marginTop="15dp"/>
 
         <TextView
             android:id="@+id/header_username_text"
@@ -42,8 +41,7 @@
             android:layout_toRightOf="@id/header_profile_image"
             android:layout_below="@id/header_profile_name"
             style="@style/logo_text_sm"
-            android:layout_alignLeft="@id/header_profile_name"
-            android:text="email@email.com"/>
+            android:layout_alignLeft="@id/header_profile_name"/>
 
     </RelativeLayout>
 

@@ -12,7 +12,6 @@ import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.authorization.parse.ParseEstablishmentAdapter;
 import com.teaman.data.authorization.parse.ParseInformationAdapter;
 import com.teaman.data.authorization.parse.ParseLoginAdapter;
-import com.teaman.data.authorization.parse.ParseUserAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.Review;
@@ -53,7 +52,7 @@ public class AccessStillwaterApp extends Application {
     private InformationAdapter informationAdapter = new ParseInformationAdapter();
     private ParseEstablishmentAdapter mEstablishmentAdapter = new ParseEstablishmentAdapter();
 
-    private ParseUserAdapter user;
+    private ParseUser user;
 
     private PlacesApi mPlacesApi;
 
@@ -72,7 +71,7 @@ public class AccessStillwaterApp extends Application {
         ParseObject.registerSubclass(Activity.class);
         ParseObject.registerSubclass(Establishment.class);
         ParseObject.registerSubclass(Review.class);
-        ParseUser.registerSubclass(ParseUserAdapter.class);
+//        ParseUser.registerSubclass(ParseUserAdapter.class);
 
         Parse.initialize(this);
 
@@ -123,9 +122,9 @@ public class AccessStillwaterApp extends Application {
      *
      * @return  Shared instance of a User object
      */
-    public ParseUserAdapter getUser() {
+    public ParseUser getUser() {
         if(this.user == null) {
-            this.user = this.loginAdapter.getUser();
+            this.user = this.loginAdapter.getBaseUser();
         }
 
         return this.user;

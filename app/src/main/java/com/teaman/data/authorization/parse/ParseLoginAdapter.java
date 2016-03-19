@@ -5,7 +5,6 @@ import android.util.Log;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.teaman.data.User;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.authorization.LoginCallback;
 
@@ -38,12 +37,12 @@ public class ParseLoginAdapter implements LoginAdapter {
     @Override
     public boolean login(String username, String password) {
         try {
-            ParseUserAdapter.logIn(username, password);
+            ParseUser.logIn(username, password);
         } catch(ParseException ex) {
             return false;
         }
 
-        return ParseUserAdapter.getCurrentUser() != null;
+        return ParseUser.getCurrentUser() != null;
     }
 
     /**
@@ -57,7 +56,7 @@ public class ParseLoginAdapter implements LoginAdapter {
     @Override
     public void loginAsync(final LoginCallback callback, String username, String password) {
 
-        ParseUserAdapter.logInInBackground(username, password, new LogInCallback() {
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if(user != null) {
@@ -77,7 +76,7 @@ public class ParseLoginAdapter implements LoginAdapter {
      */
     @Override
     public boolean isLoggedIn() {
-        return ParseUserAdapter.getCurrentUser() != null && ParseUserAdapter.getCurrentUser().isAuthenticated();
+        return ParseUser.getCurrentUser() != null && ParseUser.getCurrentUser().isAuthenticated();
     }
 
     /**
@@ -86,26 +85,19 @@ public class ParseLoginAdapter implements LoginAdapter {
     @Override
     public void logOut() {
         if(ParseUser.getCurrentUser() != null) {
-            ParseUserAdapter.getCurrentUser().logOut();
+            ParseUser.getCurrentUser().logOut();
         }
     }
 
-    /**
-     * If a user is currently logged in, this will retrieve that user's associated information.
-     * Uses {@link ParseUser}.
-     *
-     * @return {@link User} that is currently logged in.
-     */
     @Override
-    public ParseUserAdapter getUser() {
+    public ParseUser getUser() {
         if(this.isLoggedIn()) {
-            ParseUser u = ParseUser.getCurrentUser();
-            u.fetchIfNeededInBackground();
-            return new ParseUserAdapter(u);
+            return ParseUser.getCurrentUser();
         } else {
             return null;
         }
     }
+
 
     @Override
     public ParseUser getBaseUser() {

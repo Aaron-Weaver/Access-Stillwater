@@ -45,8 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 style="@style/primary_text_sm"
-                android:paddingLeft="15dp"
-                android:text="Test Name"/>
+                android:paddingLeft="15dp"/>
 
         </LinearLayout>
 
@@ -68,8 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:text="test@test.com"/>
+                android:paddingLeft="15dp"/>
 
         </LinearLayout>
 

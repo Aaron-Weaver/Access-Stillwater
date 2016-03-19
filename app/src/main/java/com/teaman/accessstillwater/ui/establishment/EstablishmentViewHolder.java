@@ -110,8 +110,10 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
                                 if(objects != null) {
                                     if(objects.size() > 0) {
                                         for (Activity act : objects) {
-                                            Review rev = act.getReview().fromParseObject(act.getReview());
-                                            mEstablishmentReviews.add(rev);
+                                            if(act.getReview() != null) {
+                                                Review rev = act.getReview().fromParseObject(act.getReview());
+                                                mEstablishmentReviews.add(rev);
+                                            }
                                         }
                                     }
                                 }

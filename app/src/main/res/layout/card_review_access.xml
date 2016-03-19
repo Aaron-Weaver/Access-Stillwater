@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,11 +18,11 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/detailsTitle"
+            android:id="@+id/ratingsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Accessibility"/>
+            android:text="How would you rate the following accommodations?"/>
 
         <View
             android:layout_width="match_parent"
@@ -52,11 +53,11 @@
 
 
             <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/physical_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:isIndicator="true"
-                android:rating="2"
+                android:rating="0"
                 android:layout_marginBottom="12dp"
                 style="@style/RateBarSmall" />
 
@@ -81,11 +82,11 @@
 
 
             <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/auditory_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:isIndicator="true"
-                android:rating="3"
+                android:rating="0"
                 android:layout_marginBottom="12dp"
                 style="@style/RateBarSmall" />
 
@@ -110,11 +111,11 @@
 
 
             <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/visual_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:rating="3"
-                android:isIndicator="true"
+                android:rating="0"
                 android:layout_marginBottom="12dp"
                 style="@style/RateBarSmall" />
 
@@ -126,5 +127,4 @@
             android:layout_height="8dp"/>
 
     </LinearLayout>
-
 </android.support.v7.widget.CardView>

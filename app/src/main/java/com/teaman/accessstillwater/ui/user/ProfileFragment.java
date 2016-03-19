@@ -13,8 +13,9 @@ import com.squareup.picasso.Picasso;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.BaseFragment;
+import com.teaman.data.User;
 import com.teaman.data.authorization.LoginAdapter;
-import com.teaman.data.authorization.parse.ParseUserAdapter;
+
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,7 +41,7 @@ public class ProfileFragment extends BaseFragment {
     protected ImageView mVisualDisabilityCheck;
 
     private LoginAdapter mLoginAdapter;
-    private ParseUserAdapter mUser;
+    private ParseUser mUser;
     private ParseUser mBaseUser;
 
     public static ProfileFragment newInstance() {
@@ -65,16 +66,14 @@ public class ProfileFragment extends BaseFragment {
         mLoginAdapter = AccessStillwaterApp.getmInstance().getLoginAdapter();
 
         mUser = mLoginAdapter.getUser();
+        mProfileName.setText(mUser.getString(User.FIRST_NAME) + " " + mUser.getString(User.LAST_NAME));
 
-        if(mUser.getDisplayName(false) != null) {
-            mProfileName.setText(mUser.getDisplayName(false));
-        }
 
         mProfileEmail.setText(mLoginAdapter.getBaseUser().getString("email"));
 
-        confirmDisabilityCheck(mUser.hasPhysicalDisability(), mPhysicalDisabilityCheck);
-        confirmDisabilityCheck(mUser.hasAuditoryDisability(), mAuditoryDisabilityCheck);
-        confirmDisabilityCheck(mUser.hasVisualDisability(), mVisualDisabilityCheck);
+        confirmDisabilityCheck(mUser.getBoolean("physicalDisability"), mPhysicalDisabilityCheck);
+        confirmDisabilityCheck(mUser.getBoolean("auditoryDisability"), mAuditoryDisabilityCheck);
+        confirmDisabilityCheck(mUser.getBoolean("visualDisability"), mVisualDisabilityCheck);
 
         return v;
     }

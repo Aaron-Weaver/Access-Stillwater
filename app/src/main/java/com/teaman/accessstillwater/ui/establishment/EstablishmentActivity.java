@@ -16,6 +16,8 @@ public class EstablishmentActivity extends BaseDrawerActivity
 {
     @EstablishmentListFragment.EstablishmentListType int mEstablishmentFragmentType;
 
+    @EstablishmentListFragment.SearchListType int mSearchFilterType;
+
     private EstablishmentListFragment mEstablishmentListFragment;
 
     public static Intent getCallingIntent(Context context) {
@@ -33,11 +35,24 @@ public class EstablishmentActivity extends BaseDrawerActivity
         mEstablishmentFragmentType = getIntent().getIntExtra(StringUtils.ESTABLISHMENT_TYPE_EXTRA,
                 EstablishmentListFragment.FRAGMENT_FAVORITE);
 
+        mSearchFilterType = getIntent().getIntExtra(StringUtils.SEARCH_FILTER_EXTRA, 0);
+
         if(mEstablishmentFragmentType == EstablishmentListFragment.FRAGMENT_FAVORITE) {
             setTitle(getString(R.string.activity_user_favorites));
+            mEstablishmentListFragment = EstablishmentListFragment.newInstance(mEstablishmentFragmentType);
+        } else {
+            switch (mSearchFilterType) {
+                case EstablishmentListFragment.SEARCH_AUDITORY:
+                    setTitle("Best Auditory Accommodations");
+                    break;
+                case EstablishmentListFragment.SEARCH_PHYSICAL:
+                    setTitle("Best Physical Accommodations");
+                    break;
+                case EstablishmentListFragment.SEARCH_VISUAL:
+                    setTitle("Best Visual Accommodations");
+            }
+            mEstablishmentListFragment = EstablishmentListFragment.newInstanceForSearchFilter(mSearchFilterType);
         }
-
-        mEstablishmentListFragment = EstablishmentListFragment.newInstance(mEstablishmentFragmentType);
 
         this.addFragmentToContainer(mEstablishmentListFragment, "establishmentFragment");
     }
