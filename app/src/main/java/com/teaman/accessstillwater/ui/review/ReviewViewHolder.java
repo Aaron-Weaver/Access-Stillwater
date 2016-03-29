@@ -1,31 +1,24 @@
 package com.teaman.accessstillwater.ui.review;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
-import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.R;
 import com.teaman.accessstillwater.base.ItemCallback;
 import com.teaman.data.User;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
 import com.teaman.data.entities.Review;
-import com.teaman.data.entities.json.Results;
 import com.teaman.data.entities.json.places.PlaceEntity;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by weava on 3/16/16.
@@ -41,9 +34,8 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.review_title_text)
     protected TextView mReviewTitleText;
 
-    @Bind({R.id.review_star_1, R.id.review_star_2, R.id.review_star_3,
-            R.id.review_star_4, R.id.review_star_5})
-    protected List<ImageView> mReviewStars;
+    @Bind(R.id.review_rating_bar)
+    protected AppCompatRatingBar mRatingBar;
 
     @Bind(R.id.review_content_preview)
     protected TextView mReviewContentPreview;
@@ -87,17 +79,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
                 mReviewContentPreview.setText(mReview.getContent());
             }
 
-            if(mReviewStars != null) {
-                if (mReview.getTotalRating() >= 0) {
-                    for (int i = 0; i < mReviewStars.size(); i++) {
-                        if (i + 1 <= mReview.getTotalRating()) {
-                            Picasso.with(mContext)
-                                    .load(R.drawable.ic_star_full)
-                                    .into(mReviewStars.get(i));
-                        }
-                    }
-                }
-            }
+            mRatingBar.setRating(mReview.getTotalRating());
         }
 
         if(mActivity.getFromUser() != null) {
@@ -121,22 +103,12 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public void bind(Activity act) {
-        mActivity = act;
-        mReview = mActivity.getReview().fromParseObject(mActivity.getReview());
-        mEstablishment = mActivity.getEstablishment().fromParseObject(mActivity.getEstablishment());
-        AccessStillwaterApp.getmInstance().getPlacesApi().getAllDetails(mEstablishment.getPlacesId()).enqueue(new Callback<Results<PlaceEntity>>() {
-            @Override
-            public void onResponse(Call<Results<PlaceEntity>> call, Response<Results<PlaceEntity>> response) {
-                mPlaceEntity = response.body().getSingleResult();
-                setView();
-            }
-
-            @Override
-            public void onFailure(Call<Results<PlaceEntity>> call, Throwable t) {
-
-            }
-        });
+    public void bind(ReviewViewModel viewModel) {
+        mActivity = viewModel.getActivity();
+        mReview = viewModel.getReview();
+        mEstablishment = viewModel.getEstablishment();
+        mPlaceEntity = viewModel.getPlaceEntity();
+        setView();
         //Log.d("EstablishmentViewHolder", mActivity.getReview().getTitle());
     }
 }

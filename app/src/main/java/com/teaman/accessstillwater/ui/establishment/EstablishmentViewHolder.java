@@ -66,11 +66,14 @@ public class EstablishmentViewHolder extends RecyclerView.ViewHolder {
         if(mPlaceEntity.getName() != null) {
             mEstablishmentName.setText(mPlaceEntity.getName());
         }
-        if(mPlaceEntity.getPhotos().get(0).getPhotoReference() != null) {
-            Picasso.with(mContext)
-                    .load(StringUtils.MAPS_API_PHOTO_URL + mPlaceEntity.getPhotos().get(0).getPhotoReference())
-                    .fit()
-                    .into(mEstablishmentImage);
+
+        if(mPlaceEntity.getPhotos().size() > 0) {
+            if (mPlaceEntity.getPhotos().get(0).getPhotoReference() != null) {
+                Picasso.with(mContext)
+                        .load(StringUtils.MAPS_API_PHOTO_URL + mPlaceEntity.getPhotos().get(0).getPhotoReference())
+                        .fit()
+                        .into(mEstablishmentImage);
+            }
         }
 
         int totalScore = mEstablishment.getTotalRatingWithReviews(mEstablishmentReviews);

@@ -2,21 +2,24 @@ package com.teaman.accessstillwater.ui.review;
 
 import android.os.Bundle;
 import android.support.annotation.IntDef;
-import android.util.Log;
 import android.view.View;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.teaman.accessstillwater.AccessStillwaterApp;
 import com.teaman.accessstillwater.base.BaseRecyclerListFragment;
 import com.teaman.accessstillwater.base.ItemCallback;
-import com.teaman.accessstillwater.ui.establishment.EstablishmentAdapter;
+import com.teaman.data.ActivityDataAccess;
 import com.teaman.data.authorization.LoginAdapter;
 import com.teaman.data.entities.Activity;
 import com.teaman.data.entities.Establishment;
+import com.teaman.data.entities.json.Results;
+import com.teaman.data.entities.json.places.PlaceEntity;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by weava on 3/16/16.
@@ -35,7 +38,6 @@ public class ReviewListFragment extends BaseRecyclerListFragment implements Item
     private ParseUser mCurrentUser;
     private LoginAdapter mLoginAdapter;
     private ReviewListAdapter mReviewListAdapter;
-    private EstablishmentAdapter mEstablishmentAdapter;
     private Establishment mEstablishment;
     private int mReviewListType;
 
@@ -78,49 +80,64 @@ public class ReviewListFragment extends BaseRecyclerListFragment implements Item
 
     public void queryData() {
         mReviewListAdapter.clear();
+        ActivityDataAccess activityDataAccess = new ActivityDataAccess();
 
         if(mReviewListType == FRAGMENT_USER) {
-            Activity.getQuery()
-                    .include("review")
-                    .include("establishment")
-                    .whereEqualTo("fromUser", mLoginAdapter.getBaseUser())
-                    .whereEqualTo("type", Activity.TYPE_REVIEW).findInBackground(new FindCallback<Activity>() {
-                @Override
-                public void done(List<Activity> objects, ParseException e) {
-                    if(objects != null) {
-                        if(objects.size() > 0) {
-                            for(Activity act : objects) {
-                                act = act.fromParseObject(act);
-                                Log.d("Review List", act.getType());
+            List<Activity> activityList = activityDataAccess.getReviewActivityForUser(mCurrentUser);
 
-                                mReviewListAdapter.add(act);
-                            }
-                        }
-                    }
-                }
-            });
+            if (activityList != null) {
+                for (final Activity activity : activityList) {
+                    final ReviewViewModel model = new ReviewViewModel();
+                    model.setActivity(activity);
+                    model.setEstablishment(
+                            activity.getEstablishment().fromParseObject(activity.getEstablishment()));
+                    model.setReview(activity.getReview().fromParseObject(activity.getReview()));
 
-        } else if(mReviewListType == FRAGMENT_ESTABLISHMENT) {
-            Activity.getQuery()
-                    .include("review")
-                    .include("fromUser")
-                    .include("establishment")
-                    .whereEqualTo("establishment", mEstablishment)
-                    .whereEqualTo("type", Activity.TYPE_REVIEW)
-                    .findInBackground(new FindCallback<Activity>() {
+                    AccessStillwaterApp.getmInstance().getPlacesApi().getAllDetails(
+                            model.getEstablishment().getPlacesId()).enqueue(new Callback<Results<PlaceEntity>>() {
                         @Override
-                        public void done(List<Activity> objects, ParseException e) {
-                            if(objects != null) {
-                                if(objects.size() >= 0) {
-                                    for(Activity act : objects) {
-                                        act = act.fromParseObject(act);
+                        public void onResponse(Call<Results<PlaceEntity>> call,
+                                               Response<Results<PlaceEntity>> response) {
+                            model.setPlaceEntity(response.body().getSingleResult());
+                            mReviewListAdapter.add(model);
+                        }
 
-                                        mReviewListAdapter.add(act);
-                                    }
-                                }
-                            }
+                        @Override
+                        public void onFailure(Call<Results<PlaceEntity>> call, Throwable t) {
+                            mReviewListAdapter.add(model);
                         }
                     });
+                }
+            }
+
+        } else if(mReviewListType == FRAGMENT_ESTABLISHMENT) {
+            List<Activity> activityList = activityDataAccess.getReviewActivityForEstablishment(mEstablishment);
+
+            if (activityList != null) {
+                for (final Activity activity : activityList) {
+                    final ReviewViewModel model = new ReviewViewModel();
+                    model.setActivity(activity);
+                    model.setEstablishment(
+                            activity.getEstablishment().fromParseObject(activity.getEstablishment()));
+                    model.setReview(activity.getReview().fromParseObject(activity.getReview()));
+
+                    AccessStillwaterApp.getmInstance().getPlacesApi().getAllDetails(
+                            model.getEstablishment().getPlacesId()).enqueue(new Callback<Results<PlaceEntity>>() {
+                        @Override
+                        public void onResponse(Call<Results<PlaceEntity>> call,
+                                               Response<Results<PlaceEntity>> response) {
+                            model.setPlaceEntity(response.body().getSingleResult());
+                            mReviewListAdapter.add(model);
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<Results<PlaceEntity>> call, Throwable t) {
+                            mReviewListAdapter.add(model);
+                        }
+                    });
+                }
+            }
         }
     }
 }

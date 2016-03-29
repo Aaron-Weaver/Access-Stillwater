@@ -11,7 +11,7 @@ import com.teaman.data.entities.Activity;
 /**
  * Created by weava on 3/16/16.
  */
-public class ReviewListAdapter extends BaseRecyclerAdapter<Activity, ReviewViewHolder> {
+public class ReviewListAdapter extends BaseRecyclerAdapter<ReviewViewModel, ReviewViewHolder> {
 
     private ItemCallback<Activity> mActivityItemCallback;
     private Context mContext;
