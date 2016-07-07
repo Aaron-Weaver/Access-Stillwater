@@ -13,7 +13,7 @@ import retrofit2.http.Query;
  */
 public interface PlacesApi
 {
-    static final String API_KEY = "AIzaSyA9Zm_3nqNWTIyX8vbC0FpSmFLCH6z8z9A";
+    static final String API_KEY = "<places-api-key-here>";
 
     @GET("nearbysearch/json?key=" + API_KEY)
     Call<Results<PlaceEntity>> getAllNearbyEstablishments(
